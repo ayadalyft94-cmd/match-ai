@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MATCH AI | توقعات كرة القدم</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:#f5f7ff;font-family:Arial,sans-serif}
+header{padding:22px 16px;background:#111a2e;border-bottom:1px solid #26344c}
+.logo{font-size:27px;font-weight:900;color:#35e0a1;letter-spacing:1px}
+.sub{color:#a8b5ca;font-size:13px;margin-top:7px}
+nav{display:flex;gap:9px;padding:14px;overflow:auto}
+nav button{background:#1a2740;color:#dce6f5;border:0;padding:12px 17px;border-radius:9px;white-space:nowrap;font-weight:bold}
+nav button.active{background:#35d9a0;color:#071b17}
+.container{padding:0 14px 30px;max-width:850px;margin:auto}
+h2{font-size:20px;margin:15px 0}
+.intro{background:#14233b;padding:15px;border-radius:12px;color:#bdcce0;line-height:1.8;font-size:14px}
+.card{background:#131e33;border:1px solid #263750;border-radius:13px;padding:15px;margin:13px 0}
+.cardhead{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tag{font-size:12px;padding:6px 9px;border-radius:20px;background:#203c3b;color:#4ce6b1}
+.match{font-size:17px;font-weight:bold;text-align:center;margin:17px 0 12px}
+.league{text-align:center;color:#8fa3bd;font-size:12px}
+.pick{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid #263750}
+.pick span:first-child{color:#c6d3e5}
+.odds{color:#46e5ac;font-weight:bold;white-space:nowrap}
+.confidence{color:#46e5ac;font-weight:bold}
+.note{color:#9eacc2;font-size:13px;line-height:1.7;margin-top:10px}
+.coupon{background:#172943;border:1px solid #31506d;border-radius:12px;padding:14px;margin:12px 0}
+.coupon h3{margin:0 0 9px}
+.total{font-size:24px;color:#43e4aa;font-weight:bold}
+footer{text-align:center;color:#7e91ab;font-size:12px;padding:25px;line-height:1.8}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">⚽ MATCH AI</div>
+ <div class="sub">منصة تحليل وتوقعات مباريات كرة القدم</div>
+</header>
+
+<nav>
+ <button class="active" onclick="showTab('coupons',this)">🎟️ قسائم اليوم</button>
+ <button onclick="showTab('best',this)">🔥 أفضل التوقعات</button>
+ <button onclick="showTab('about',this)">ℹ️ حول الموقع</button>
+</nav>
+
+<main class="container">
+
+<section id="coupons">
+ <h2>🎟️ قسائم اليوم</h2>
+ <div class="intro">
+   قسائم مختارة حسب قوة التوقعات. الهدف هو البحث عن أفضل الاختيارات وليس كثرة المباريات.
+ </div>
+
+ <div class="coupon">
+  <div class="cardhead">
+   <h3>🟢 القسيمة المحافظة</h3>
+   <span class="tag">مخاطرة أقل نسبياً</span>
+  </div>
+  <p>اختيارات تجريبية ذات ثقة مرتفعة.</p>
+  <div class="pick"><span>فوز الفريق الأول</span><span class="odds">1.45</span></div>
+  <div class="pick"><span>أكثر من 1.5 هدف</span><span class="odds">1.40</span></div>
+  <p>المعامل الإجمالي: <span class="total">2.03</span></p>
+ </div>
+
+ <div class="coupon">
+  <div class="cardhead">
+   <h3>🟡 القسيمة المتوسطة</h3>
+   <span class="tag">مخاطرة متوسطة</span>
+  </div>
+  <p>مزيج من اختيارات مختلفة.</p>
+  <div class="pick"><span>الفريق الأول لا يخسر</span><span class="odds">1.55</span></div>
+  <div class="pick"><span>أكثر من 2.5 أهداف</span><span class="odds">1.70</span></div>
+  <div class="pick"><span>أكثر من 7.5 ركنيات</span><span class="odds">1.60</span></div>
+  <p>المعامل الإجمالي: <span class="total">4.22</span></p>
+ </div>
+
+ <div class="coupon">
+  <div class="cardhead">
+   <h3>🔴 القسيمة القوية</h3>
+   <span class="tag">مخاطرة مرتفعة</span>
+  </div>
+  <p>اختيارات ذات معامل أكبر ومخاطرة أعلى.</p>
+  <div class="pick"><span>الفريق الأول يفوز</span><span class="odds">1.80</span></div>
+  <div class="pick"><span>أكثر من 2.5 أهداف</span><span class="odds">1.75</span></div>
+  <div class="pick"><span>أكثر من 8.5 ركنيات</span><span class="odds">1.65</span></div>
+  <p>المعامل الإجمالي: <span class="total">5.20</span></p>
+ </div>
+</section>
+
+<section id="best" class="hidden">
+ <h2>🔥 أفضل التوقعات</h2>
+ <div class="intro">هنا تظهر أفضل الاختيارات الفردية لكل مباراة، مع نسبة الثقة والتفسير.</div>
+
+ <div class="card">
+  <div class="league">الدوري الإنجليزي • مثال تجريبي</div>
+  <div class="match">مانشستر سيتي × ليفربول</div>
+  <div class="pick"><span>السوق</span><b>أكثر من 2.5 أهداف</b></div>
+  <div class="pick"><span>المعامل</span><span class="odds">1.75</span></div>
+  <div class="pick"><span>الثقة التقديرية</span><span class="confidence">78%</span></div>
+  <div class="note">تحليل تجريبي فقط. التوقع يحتاج إلى إحصائيات الفريقين والتشكيلة وآخر النتائج.</div>
+ </div>
+
+ <div class="card">
+  <div class="league">الدوري الإسباني • مثال تجريبي</div>
+  <div class="match">ريال مدريد × برشلونة</div>
+  <div class="pick"><span>السوق</span><b>أكثر من 8.5 ركنيات</b></div>
+  <div class="pick"><span>المعامل</span><span class="odds">1.80</span></div>
+  <div class="pick"><span>الثقة التقديرية</span><span class="confidence">74%</span></div>
+  <div class="note">مثال توضيحي، وليس توقعاً مبنياً على بيانات مباشرة.</div>
+ </div>
+</section>
+
+<section id="about" class="hidden">
+ <h2>ℹ️ حول MATCH AI</h2>
+ <div class="card">
+  <h3>هدف المشروع</h3>
+  <p class="note">
+   إنشاء منصة لتحليل مباريات كرة القدم باستعمال الإحصائيات والذكاء الاصطناعي، واختيار أفضل التوقعات اليومية.
+  </p>
+  <h3>الأسواق المستهدفة</h3>
+  <p class="note">
+   نتائج المباريات، الأهداف، الشوط الأول والثاني، الركنيات، البطاقات الصفراء، التسديدات على المرمى، التسلل، الأخطاء وإحصائيات اللاعبين.
+  </p>
+  <h3>ملاحظة مهمة</h3>
+  <p class="note">الموقع في نسخته الحالية نموذج أولي. لا توجد بيانات مباشرة أو توقعات حقيقية متصلة بالذكاء الاصطناعي حتى الآن.</p>
+ </div>
+</section>
+
+</main>
+
+<footer>
+MATCH AI © 2026<br>
+التوقعات احتمالية وليست ضماناً للربح. راهن بمسؤولية.
+</footer>
+
+<script>
+function showTab(id,button){
+ document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+ button.classList.add('active');
+}
+</script>
+
+</body>
+</html>
