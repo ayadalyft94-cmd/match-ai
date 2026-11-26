@@ -295,10 +295,12 @@ async function analyzeMatch(home, away, league, season, index) {
       </p>`;
 
   } catch (error) {
-    box.innerHTML =
-      '<p style="color:#ff9b9b">تعذر جلب الإحصائيات. قد يكون السبب حد الطلبات أو عدم توفر بيانات الدوري.</p>';
+    box.innerHTML = '<p style="color:#ff9b9b">سبب الخطأ: ' + error.message + '</p>';
   }
 }
+
+loadMatches();
+</script>
 
 loadMatches();
 </script>
