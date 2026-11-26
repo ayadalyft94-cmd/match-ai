@@ -146,6 +146,9 @@ function showTab(id,button){
 }
 </script>
 
+
+</script>
+
 <section id="live-matches" style="padding:15px;background:#101b30;color:white;border-radius:12px;margin:15px;">
   <h2>⚽ مباريات اليوم الحقيقية</h2>
   <p id="match-status">جاري تحميل المباريات...</p>
@@ -153,6 +156,8 @@ function showTab(id,button){
 </section>
 
 <script>
+const WORKER = "https://billowing-meadow-a8c8.ayadalyft94.workers.dev";
+
 async function loadMatches() {
   const status = document.getElementById("match-status");
   const list = document.getElementById("match-list");
@@ -163,15 +168,13 @@ async function loadMatches() {
     });
 
     const response = await fetch(
-      "https://billowing-meadow-a8c8.ayadalyft94.workers.dev/fixtures?date=" + today
+      WORKER + "/fixtures?date=" + today
     );
-
-    if (!response.ok) throw new Error("Server error");
 
     const data = await response.json();
 
-    if (data.errors && Object.keys(data.errors).length) {
-      throw new Error(JSON.stringify(data.errors));
+    if (!response.ok || (data.errors && Object.keys(data.errors).length)) {
+      throw new Error("API error");
     }
 
     const matches = data.response || [];
@@ -183,27 +186,117 @@ async function loadMatches() {
 
     status.textContent = "عدد المباريات: " + matches.length;
 
-    list.innerHTML = matches.map(item => {
+    list.innerHTML = matches.map((item, index) => {
       const home = item.teams.home.name;
       const away = item.teams.away.name;
+
       const time = new Date(item.fixture.date).toLocaleTimeString(
         "ar-DZ",
-        {hour:"2-digit", minute:"2-digit", timeZone:"Africa/Algiers"}
+        { hour:"2-digit", minute:"2-digit", timeZone:"Africa/Algiers" }
       );
 
       return `
         <div style="background:#1b2a43;padding:13px;margin:10px 0;border-radius:10px;text-align:center">
           <div style="font-size:12px;color:#9fb3cc">${item.league.name}</div>
-          <b>${home}</b>
-          <span style="color:#35e0a1"> VS </span>
-          <b>${away}</b>
-          <div style="color:#35e0a1;margin-top:8px">${time}</div>
+          <div style="margin:12px 0;font-weight:bold">
+            ${home} <span style="color:#35e0a1">VS</span> ${away}
+          </div>
+          <div style="color:#35e0a1;margin-bottom:12px">${time}</div>
+          <button
+            onclick="analyzeMatch(${item.teams.home.id},${item.teams.away.id},${item.league.id},${item.league.season},${index})"
+            style="background:#35d9a0;color:#071b17;border:0;padding:11px 20px;border-radius:8px;font-weight:bold">
+            📊 تحليل المباراة
+          </button>
+          <div id="analysis-${index}" style="text-align:right;margin-top:12px"></div>
         </div>
       `;
     }).join("");
 
   } catch (error) {
     status.textContent = "تعذر تحميل المباريات. حاول لاحقاً.";
+  }
+}
+
+async function analyzeMatch(home, away, league, season, index) {
+  const box = document.getElementById("analysis-" + index);
+
+  box.innerHTML = "⏳ جاري جلب إحصائيات الفريقين...";
+
+  try {
+    const getTeam = async (team) => {
+      const url = WORKER + "/team-data?team=" + team +
+        "&league=" + league + "&season=" + season;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (!response.ok || data.error ||
+          (data.statistics && data.statistics.errors &&
+          Object.keys(data.statistics.errors).length)) {
+        throw new Error("تعذر جلب الإحصائيات");
+      }
+
+      return data;
+    };
+
+    const [homeData, awayData] = await Promise.all([
+      getTeam(home),
+      getTeam(away)
+    ]);
+
+    function teamHTML(data, name) {
+      const s = data.statistics.response;
+      const recent = data.recentMatches.response || [];
+
+      if (!s) return "<p>الإحصائيات غير متاحة.</p>";
+
+      const played = s.fixtures.played.total;
+      const wins = s.fixtures.wins.total;
+      const draws = s.fixtures.draws.total;
+      const loses = s.fixtures.loses.total;
+      const goalsFor = s.goals.for.average.total;
+      const goalsAgainst = s.goals.against.average.total;
+
+      const results = recent.map(match => {
+        const isHome = match.teams.home.id == data.team;
+        const scored = isHome ? match.goals.home : match.goals.away;
+        const conceded = isHome ? match.goals.away : match.goals.home;
+        const opponent = isHome
+          ? match.teams.away.name
+          : match.teams.home.name;
+
+        let result = "تعادل";
+        if (scored > conceded) result = "فوز";
+        if (scored < conceded) result = "خسارة";
+
+        return `<div style="padding:6px;border-top:1px solid #34445d">
+          ${opponent}: ${scored}-${conceded} (${result})
+        </div>`;
+      }).join("");
+
+      return `
+        <div style="background:#14233b;padding:12px;border-radius:9px;margin-top:10px">
+          <h3>${name}</h3>
+          <p>المباريات: ${played || 0}</p>
+          <p>الانتصارات: ${wins || 0} | التعادلات: ${draws || 0} | الهزائم: ${loses || 0}</p>
+          <p>معدل الأهداف المسجلة: ${goalsFor || "غير متاح"}</p>
+          <p>معدل الأهداف المستقبلة: ${goalsAgainst || "غير متاح"}</p>
+          <h4>آخر المباريات</h4>
+          ${results || "لا توجد نتائج متاحة"}
+        </div>
+      `;
+    }
+
+    box.innerHTML =
+      teamHTML(homeData, "الفريق الأول") +
+      teamHTML(awayData, "الفريق الثاني") +
+      `<p style="color:#35e0a1;margin-top:12px">
+        هذه إحصائيات فعلية وليست توقعاً مضموناً.
+      </p>`;
+
+  } catch (error) {
+    box.innerHTML =
+      '<p style="color:#ff9b9b">تعذر جلب الإحصائيات. قد يكون السبب حد الطلبات أو عدم توفر بيانات الدوري.</p>';
   }
 }
 
