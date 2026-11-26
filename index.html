@@ -233,7 +233,7 @@ async function analyzeMatch(home, away, league, season, index) {
       if (!response.ok || data.error ||
           (data.statistics && data.statistics.errors &&
           Object.keys(data.statistics.errors).length)) {
-        throw new Error("تعذر جلب الإحصائيات");
+        throw new Error("HTTP " + response.status + " | " + JSON.stringify(data));
       }
 
       return data;
