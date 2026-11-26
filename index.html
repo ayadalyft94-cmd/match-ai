@@ -3,306 +3,522 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MATCH AI | توقعات كرة القدم</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MATCH AI V2</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#0b1020;color:#f5f7ff;font-family:Arial,sans-serif}
-header{padding:22px 16px;background:#111a2e;border-bottom:1px solid #26344c}
-.logo{font-size:27px;font-weight:900;color:#35e0a1;letter-spacing:1px}
-.sub{color:#a8b5ca;font-size:13px;margin-top:7px}
-nav{display:flex;gap:9px;padding:14px;overflow:auto}
-nav button{background:#1a2740;color:#dce6f5;border:0;padding:12px 17px;border-radius:9px;white-space:nowrap;font-weight:bold}
-nav button.active{background:#35d9a0;color:#071b17}
-.container{padding:0 14px 30px;max-width:850px;margin:auto}
-h2{font-size:20px;margin:15px 0}
-.intro{background:#14233b;padding:15px;border-radius:12px;color:#bdcce0;line-height:1.8;font-size:14px}
-.card{background:#131e33;border:1px solid #263750;border-radius:13px;padding:15px;margin:13px 0}
-.cardhead{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.tag{font-size:12px;padding:6px 9px;border-radius:20px;background:#203c3b;color:#4ce6b1}
-.match{font-size:17px;font-weight:bold;text-align:center;margin:17px 0 12px}
-.league{text-align:center;color:#8fa3bd;font-size:12px}
-.pick{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid #263750}
-.pick span:first-child{color:#c6d3e5}
-.odds{color:#46e5ac;font-weight:bold;white-space:nowrap}
-.confidence{color:#46e5ac;font-weight:bold}
-.note{color:#9eacc2;font-size:13px;line-height:1.7;margin-top:10px}
-.coupon{background:#172943;border:1px solid #31506d;border-radius:12px;padding:14px;margin:12px 0}
-.coupon h3{margin:0 0 9px}
-.total{font-size:24px;color:#43e4aa;font-weight:bold}
-footer{text-align:center;color:#7e91ab;font-size:12px;padding:25px;line-height:1.8}
-.hidden{display:none}
+body{margin:0;background:#09111f;color:#f3f6ff;font-family:Arial,sans-serif}
+header{background:#111e32;padding:22px 16px;border-bottom:1px solid #263b54}
+.logo{font-size:28px;font-weight:900;color:#39e5aa}
+.sub{color:#9aacc4;font-size:12px;margin-top:7px}
+nav{display:flex;gap:8px;padding:12px;overflow:auto}
+nav button,.action{border:0;border-radius:9px;padding:12px 15px;background:#1b2c45;color:white;font-weight:bold}
+nav button.active,.action{background:#39dca4;color:#071b17}
+main{max-width:900px;margin:auto;padding:12px}
+section{display:none}
+section.active{display:block}
+h2{font-size:19px}
+.card{background:#132139;border:1px solid #263b54;border-radius:13px;padding:15px;margin:12px 0}
+.intro{background:#142b3d;padding:14px;border-radius:11px;color:#c4d3e5;line-height:1.8;font-size:13px}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.muted{color:#94a8c1;font-size:12px}
+.green{color:#42e7ac}
+.gold{color:#ffd477}
+.red{color:#ff8585}
+select,input{width:100%;background:#1b2b43;color:white;border:1px solid #38506d;border-radius:9px;padding:12px;margin:6px 0}
+button{cursor:pointer}
+.match{font-weight:bold;text-align:center;font-size:17px;margin:16px 0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.stat{background:#1b2c45;padding:10px;border-radius:9px;text-align:center}
+.stat b{display:block;color:#43e5aa;font-size:19px;margin-top:5px}
+.pick{padding:12px 0;border-top:1px solid #2b3d56;display:flex;justify-content:space-between;gap:8px}
+.tag{background:#24483e;color:#55e9b5;padding:5px 9px;border-radius:20px;font-size:11px}
+.action{width:100%;margin-top:9px}
+.small{font-size:12px;color:#a7b7ca;line-height:1.8}
+.coupon{border:1px solid #344c67;background:#172943;border-radius:12px;padding:14px;margin:12px 0}
+footer{text-align:center;padding:25px;color:#8395ac;font-size:12px}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
 
 <header>
  <div class="logo">⚽ MATCH AI</div>
- <div class="sub">منصة تحليل وتوقعات مباريات كرة القدم</div>
+ <div class="sub">Football Intelligence • Statistical Predictions</div>
 </header>
 
 <nav>
- <button class="active" onclick="showTab('coupons',this)">🎟️ قسائم اليوم</button>
- <button onclick="showTab('best',this)">🔥 أفضل التوقعات</button>
- <button onclick="showTab('about',this)">ℹ️ حول الموقع</button>
+ <button class="active" onclick="tab('today',this)">⚽ المباريات</button>
+ <button onclick="tab('best',this)">🔥 أفضل التوقعات</button>
+ <button onclick="tab('coupons',this)">🎟️ القسائم</button>
+ <button onclick="tab('analysis',this)">🤖 MATCH AI</button>
+ <button onclick="tab('history',this)">📊 الأداء</button>
 </nav>
 
-<main class="container">
+<main>
+
+<section id="today" class="active">
+ <h2>⚽ مباريات اليوم</h2>
+ <div class="intro">
+  نقرأ المباريات والنتائج من قاعدة بيانات مجانية تتحدث يومياً.
+  اختر البطولة والتاريخ لعرض المباريات.
+ </div>
+
+ <div class="card">
+  <label>البطولة</label>
+  <select id="league">
+   <option value="ARG_1_liga-profesional">الأرجنتين - Primera División</option>
+   <option value="ENG_1_premier-league">إنجلترا - Premier League</option>
+   <option value="ESP_1_la-liga">إسبانيا - La Liga</option>
+   <option value="GER_1_bundesliga">ألمانيا - Bundesliga</option>
+   <option value="FRA_1_ligue-1">فرنسا - Ligue 1</option>
+   <option value="ITA_1_serie-a">إيطاليا - Serie A</option>
+   <option value="BRA_1_serie-a">البرازيل - Serie A</option>
+  </select>
+
+  <label>التاريخ</label>
+  <input type="date" id="matchDate">
+  <button class="action" onclick="loadMatches()">🔄 تحميل المباريات</button>
+  <p id="status" class="small">جاهز لتحميل البيانات.</p>
+ </div>
+
+ <div id="matches"></div>
+</section>
+
+<section id="best">
+ <h2>🔥 أفضل التوقعات</h2>
+ <div class="intro">أفضل اختيار إحصائي واحد من كل مباراة، مرتب حسب الاحتمال المحسوب.</div>
+ <div id="bestList"></div>
+</section>
 
 <section id="coupons">
- <h2>🎟️ قسائم اليوم</h2>
+ <h2>🎟️ القسائم اليومية</h2>
  <div class="intro">
-   قسائم مختارة حسب قوة التوقعات. الهدف هو البحث عن أفضل الاختيارات وليس كثرة المباريات.
+  كل مباراة تساهم بتوقع واحد فقط. لا نكرر نفس المباراة داخل القسيمة.
+  الأودز الحقيقية غير مفعّلة إلى أن نربط مصدرها.
  </div>
+ <div id="couponList"></div>
+</section>
 
- <div class="coupon">
-  <div class="cardhead">
-   <h3>🟢 القسيمة المحافظة</h3>
-   <span class="tag">مخاطرة أقل نسبياً</span>
-  </div>
-  <p>اختيارات تجريبية ذات ثقة مرتفعة.</p>
-  <div class="pick"><span>فوز الفريق الأول</span><span class="odds">1.45</span></div>
-  <div class="pick"><span>أكثر من 1.5 هدف</span><span class="odds">1.40</span></div>
-  <p>المعامل الإجمالي: <span class="total">2.03</span></p>
- </div>
-
- <div class="coupon">
-  <div class="cardhead">
-   <h3>🟡 القسيمة المتوسطة</h3>
-   <span class="tag">مخاطرة متوسطة</span>
-  </div>
-  <p>مزيج من اختيارات مختلفة.</p>
-  <div class="pick"><span>الفريق الأول لا يخسر</span><span class="odds">1.55</span></div>
-  <div class="pick"><span>أكثر من 2.5 أهداف</span><span class="odds">1.70</span></div>
-  <div class="pick"><span>أكثر من 7.5 ركنيات</span><span class="odds">1.60</span></div>
-  <p>المعامل الإجمالي: <span class="total">4.22</span></p>
- </div>
-
- <div class="coupon">
-  <div class="cardhead">
-   <h3>🔴 القسيمة القوية</h3>
-   <span class="tag">مخاطرة مرتفعة</span>
-  </div>
-  <p>اختيارات ذات معامل أكبر ومخاطرة أعلى.</p>
-  <div class="pick"><span>الفريق الأول يفوز</span><span class="odds">1.80</span></div>
-  <div class="pick"><span>أكثر من 2.5 أهداف</span><span class="odds">1.75</span></div>
-  <div class="pick"><span>أكثر من 8.5 ركنيات</span><span class="odds">1.65</span></div>
-  <p>المعامل الإجمالي: <span class="total">5.20</span></p>
+<section id="analysis">
+ <h2>🤖 MATCH AI</h2>
+ <div class="intro">اختر مباراة من المباريات المحملة لعرض تحليل الفريقين.</div>
+ <div id="analysisContent" class="card">
+  لم تختر مباراة بعد.
  </div>
 </section>
 
-<section id="best" class="hidden">
- <h2>🔥 أفضل التوقعات</h2>
- <div class="intro">هنا تظهر أفضل الاختيارات الفردية لكل مباراة، مع نسبة الثقة والتفسير.</div>
-
+<section id="history">
+ <h2>📊 سجل الأداء</h2>
  <div class="card">
-  <div class="league">الدوري الإنجليزي • مثال تجريبي</div>
-  <div class="match">مانشستر سيتي × ليفربول</div>
-  <div class="pick"><span>السوق</span><b>أكثر من 2.5 أهداف</b></div>
-  <div class="pick"><span>المعامل</span><span class="odds">1.75</span></div>
-  <div class="pick"><span>الثقة التقديرية</span><span class="confidence">78%</span></div>
-  <div class="note">تحليل تجريبي فقط. التوقع يحتاج إلى إحصائيات الفريقين والتشكيلة وآخر النتائج.</div>
+  <div class="stats">
+   <div class="stat">التوقعات المسجلة<b id="totalPicks">0</b></div>
+   <div class="stat">النتائج المسجلة<b id="settledPicks">0</b></div>
+   <div class="stat">التوقعات الصحيحة<b id="wonPicks">0</b></div>
+   <div class="stat">نسبة النجاح<b id="winRate">0%</b></div>
+  </div>
+  <p class="small">لا نسجل توقعاً كرابح أو خاسر إلا بعد توفر النتيجة الفعلية.</p>
  </div>
-
- <div class="card">
-  <div class="league">الدوري الإسباني • مثال تجريبي</div>
-  <div class="match">ريال مدريد × برشلونة</div>
-  <div class="pick"><span>السوق</span><b>أكثر من 8.5 ركنيات</b></div>
-  <div class="pick"><span>المعامل</span><span class="odds">1.80</span></div>
-  <div class="pick"><span>الثقة التقديرية</span><span class="confidence">74%</span></div>
-  <div class="note">مثال توضيحي، وليس توقعاً مبنياً على بيانات مباشرة.</div>
- </div>
-</section>
-
-<section id="about" class="hidden">
- <h2>ℹ️ حول MATCH AI</h2>
- <div class="card">
-  <h3>هدف المشروع</h3>
-  <p class="note">
-   إنشاء منصة لتحليل مباريات كرة القدم باستعمال الإحصائيات والذكاء الاصطناعي، واختيار أفضل التوقعات اليومية.
-  </p>
-  <h3>الأسواق المستهدفة</h3>
-  <p class="note">
-   نتائج المباريات، الأهداف، الشوط الأول والثاني، الركنيات، البطاقات الصفراء، التسديدات على المرمى، التسلل، الأخطاء وإحصائيات اللاعبين.
-  </p>
-  <h3>ملاحظة مهمة</h3>
-  <p class="note">الموقع في نسخته الحالية نموذج أولي. لا توجد بيانات مباشرة أو توقعات حقيقية متصلة بالذكاء الاصطناعي حتى الآن.</p>
- </div>
+ <div id="historyList"></div>
 </section>
 
 </main>
 
 <footer>
-MATCH AI © 2026<br>
-التوقعات احتمالية وليست ضماناً للربح. راهن بمسؤولية.
+ MATCH AI © 2026<br>
+ البيانات: Open Matchday — للاستخدام المعلوماتي غير التجاري مع ذكر المصدر.<br>
+ التوقعات احتمالية وليست ضماناً للربح.
 </footer>
 
 <script>
-function showTab(id,button){
- document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
- document.getElementById(id).classList.remove('hidden');
- document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
- button.classList.add('active');
+const BASE =
+"https://raw.githubusercontent.com/oladeeayo/open-matchday/master/data";
+
+let fixtures=[];
+let results=[];
+let analyzed=[];
+let currentLeague="";
+
+function localDate(){
+ return new Intl.DateTimeFormat("en-CA",{
+  timeZone:"Africa/Algiers"
+ }).format(new Date());
 }
-</script>
 
+document.getElementById("matchDate").value=localDate();
 
-</script>
+function tab(id,button){
+ document.querySelectorAll("main section").forEach(s=>s.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+}
 
-<section id="live-matches" style="padding:15px;background:#101b30;color:white;border-radius:12px;margin:15px;">
-  <h2>⚽ مباريات اليوم الحقيقية</h2>
-  <p id="match-status">جاري تحميل المباريات...</p>
-  <div id="match-list"></div>
-</section>
+function parseCSV(text){
+ const rows=[];
+ let row=[],cell="",quoted=false;
 
-<script>
-const WORKER = "https://billowing-meadow-a8c8.ayadalyft94.workers.dev";
+ for(let i=0;i<text.length;i++){
+  const c=text[i];
 
-async function loadMatches() {
-  const status = document.getElementById("match-status");
-  const list = document.getElementById("match-list");
+  if(c==='"'){
+   if(quoted && text[i+1]==='"'){
+    cell+='"';i++;
+   }else quoted=!quoted;
+  }else if(c==="," && !quoted){
+   row.push(cell);cell="";
+  }else if((c==="\n" || c==="\r") && !quoted){
+   if(c==="\r" && text[i+1]==="\n")i++;
+   row.push(cell);
+   if(row.some(v=>v.trim()!==""))rows.push(row);
+   row=[];cell="";
+  }else cell+=c;
+ }
+ if(cell!=="" || row.length){
+  row.push(cell);
+  rows.push(row);
+ }
 
-  try {
-    const today = new Date().toLocaleDateString("en-CA", {
-      timeZone: "Africa/Algiers"
-    });
+ const headers=rows.shift().map(x=>x.trim());
+ return rows.map(r=>{
+  const obj={};
+  headers.forEach((h,i)=>obj[h]=(r[i]||"").trim());
+  return obj;
+ });
+}
 
-    const response = await fetch(
-      WORKER + "/fixtures?date=" + today
-    );
+async function getCSV(url){
+ const response=await fetch(url);
+ if(!response.ok)throw new Error("تعذر تحميل ملف البيانات");
+ return parseCSV(await response.text());
+}
 
-    const data = await response.json();
+async function loadMatches(){
+ const league=document.getElementById("league").value;
+ const date=document.getElementById("matchDate").value;
+ const status=document.getElementById("status");
+ const list=document.getElementById("matches");
 
-    if (!response.ok || (data.errors && Object.keys(data.errors).length)) {
-      throw new Error("API error");
-    }
+ if(!date)return;
 
-    const matches = data.response || [];
+ currentLeague=league;
+ status.textContent="⏳ جاري تحميل المباريات والنتائج...";
+ list.innerHTML="";
+ analyzed=[];
 
-    if (!matches.length) {
-      status.textContent = "لا توجد مباريات متاحة اليوم.";
-      return;
-    }
+ try{
+  const folder=BASE+"/"+league;
 
-    status.textContent = "عدد المباريات: " + matches.length;
+  const [f,r]=await Promise.all([
+   getCSV(folder+"/fixtures_2627.csv"),
+   getCSV(folder+"/results_2627.csv")
+  ]);
 
-    list.innerHTML = matches.map((item, index) => {
-      const home = item.teams.home.name;
-      const away = item.teams.away.name;
+  fixtures=f;
+  results=r;
 
-      const time = new Date(item.fixture.date).toLocaleTimeString(
-        "ar-DZ",
-        { hour:"2-digit", minute:"2-digit", timeZone:"Africa/Algiers" }
-      );
+  const daily=fixtures.filter(m=>m.date===date);
 
-      return `
-        <div style="background:#1b2a43;padding:13px;margin:10px 0;border-radius:10px;text-align:center">
-          <div style="font-size:12px;color:#9fb3cc">${item.league.name}</div>
-          <div style="margin:12px 0;font-weight:bold">
-            ${home} <span style="color:#35e0a1">VS</span> ${away}
-          </div>
-          <div style="color:#35e0a1;margin-bottom:12px">${time}</div>
-          <button
-            onclick="analyzeMatch(${item.teams.home.id},${item.teams.away.id},${item.league.id},${item.league.season},${index})"
-            style="background:#35d9a0;color:#071b17;border:0;padding:11px 20px;border-radius:8px;font-weight:bold">
-            📊 تحليل المباراة
-          </button>
-          <div id="analysis-${index}" style="text-align:right;margin-top:12px"></div>
-        </div>
-      `;
-    }).join("");
+  status.textContent="عدد المباريات: "+daily.length+
+   " | النتائج التاريخية: "+results.length;
 
-  } catch (error) {
-    status.textContent = "تعذر تحميل المباريات. حاول لاحقاً.";
+  if(!daily.length){
+   list.innerHTML='<div class="card">لا توجد مباريات في هذا التاريخ ضمن هذه البطولة.</div>';
+   renderBest();
+   return;
   }
+
+  list.innerHTML=daily.map((m,i)=>`
+   <div class="card">
+    <div class="row">
+     <span class="tag">${league}</span>
+     <span class="muted">${m.date} ${m.time||""}</span>
+    </div>
+    <div class="match">${safe(m.home)} <span class="green">×</span> ${safe(m.away)}</div>
+    <button class="action" onclick="analyze(${i})">📊 تحليل المباراة</button>
+    <div id="match-${i}"></div>
+   </div>
+  `).join("");
+
+  window.dailyMatches=daily;
+  renderBest();
+
+ }catch(e){
+  status.textContent="خطأ: "+e.message+
+   ". تحقق من الاتصال أو اسم البطولة.";
+ }
 }
 
-async function analyzeMatch(home, away, league, season, index) {
-  const box = document.getElementById("analysis-" + index);
+function safe(value){
+ return String(value||"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
 
-  box.innerHTML = "⏳ جاري جلب إحصائيات الفريقين...";
+function num(v){
+ const n=Number(v);
+ return Number.isFinite(n)?n:null;
+}
 
-  try {
-    const getTeam = async (team) => {
-      const url = WORKER + "/team-data?team=" + team +
-        "&league=" + league + "&season=" + season;
+function teamHistory(team,venue){
+ return results.filter(m=>{
+  if(venue==="home")return m.home===team && num(m.ft_home)!==null;
+  if(venue==="away")return m.away===team && num(m.ft_away)!==null;
+  return (m.home===team || m.away===team) &&
+   num(m.ft_home)!==null && num(m.ft_away)!==null;
+ }).slice(-10);
+}
 
-      const response = await fetch(url);
-      const data = await response.json();
+function average(arr){
+ const valid=arr.filter(v=>v!==null && Number.isFinite(v));
+ if(!valid.length)return null;
+ return valid.reduce((a,b)=>a+b,0)/valid.length;
+}
 
-      if (!response.ok || data.error ||
-          (data.statistics && data.statistics.errors &&
-          Object.keys(data.statistics.errors).length)) {
-        throw new Error("HTTP " + response.status + " | " + JSON.stringify(data));
-      }
+function teamRates(team,venue){
+ const games=teamHistory(team,venue);
 
-      return data;
-    };
+ if(!games.length)return null;
 
-    const [homeData, awayData] = await Promise.all([
-      getTeam(home),
-      getTeam(away)
-    ]);
+ const scored=games.map(m=>
+  num(venue==="away"?m.ft_away:m.ft_home)
+ );
+ const conceded=games.map(m=>
+  num(venue==="away"?m.ft_home:m.ft_away)
+ );
 
-    function teamHTML(data, name) {
-      const s = data.statistics.response;
-      const recent = data.recentMatches.response || [];
+ return{
+  played:games.length,
+  scored:average(scored),
+  conceded:average(conceded)
+ };
+}
 
-      if (!s) return "<p>الإحصائيات غير متاحة.</p>";
+function poisson(lambda,k){
+ let p=Math.exp(-lambda);
+ for(let i=1;i<=k;i++)p*=lambda/i;
+ return p;
+}
 
-      const played = s.fixtures.played.total;
-      const wins = s.fixtures.wins.total;
-      const draws = s.fixtures.draws.total;
-      const loses = s.fixtures.loses.total;
-      const goalsFor = s.goals.for.average.total;
-      const goalsAgainst = s.goals.against.average.total;
+function model(home,away){
+ const h=teamRates(home,"home");
+ const a=teamRates(away,"away");
 
-      const results = recent.map(match => {
-        const isHome = match.teams.home.id == data.team;
-        const scored = isHome ? match.goals.home : match.goals.away;
-        const conceded = isHome ? match.goals.away : match.goals.home;
-        const opponent = isHome
-          ? match.teams.away.name
-          : match.teams.home.name;
+ const hg=teamRates(home,"all");
+ const ag=teamRates(away,"all");
 
-        let result = "تعادل";
-        if (scored > conceded) result = "فوز";
-        if (scored < conceded) result = "خسارة";
+ if(!h || !a || h.played<2 || a.played<2){
+  return null;
+ }
 
-        return `<div style="padding:6px;border-top:1px solid #34445d">
-          ${opponent}: ${scored}-${conceded} (${result})
-        </div>`;
-      }).join("");
+ const homeGoals=(h.scored+a.conceded)/2;
+ const awayGoals=(a.scored+h.conceded)/2;
 
-      return `
-        <div style="background:#14233b;padding:12px;border-radius:9px;margin-top:10px">
-          <h3>${name}</h3>
-          <p>المباريات: ${played || 0}</p>
-          <p>الانتصارات: ${wins || 0} | التعادلات: ${draws || 0} | الهزائم: ${loses || 0}</p>
-          <p>معدل الأهداف المسجلة: ${goalsFor || "غير متاح"}</p>
-          <p>معدل الأهداف المستقبلة: ${goalsAgainst || "غير متاح"}</p>
-          <h4>آخر المباريات</h4>
-          ${results || "لا توجد نتائج متاحة"}
-        </div>
-      `;
-    }
+ if(!Number.isFinite(homeGoals)||!Number.isFinite(awayGoals))return null;
 
-    box.innerHTML =
-      teamHTML(homeData, "الفريق الأول") +
-      teamHTML(awayData, "الفريق الثاني") +
-      `<p style="color:#35e0a1;margin-top:12px">
-        هذه إحصائيات فعلية وليست توقعاً مضموناً.
-      </p>`;
+ let pHome=0,pDraw=0,pAway=0,pOver15=0,pOver25=0,pUnder35=0;
 
-  } catch (error) {
-    box.innerHTML = '<p style="color:#ff9b9b">سبب الخطأ: ' + error.message + '</p>';
+ for(let x=0;x<=8;x++){
+  for(let y=0;y<=8;y++){
+   const p=poisson(homeGoals,x)*poisson(awayGoals,y);
+
+   if(x>y)pHome+=p;
+   else if(x===y)pDraw+=p;
+   else pAway+=p;
+
+   if(x+y>=2)pOver15+=p;
+   if(x+y>=3)pOver25+=p;
+   if(x+y<=3)pUnder35+=p;
   }
+ }
+
+ const markets=[
+  {name:"فوز الفريق المضيف",p:pHome},
+  {name:"التعادل",p:pDraw},
+  {name:"فوز الفريق الضيف",p:pAway},
+  {name:"أكثر من 1.5 هدف",p:pOver15},
+  {name:"أكثر من 2.5 هدف",p:pOver25},
+  {name:"أقل من 3.5 هدف",p:pUnder35}
+ ];
+
+ markets.sort((x,y)=>y.p-x.p);
+
+ return{
+  homeGoals,awayGoals,
+  homePlayed:h.played,
+  awayPlayed:a.played,
+  homeRates:h,awayRates:a,
+  markets,
+  best:markets[0]
+ };
 }
 
-loadMatches();
-</script>
+function analyze(index){
+ const match=window.dailyMatches[index];
+ const result=model(match.home,match.away);
+ const box=document.getElementById("match-"+index);
 
-loadMatches();
+ if(!result){
+  box.innerHTML='<p class="red small">البيانات التاريخية غير كافية لتحليل هذه المباراة.</p>';
+  return;
+ }
+
+ const pick={
+  date:match.date,
+  league:currentLeague,
+  home:match.home,
+  away:match.away,
+  market:result.best.name,
+  probability:result.best.p,
+  status:"pending"
+ };
+
+ analyzed=analyzed.filter(p=>
+  !(p.home===pick.home && p.away===pick.away && p.date===pick.date)
+ );
+ analyzed.push(pick);
+
+ box.innerHTML=`
+  <div class="card">
+   <h3>التحليل الإحصائي</h3>
+   <div class="stats">
+    <div class="stat">أهداف متوقعة للمضيف<b>${result.homeGoals.toFixed(2)}</b></div>
+    <div class="stat">أهداف متوقعة للضيف<b>${result.awayGoals.toFixed(2)}</b></div>
+    <div class="stat">مباريات المضيف<b>${result.homePlayed}</b></div>
+    <div class="stat">مباريات الضيف<b>${result.awayPlayed}</b></div>
+   </div>
+   <h4>احتمالات الأسواق</h4>
+   ${result.markets.map(m=>`
+    <div class="pick">
+     <span>${m.name}</span>
+     <b class="green">${(m.p*100).toFixed(1)}%</b>
+    </div>
+   `).join("")}
+   <div class="intro">
+    أفضل اختيار إحصائي: <b>${result.best.name}</b><br>
+    الاحتمال المحسوب: ${(result.best.p*100).toFixed(1)}%
+   </div>
+   <p class="small">هذا نموذج أولي مبني على متوسطات النتائج السابقة وتوزيع بواسون. ليس نموذجاً معايراً أو ضماناً للنجاح. لا تتوفر أودز حقيقية في مصدر البيانات هذا.</p>
+   <button class="action" onclick="savePick(${index})">حفظ التوقع</button>
+  </div>
+ `;
+
+ document.getElementById("analysisContent").innerHTML=
+  `<h3>${safe(match.home)} × ${safe(match.away)}</h3>
+   <p>أفضل اختيار: ${safe(result.best.name)}</p>
+   <p class="green">الاحتمال: ${(result.best.p*100).toFixed(1)}%</p>`;
+}
+
+function savePick(index){
+ const match=window.dailyMatches[index];
+ const result=model(match.home,match.away);
+ if(!result)return;
+
+ const saved=JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+
+ const exists=saved.some(p=>
+  p.date===match.date && p.home===match.home &&
+  p.away===match.away
+ );
+
+ if(exists){
+  alert("هذا التوقع مسجل من قبل.");
+  return;
+ }
+
+ saved.push({
+  date:match.date,
+  league:currentLeague,
+  home:match.home,
+  away:match.away,
+  market:result.best.name,
+  probability:result.best.p,
+  status:"pending"
+ });
+
+ localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ alert("تم حفظ التوقع.");
+ renderBest();
+ renderCoupons();
+ renderHistory();
+}
+
+function renderBest(){
+ const list=document.getElementById("bestList");
+ if(!window.dailyMatches)return;
+
+ const picks=[];
+
+ window.dailyMatches.forEach(m=>{
+  const r=model(m.home,m.away);
+  if(r)picks.push({match:m,result:r});
+ });
+
+ picks.sort((a,b)=>b.result.best.p-a.result.best.p);
+
+ list.innerHTML=picks.map(x=>`
+  <div class="card">
+   <div class="match">${safe(x.match.home)} × ${safe(x.match.away)}</div>
+   <div class="pick"><span>أفضل توقع</span><b>${x.result.best.name}</b></div>
+   <div class="pick"><span>الاحتمال الإحصائي</span><b class="green">${(x.result.best.p*100).toFixed(1)}%</b></div>
+  </div>
+ `).join("")||'<div class="card">لا توجد بيانات كافية.</div>';
+}
+
+function renderCoupons(){
+ const saved=JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ const list=document.getElementById("couponList");
+
+ const unique=[];
+ saved.forEach(p=>{
+  if(!unique.some(x=>x.date===p.date&&x.home===p.home&&x.away===p.away))
+   unique.push(p);
+ });
+
+ list.innerHTML=`
+  <div class="coupon">
+   <h3>🟢 القسيمة المحافظة</h3>
+   <p class="small">تحتاج أودز حقيقية قبل تحديد مجموع 2–3.</p>
+   ${unique.slice(0,2).map(p=>`<div class="pick">${safe(p.home)} × ${safe(p.away)} — ${safe(p.market)}</div>`).join("")}
+   <b class="gold">الأودز: غير متوفرة حالياً</b>
+  </div>
+  <div class="coupon">
+   <h3>🟡 القسيمة المتوسطة</h3>
+   <p class="small">تحتاج أودز حقيقية قبل تحديد مجموع 4–6.</p>
+   ${unique.slice(0,3).map(p=>`<div class="pick">${safe(p.home)} × ${safe(p.away)} — ${safe(p.market)}</div>`).join("")}
+   <b class="gold">الأودز: غير متوفرة حالياً</b>
+  </div>
+  <div class="coupon">
+   <h3>🔴 القسيمة القوية</h3>
+   <p class="small">تحتاج أودز حقيقية قبل تحديد مجموع 7 أو أكثر.</p>
+   ${unique.slice(0,4).map(p=>`<div class="pick">${safe(p.home)} × ${safe(p.away)} — ${safe(p.market)}</div>`).join("")}
+   <b class="gold">الأودز: غير متوفرة حالياً</b>
+  </div>
+ `;
+}
+
+function renderHistory(){
+ const saved=JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ const settled=saved.filter(p=>p.status==="won"||p.status==="lost");
+ const won=saved.filter(p=>p.status==="won").length;
+
+ document.getElementById("totalPicks").textContent=saved.length;
+ document.getElementById("settledPicks").textContent=settled.length;
+ document.getElementById("wonPicks").textContent=won;
+ document.getElementById("winRate").textContent=
+  settled.length?Math.round(won/settled.length*100)+"%":"0%";
+
+ document.getElementById("historyList").innerHTML=saved.map(p=>`
+  <div class="card">
+   <b>${safe(p.home)} × ${safe(p.away)}</b>
+   <p class="small">${safe(p.market)} — ${p.date}</p>
+   <span class="tag">${p.status==="pending"?"بانتظار النتيجة":p.status==="won"?"رابح":"خاسر"}</span>
+  </div>
+ `).join("");
+}
+
+renderHistory();
+renderCoupons();
 </script>
 
 </body>
