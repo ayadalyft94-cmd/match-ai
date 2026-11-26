@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MATCH AI V2</title>
+<title>MATCH AI V3</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#09111f;color:#f3f6ff;font-family:Arial,sans-serif}
@@ -12,15 +11,19 @@ header{background:#111e32;padding:22px 16px;border-bottom:1px solid #263b54}
 .logo{font-size:28px;font-weight:900;color:#39e5aa}
 .sub{color:#9aacc4;font-size:12px;margin-top:7px}
 nav{display:flex;gap:8px;padding:12px;overflow:auto}
-nav button,.action{border:0;border-radius:9px;padding:12px 15px;background:#1b2c45;color:white;font-weight:bold}
+nav button,.action,.mini-btn{border:0;border-radius:9px;padding:12px 15px;background:#1b2c45;color:white;font-weight:bold}
 nav button.active,.action{background:#39dca4;color:#071b17}
+.mini-btn{padding:7px 11px;font-size:12px}
+.mini-btn.win{background:#1f5c47;color:#6ef7c6}
+.mini-btn.loss{background:#5c242c;color:#ff9b9b}
+.mini-btn.del{background:#29394f;color:#cbd8ea}
 main{max-width:900px;margin:auto;padding:12px}
 section{display:none}
 section.active{display:block}
 h2{font-size:19px}
 .card{background:#132139;border:1px solid #263b54;border-radius:13px;padding:15px;margin:12px 0}
 .intro{background:#142b3d;padding:14px;border-radius:11px;color:#c4d3e5;line-height:1.8;font-size:13px}
-.row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
 .muted{color:#94a8c1;font-size:12px}
 .green{color:#42e7ac}
 .gold{color:#ffd477}
@@ -31,20 +34,23 @@ button{cursor:pointer}
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .stat{background:#1b2c45;padding:10px;border-radius:9px;text-align:center}
 .stat b{display:block;color:#43e5aa;font-size:19px;margin-top:5px}
-.pick{padding:12px 0;border-top:1px solid #2b3d56;display:flex;justify-content:space-between;gap:8px}
+.pick{padding:12px 0;border-top:1px solid #2b3d56;display:flex;justify-content:space-between;gap:8px;align-items:center}
 .tag{background:#24483e;color:#55e9b5;padding:5px 9px;border-radius:20px;font-size:11px}
+.tag.win{background:#194d3b;color:#52f2b8}
+.tag.loss{background:#4d1f26;color:#ff9494}
+.tag.pending{background:#3a3520;color:#ffe082}
 .action{width:100%;margin-top:9px}
 .small{font-size:12px;color:#a7b7ca;line-height:1.8}
 .coupon{border:1px solid #344c67;background:#172943;border-radius:12px;padding:14px;margin:12px 0}
+.actions-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
 footer{text-align:center;padding:25px;color:#8395ac;font-size:12px}
-.hidden{display:none!important}
 </style>
 </head>
 <body>
 
 <header>
  <div class="logo">⚽ MATCH AI</div>
- <div class="sub">Football Intelligence • Statistical Predictions</div>
+ <div class="sub">Football Intelligence • Statistical Predictions V3</div>
 </header>
 
 <nav>
@@ -94,17 +100,20 @@ footer{text-align:center;padding:25px;color:#8395ac;font-size:12px}
 <section id="coupons">
  <h2>🎟️ القسائم اليومية</h2>
  <div class="intro">
-  كل مباراة تساهم بتوقع واحد فقط. لا نكرر نفس المباراة داخل القسيمة.
-  الأودز الحقيقية غير مفعّلة إلى أن نربط مصدرها.
+  تُبنى تلقائياً من مباريات اليوم القابلة للتحليل: محافظة (2–3 اختيارات)، متوسطة (4–6 اختيارات)، قوية (7 اختيارات أو أكثر). كل مباراة تظهر مرة واحدة فقط داخل القسيمة.
  </div>
  <div id="couponList"></div>
 </section>
 
 <section id="analysis">
  <h2>🤖 MATCH AI</h2>
- <div class="intro">اختر مباراة من المباريات المحملة لعرض تحليل الفريقين.</div>
- <div id="analysisContent" class="card">
-  لم تختر مباراة بعد.
+ <div class="intro">اختر أي مباراة محملة لعرض التحليل الإحصائي الكامل وحفظ التوقع.</div>
+ <div class="card">
+  <label>اختر مباراة</label>
+  <select id="analysisSelect" onchange="renderAnalysisTab()">
+   <option value="">حمّل المباريات أولاً من تبويب المباريات</option>
+  </select>
+  <div id="analysisContent" style="margin-top:12px">لم تختر مباراة بعد.</div>
  </div>
 </section>
 
@@ -117,7 +126,11 @@ footer{text-align:center;padding:25px;color:#8395ac;font-size:12px}
    <div class="stat">التوقعات الصحيحة<b id="wonPicks">0</b></div>
    <div class="stat">نسبة النجاح<b id="winRate">0%</b></div>
   </div>
-  <p class="small">لا نسجل توقعاً كرابح أو خاسر إلا بعد توفر النتيجة الفعلية.</p>
+  <div class="actions-row">
+   <button class="mini-btn win" onclick="settleFromResults()">⚡ تسوية تلقائية من النتائج</button>
+   <button class="mini-btn del" onclick="clearHistory()">🗑️ مسح السجل</button>
+  </div>
+  <p class="small">يمكن تسوية التوقعات تلقائياً عند توفر النتائج في البيانات المحملة أو يدوياً لكل توقع.</p>
  </div>
  <div id="historyList"></div>
 </section>
@@ -136,8 +149,8 @@ const BASE =
 
 let fixtures=[];
 let results=[];
-let analyzed=[];
 let currentLeague="";
+window.dailyMatches=[];
 
 function localDate(){
  return new Intl.DateTimeFormat("en-CA",{
@@ -204,7 +217,6 @@ async function loadMatches(){
  currentLeague=league;
  status.textContent="⏳ جاري تحميل المباريات والنتائج...";
  list.innerHTML="";
- analyzed=[];
 
  try{
   const folder=BASE+"/"+league;
@@ -218,21 +230,25 @@ async function loadMatches(){
   results=r;
 
   const daily=fixtures.filter(m=>m.date===date);
+  window.dailyMatches=daily;
 
   status.textContent="عدد المباريات: "+daily.length+
    " | النتائج التاريخية: "+results.length;
 
+  populateAnalysisSelect(daily);
+
   if(!daily.length){
    list.innerHTML='<div class="card">لا توجد مباريات في هذا التاريخ ضمن هذه البطولة.</div>';
    renderBest();
+   renderCoupons();
    return;
   }
 
   list.innerHTML=daily.map((m,i)=>`
    <div class="card">
     <div class="row">
-     <span class="tag">${league}</span>
-     <span class="muted">${m.date} ${m.time||""}</span>
+     <span class="tag">${safe(league)}</span>
+     <span class="muted">${safe(m.date)} ${safe(m.time||"")}</span>
     </div>
     <div class="match">${safe(m.home)} <span class="green">×</span> ${safe(m.away)}</div>
     <button class="action" onclick="analyze(${i})">📊 تحليل المباراة</button>
@@ -240,13 +256,60 @@ async function loadMatches(){
    </div>
   `).join("");
 
-  window.dailyMatches=daily;
   renderBest();
+  renderCoupons();
+  settleFromResults(true);
 
  }catch(e){
   status.textContent="خطأ: "+e.message+
    ". تحقق من الاتصال أو اسم البطولة.";
  }
+}
+
+function populateAnalysisSelect(daily){
+ const sel=document.getElementById("analysisSelect");
+ if(!daily.length){
+  sel.innerHTML='<option value="">لا توجد مباريات في هذا التاريخ</option>';
+  document.getElementById("analysisContent").innerHTML="لم تختر مباراة بعد.";
+  return;
+ }
+ sel.innerHTML=daily.map((m,i)=>
+  `<option value="${i}">${safe(m.home)} × ${safe(m.away)} (${safe(m.time||m.date)})</option>`
+ ).join("");
+ renderAnalysisTab();
+}
+
+function renderAnalysisTab(){
+ const sel=document.getElementById("analysisSelect");
+ const idx=Number(sel.value);
+ const box=document.getElementById("analysisContent");
+ if(!Number.isInteger(idx) || !window.dailyMatches[idx]){
+  box.innerHTML="لم تختر مباراة بعد.";
+  return;
+ }
+ const m=window.dailyMatches[idx];
+ const r=model(m.home,m.away);
+ if(!r){
+  box.innerHTML='<p class="red small">البيانات التاريخية غير كافية لتحليل هذه المباراة.</p>';
+  return;
+ }
+ box.innerHTML=`
+  <h3>${safe(m.home)} × ${safe(m.away)}</h3>
+  <div class="stats">
+   <div class="stat">أهداف متوقعة للمضيف<b>${r.homeGoals.toFixed(2)}</b></div>
+   <div class="stat">أهداف متوقعة للضيف<b>${r.awayGoals.toFixed(2)}</b></div>
+   <div class="stat">مباريات المضيف<b>${r.homePlayed}</b></div>
+   <div class="stat">مباريات الضيف<b>${r.awayPlayed}</b></div>
+  </div>
+  <h4>احتمالات الأسواق</h4>
+  ${r.markets.map(mk=>`
+   <div class="pick">
+    <span>${safe(mk.name)}</span>
+    <b class="green">${(mk.p*100).toFixed(1)}%</b>
+   </div>
+  `).join("")}
+  <button class="action" onclick="savePick(${idx})">💾 حفظ أفضل توقع (${safe(r.best.name)})</button>
+ `;
 }
 
 function safe(value){
@@ -256,6 +319,7 @@ function safe(value){
 }
 
 function num(v){
+ if(v==="" || v===null || v===undefined)return null;
  const n=Number(v);
  return Number.isFinite(n)?n:null;
 }
@@ -277,7 +341,6 @@ function average(arr){
 
 function teamRates(team,venue){
  const games=teamHistory(team,venue);
-
  if(!games.length)return null;
 
  const scored=games.map(m=>
@@ -303,9 +366,6 @@ function poisson(lambda,k){
 function model(home,away){
  const h=teamRates(home,"home");
  const a=teamRates(away,"away");
-
- const hg=teamRates(home,"all");
- const ag=teamRates(away,"all");
 
  if(!h || !a || h.played<2 || a.played<2){
   return null;
@@ -347,7 +407,6 @@ function model(home,away){
   homeGoals,awayGoals,
   homePlayed:h.played,
   awayPlayed:a.played,
-  homeRates:h,awayRates:a,
   markets,
   best:markets[0]
  };
@@ -362,21 +421,6 @@ function analyze(index){
   box.innerHTML='<p class="red small">البيانات التاريخية غير كافية لتحليل هذه المباراة.</p>';
   return;
  }
-
- const pick={
-  date:match.date,
-  league:currentLeague,
-  home:match.home,
-  away:match.away,
-  market:result.best.name,
-  probability:result.best.p,
-  status:"pending"
- };
-
- analyzed=analyzed.filter(p=>
-  !(p.home===pick.home && p.away===pick.away && p.date===pick.date)
- );
- analyzed.push(pick);
 
  box.innerHTML=`
   <div class="card">
@@ -398,15 +442,9 @@ function analyze(index){
     أفضل اختيار إحصائي: <b>${result.best.name}</b><br>
     الاحتمال المحسوب: ${(result.best.p*100).toFixed(1)}%
    </div>
-   <p class="small">هذا نموذج أولي مبني على متوسطات النتائج السابقة وتوزيع بواسون. ليس نموذجاً معايراً أو ضماناً للنجاح. لا تتوفر أودز حقيقية في مصدر البيانات هذا.</p>
    <button class="action" onclick="savePick(${index})">حفظ التوقع</button>
   </div>
  `;
-
- document.getElementById("analysisContent").innerHTML=
-  `<h3>${safe(match.home)} × ${safe(match.away)}</h3>
-   <p>أفضل اختيار: ${safe(result.best.name)}</p>
-   <p class="green">الاحتمال: ${(result.best.p*100).toFixed(1)}%</p>`;
 }
 
 function savePick(index){
@@ -415,10 +453,8 @@ function savePick(index){
  if(!result)return;
 
  const saved=JSON.parse(localStorage.getItem("matchai_picks")||"[]");
-
  const exists=saved.some(p=>
-  p.date===match.date && p.home===match.home &&
-  p.away===match.away
+  p.date===match.date && p.home===match.home && p.away===match.away
  );
 
  if(exists){
@@ -438,17 +474,17 @@ function savePick(index){
 
  localStorage.setItem("matchai_picks",JSON.stringify(saved));
  alert("تم حفظ التوقع.");
- renderBest();
- renderCoupons();
  renderHistory();
 }
 
 function renderBest(){
  const list=document.getElementById("bestList");
- if(!window.dailyMatches)return;
+ if(!window.dailyMatches || !window.dailyMatches.length){
+  list.innerHTML='<div class="card">لا توجد مباريات محملة حالياً.</div>';
+  return;
+ }
 
  const picks=[];
-
  window.dailyMatches.forEach(m=>{
   const r=model(m.home,m.away);
   if(r)picks.push({match:m,result:r});
@@ -459,42 +495,127 @@ function renderBest(){
  list.innerHTML=picks.map(x=>`
   <div class="card">
    <div class="match">${safe(x.match.home)} × ${safe(x.match.away)}</div>
-   <div class="pick"><span>أفضل توقع</span><b>${x.result.best.name}</b></div>
+   <div class="pick"><span>أفضل توقع</span><b>${safe(x.result.best.name)}</b></div>
    <div class="pick"><span>الاحتمال الإحصائي</span><b class="green">${(x.result.best.p*100).toFixed(1)}%</b></div>
   </div>
- `).join("")||'<div class="card">لا توجد بيانات كافية.</div>';
+ `).join("")||'<div class="card">لا توجد بيانات كافية لتحليل مباريات هذا اليوم.</div>';
 }
 
 function renderCoupons(){
- const saved=JSON.parse(localStorage.getItem("matchai_picks")||"[]");
  const list=document.getElementById("couponList");
+ if(!window.dailyMatches || !window.dailyMatches.length){
+  list.innerHTML='<div class="card">حمّل مباريات اليوم أولاً لتوليد القسائم تلقائياً.</div>';
+  return;
+ }
 
- const unique=[];
- saved.forEach(p=>{
-  if(!unique.some(x=>x.date===p.date&&x.home===p.home&&x.away===p.away))
-   unique.push(p);
+ const pool=[];
+ const seen=new Set();
+ window.dailyMatches.forEach(m=>{
+  const key=m.date+"|"+m.home+"|"+m.away;
+  if(seen.has(key))return;
+  seen.add(key);
+  const r=model(m.home,m.away);
+  if(r){
+   pool.push({
+    home:m.home,
+    away:m.away,
+    market:r.best.name,
+    p:r.best.p
+   });
+  }
  });
 
- list.innerHTML=`
-  <div class="coupon">
-   <h3>🟢 القسيمة المحافظة</h3>
-   <p class="small">تحتاج أودز حقيقية قبل تحديد مجموع 2–3.</p>
-   ${unique.slice(0,2).map(p=>`<div class="pick">${safe(p.home)} × ${safe(p.away)} — ${safe(p.market)}</div>`).join("")}
-   <b class="gold">الأودز: غير متوفرة حالياً</b>
-  </div>
-  <div class="coupon">
-   <h3>🟡 القسيمة المتوسطة</h3>
-   <p class="small">تحتاج أودز حقيقية قبل تحديد مجموع 4–6.</p>
-   ${unique.slice(0,3).map(p=>`<div class="pick">${safe(p.home)} × ${safe(p.away)} — ${safe(p.market)}</div>`).join("")}
-   <b class="gold">الأودز: غير متوفرة حالياً</b>
-  </div>
-  <div class="coupon">
-   <h3>🔴 القسيمة القوية</h3>
-   <p class="small">تحتاج أودز حقيقية قبل تحديد مجموع 7 أو أكثر.</p>
-   ${unique.slice(0,4).map(p=>`<div class="pick">${safe(p.home)} × ${safe(p.away)} — ${safe(p.market)}</div>`).join("")}
-   <b class="gold">الأودز: غير متوفرة حالياً</b>
-  </div>
- `;
+ if(!pool.length){
+  list.innerHTML='<div class="card">البيانات التاريخية غير كافية لتوليد القسائم اليوم.</div>';
+  return;
+ }
+
+ const conservative=[...pool].sort((a,b)=>b.p-a.p).slice(0,Math.min(3,pool.length));
+ const moderate=[...pool].sort((a,b)=>Math.abs(b.p-0.55)-Math.abs(a.p-0.55)).slice(0,Math.min(6,pool.length));
+ const aggressive=[...pool].sort((a,b)=>a.p-b.p).slice(0,Math.min(Math.max(pool.length,7),pool.length));
+
+ function couponBox(title,badge,note,items){
+  return `
+   <div class="coupon">
+    <div class="row"><h3>${title}</h3><span class="tag">${badge} (${items.length})</span></div>
+    <p class="small">${note}</p>
+    ${items.map(it=>`
+     <div class="pick">
+      <span>${safe(it.home)} × ${safe(it.away)} — <b>${safe(it.market)}</b></span>
+      <span class="green">${(it.p*100).toFixed(1)}%</span>
+     </div>
+    `).join("")}
+    <div class="small gold" style="margin-top:8px">الأودز الحقيقية غير مفعّلة بعد — الترتيب مبني على الاحتمال الإحصائي.</div>
+   </div>
+  `;
+ }
+
+ list.innerHTML=
+  couponBox("🟢 القسيمة المحافظة","2–3 اختيارات","أعلى احتمالات متاحة من مباريات اليوم.",conservative)+
+  couponBox("🟡 القسيمة المتوسطة","4–6 اختيارات","تشكيلة متوازنة من اختيارات متعددة.",moderate)+
+  couponBox("🔴 القسيمة القوية","7+ اختيارات","اختيارات أعلى مخاطرة حسب المتاح اليوم.",aggressive);
+}
+
+function evaluateMarket(marketName,fh,fa){
+ if(fh===null || fa===null)return null;
+ const total=fh+fa;
+ if(marketName==="فوز الفريق المضيف")return fh>fa?"won":"lost";
+ if(marketName==="التعادل")return fh===fa?"won":"lost";
+ if(marketName==="فوز الفريق الضيف")return fa>fh?"won":"lost";
+ if(marketName==="أكثر من 1.5 هدف")return total>=2?"won":"lost";
+ if(marketName==="أكثر من 2.5 هدف")return total>=3?"won":"lost";
+ if(marketName==="أقل من 3.5 هدف")return total<=3?"won":"lost";
+ return null;
+}
+
+function settleFromResults(silent=false){
+ if(!results.length){
+  if(!silent)alert("حمّل بطولة أولاً لتفحص النتائج المتوفرة.");
+  return;
+ }
+ const saved=JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ let updated=0;
+
+ saved.forEach(p=>{
+  if(p.status!=="pending")return;
+  const found=results.find(r=>
+   r.home===p.home && r.away===p.away && (!p.date || r.date===p.date)
+  );
+  if(found){
+   const outcome=evaluateMarket(p.market,num(found.ft_home),num(found.ft_away));
+   if(outcome){
+    p.status=outcome;
+    updated++;
+   }
+  }
+ });
+
+ localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ renderHistory();
+ if(!silent){
+  alert(updated ? `تمت تسوية ${updated} توقع/توقعات تلقائياً.` : "لا توجد نتائج جديدة مطابقة للتسوية حالياً.");
+ }
+}
+
+function setManualStatus(index,status){
+ const saved=JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ if(!saved[index])return;
+ saved[index].status=status;
+ localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ renderHistory();
+}
+
+function deletePick(index){
+ const saved=JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ saved.splice(index,1);
+ localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ renderHistory();
+}
+
+function clearHistory(){
+ if(!confirm("هل تريد مسح سجل التوقعات بالكامل؟"))return;
+ localStorage.removeItem("matchai_picks");
+ renderHistory();
 }
 
 function renderHistory(){
@@ -508,17 +629,29 @@ function renderHistory(){
  document.getElementById("winRate").textContent=
   settled.length?Math.round(won/settled.length*100)+"%":"0%";
 
- document.getElementById("historyList").innerHTML=saved.map(p=>`
-  <div class="card">
-   <b>${safe(p.home)} × ${safe(p.away)}</b>
-   <p class="small">${safe(p.market)} — ${p.date}</p>
-   <span class="tag">${p.status==="pending"?"بانتظار النتيجة":p.status==="won"?"رابح":"خاسر"}</span>
-  </div>
- `).join("");
+ document.getElementById("historyList").innerHTML=saved.map((p,i)=>{
+  const badgeClass=p.status==="won"?"win":p.status==="lost"?"loss":"pending";
+  const badgeText=p.status==="won"?"رابح":p.status==="lost"?"خاسر":"بانتظار النتيجة";
+  return `
+   <div class="card">
+    <div class="row">
+     <b>${safe(p.home)} × ${safe(p.away)}</b>
+     <span class="tag ${badgeClass}">${badgeText}</span>
+    </div>
+    <p class="small">${safe(p.market)} — ${safe(p.date)} (${((p.probability||0)*100).toFixed(1)}%)</p>
+    <div class="actions-row">
+     <button class="mini-btn win" onclick="setManualStatus(${i},'won')">رابح</button>
+     <button class="mini-btn loss" onclick="setManualStatus(${i},'lost')">خاسر</button>
+     <button class="mini-btn del" onclick="deletePick(${i})">حذف</button>
+    </div>
+   </div>
+  `;
+ }).join("") || '<div class="card">لا توجد توقعات محفوظة بعد.</div>';
 }
 
 renderHistory();
 renderCoupons();
+renderBest();
 </script>
 
 </body>
