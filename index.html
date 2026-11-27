@@ -3,86 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MATCH AI V9 — Fuzzy Team Matching & Real JSON/API Odds</title>
+<title>MATCH AI — نسخة مبسطة</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#09111f;color:#f3f6ff;font-family:Arial,sans-serif;line-height:1.5}
-header{background:#111e32;padding:20px 16px;border-bottom:1px solid #263b54}
-.logo{font-size:26px;font-weight:900;color:#39e5aa}
-.sub{color:#9aacc4;font-size:12px;margin-top:6px}
-nav{display:flex;gap:7px;padding:10px 12px;overflow:auto;background:#0d1829;border-bottom:1px solid #1e3148;position:sticky;top:0;z-index:20}
-nav button,.action,.mini-btn,.chip{border:0;border-radius:9px;padding:10px 13px;background:#1b2c45;color:#fff;font-weight:bold;font-size:13px;white-space:nowrap}
-nav button.active,.action,.chip.active{background:#39dca4;color:#071b17}
-.chips{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
-.chip{padding:7px 12px;font-size:12px;border-radius:20px}
-.mini-btn{padding:7px 11px;font-size:12px}
-.mini-btn.win{background:#1f5c47;color:#6ef7c6}
-.mini-btn.loss{background:#5c242c;color:#ff9b9b}
-.mini-btn.push{background:#474122;color:#ffe28a}
-.mini-btn.del{background:#29394f;color:#cbd8ea}
-main{max-width:1000px;margin:auto;padding:12px}
+body{margin:0;background:#0b1220;color:#eef2f7;font-family:system-ui,-apple-system,Arial,sans-serif;line-height:1.5}
+header{background:#121c2e;padding:16px;border-bottom:1px solid #22324d}
+.logo{font-size:22px;font-weight:800;color:#34d399}
+.sub{color:#94a3b8;font-size:12px;margin-top:4px}
+nav{display:flex;gap:6px;padding:10px 14px;overflow:auto;background:#0e1626;border-bottom:1px solid #1e2d45}
+nav button,.btn,.chip{border:1px solid #2b3e5c;border-radius:8px;padding:8px 12px;background:#162236;color:#e2e8f0;font-weight:600;font-size:13px;white-space:nowrap}
+nav button.active,.btn.primary,.chip.active{background:#34d399;color:#062017;border-color:#34d399}
+.btn.sm{padding:6px 10px;font-size:12px}
+.btn.win{background:#144333;border-color:#267358;color:#6ee7b7}
+.btn.loss{background:#471b22;border-color:#7d2d3a;color:#fda4af}
+.btn.push{background:#3d3519;border-color:#75652d;color:#fde68a}
+main{max-width:920px;margin:0 auto;padding:14px}
 section{display:none}
 section.active{display:block}
-h2{font-size:19px;margin:10px 0}
-h3{font-size:16px;margin:0}
-h4{margin:14px 0 6px;color:#cfe0f5;font-size:14px}
-.card{background:#132139;border:1px solid #263b54;border-radius:13px;padding:15px;margin:12px 0}
-.featured{background:#132f3d;border:1px solid #35b98e;border-radius:14px;padding:16px;margin:14px 0}
-.big-badge{background:#2b2349;color:#d6b8ff;border:1px solid #7653c4;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:bold}
-.live-badge{background:#153d37;color:#54f5be;border:1px solid #2fa882;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:bold}
-.intro{background:#142b3d;padding:13px 14px;border-radius:11px;color:#c4d3e5;font-size:13px;margin-bottom:12px}
-.row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+h2{font-size:18px;margin:8px 0 12px}
+h3{font-size:15px;margin:0}
+.box{background:#121e33;border:1px solid #223452;border-radius:10px;padding:14px;margin-bottom:12px}
+.box.highlight{border-color:#34d399}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .grid-2{display:grid;grid-template-columns:1fr;gap:10px}
-@media(min-width:700px){.grid-2{grid-template-columns:repeat(2,1fr)}}
-.muted{color:#94a8c1;font-size:12px}
-.green{color:#42e7ac}
-.gold{color:#ffd477}
-.red{color:#ff8585}
-select,input,textarea{width:100%;background:#1b2b43;color:#fff;border:1px solid #38506d;border-radius:9px;padding:10px 12px;margin:5px 0;font-family:inherit}
-textarea{min-height:80px;font-family:monospace;font-size:12px}
+@media(min-width:680px){.grid-2{grid-template-columns:1fr 1fr}}
+.grid-4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:680px){.grid-4{grid-template-columns:repeat(4,1fr)}}
+.stat{background:#182740;border-radius:8px;padding:10px;text-align:center}
+.stat b{display:block;font-size:17px;color:#34d399;margin-top:3px}
+.stat b.red{color:#f87171}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.chip{border-radius:16px;padding:6px 11px;font-size:12px}
+.line{padding:9px 0;border-top:1px solid #223452;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.match-title{font-weight:700;font-size:16px;text-align:center;margin:10px 0}
+.pill{background:#1e344d;color:#93c5fd;padding:3px 8px;border-radius:12px;font-size:11px}
+.pill.ok{background:#133d2f;color:#6ee7b7}
+.pill.big{background:#2d2247;color:#ddd6fe}
+.muted{color:#94a3b8;font-size:12px}
+.green{color:#34d399}
+.red{color:#f87171}
+.gold{color:#fbbf24}
+select,input,textarea{width:100%;background:#182740;color:#f1f5f9;border:1px solid #30476b;border-radius:8px;padding:9px 11px;margin-top:4px;font-family:inherit}
+textarea{min-height:70px;font-family:monospace;font-size:12px}
 button{cursor:pointer}
-.match{font-weight:bold;text-align:center;font-size:17px;margin:14px 0}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-@media(min-width:650px){.stats.cols-3{grid-template-columns:repeat(3,1fr)}.stats.cols-4{grid-template-columns:repeat(4,1fr)}}
-.stat{background:#1b2c45;padding:10px;border-radius:9px;text-align:center}
-.stat b{display:block;color:#43e5aa;font-size:18px;margin-top:4px}
-.stat b.red{color:#ff8585}
-.stat b.gold{color:#ffd477}
-.pick{padding:10px 0;border-top:1px solid #2b3d56;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
-.tag{background:#24483e;color:#55e9b5;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:bold}
-.tag.win{background:#194d3b;color:#52f2b8}
-.tag.loss{background:#4d1f26;color:#ff9494}
-.tag.push{background:#474122;color:#ffe28a}
-.tag.pending{background:#3a3520;color:#ffe082}
-.tag.value{background:#184e43;color:#57f5be}
-.tag.novalue{background:#353e4f;color:#b4c2d6}
-.action{width:100%;margin-top:8px}
-.small{font-size:12px;color:#a7b7ca}
-.coupon{border:1px solid #344c67;background:#172943;border-radius:12px;padding:14px;margin:12px 0}
-.coupon.unique{border-color:#39dca4;background:#142b3c}
-.actions-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.full{width:100%;margin-top:8px}
 table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px}
-th,td{border:1px solid #283c56;padding:8px;text-align:center}
-th{background:#1b2c45;color:#cfe0f5}
-.toast{position:fixed;bottom:16px;left:16px;right:16px;max-width:460px;margin:auto;background:#183448;border:1px solid #39dca4;color:#fff;padding:11px 14px;border-radius:10px;font-size:13px;z-index:99;display:none}
-footer{text-align:center;padding:24px;color:#8395ac;font-size:12px}
+th,td{border:1px solid #263959;padding:7px;text-align:center}
+th{background:#182740}
+.toast{position:fixed;bottom:14px;left:14px;right:14px;max-width:420px;margin:auto;background:#173347;border:1px solid #34d399;color:#fff;padding:10px 14px;border-radius:8px;font-size:13px;display:none;z-index:50}
+footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
 </style>
 </head>
 <body>
 
 <header>
- <div class="logo">⚽ MATCH AI V9</div>
- <div class="sub">Fuzzy Team Matching • Real JSON & REST/The-Odds-API Feed • Big Matches & Unique Risk Coupons • Dixon-Coles + Elo • Backtest & ROI</div>
+ <div class="logo">MATCH AI</div>
+ <div class="sub">تحليل مباريات كرة القدم • كل الدوريات • قسائم فريدة • مقارنة أودز وValue • Backtest وROI</div>
 </header>
 
 <nav>
- <button class="active" onclick="tab('today',this)">⚽ المباريات</button>
- <button onclick="tab('best',this)">🔥 أفضل التوقعات</button>
- <button onclick="tab('value',this)">💎 Value & مقارنة الأودز</button>
- <button onclick="tab('coupons',this)">🎟️ القسائم الفريدة</button>
- <button onclick="tab('analysis',this)">🤖 تحليل شامل</button>
- <button onclick="tab('backtest',this)">🧪 Backtest & معايرة</button>
- <button onclick="tab('history',this)">📊 الأداء</button>
+ <button class="active" onclick="tab('today',this)">المباريات</button>
+ <button onclick="tab('best',this)">أفضل التوقعات</button>
+ <button onclick="tab('value',this)">الأودز وValue</button>
+ <button onclick="tab('coupons',this)">القسائم</button>
+ <button onclick="tab('analysis',this)">التحليل</button>
+ <button onclick="tab('backtest',this)">Backtest</button>
+ <button onclick="tab('history',this)">الأداء</button>
 </nav>
 
 <main>
@@ -90,155 +76,131 @@ footer{text-align:center;padding:24px;color:#8395ac;font-size:12px}
 <section id="today" class="active">
  <div id="bigMatchesTopBox"></div>
 
- <h2>⚽ مباريات جميع الدوريات (تحديث تلقائي يومي)</h2>
- <div class="intro">
-  جميع الدوريات مفعّلة تلقائياً مع مطابقة مرنة لأسماء الفرق (`Fuzzy Matching`) لربط النتائج والأودز بدقة حتى عند اختلاف كتابة الأسماء، وتحديث تلقائي دوري في الخلفية.
- </div>
-
- <div class="card">
+ <div class="box">
   <div class="grid-2">
    <div>
-    <label>تصفية حسب البطولة</label>
+    <label class="muted">الدوري</label>
     <select id="leagueFilter" onchange="renderMatchesList()">
-     <option value="ALL">جميع الدوريات (الكل)</option>
+     <option value="ALL">جميع الدوريات</option>
     </select>
    </div>
    <div>
-    <label>عرض حسب اليوم (تلقائي لكل الأيام)</label>
+    <label class="muted">الفترة الزمنية</label>
     <select id="dayFilter" onchange="renderMatchesList()">
-     <option value="ALL_DAYS">كل الأيام المتاحة (أمس / اليوم / القادم)</option>
-     <option value="TODAY">مباريات اليوم فقط</option>
-     <option value="UPCOMING">مباريات قادمة</option>
-     <option value="RECENT">مباريات سابقة / قريبة</option>
+     <option value="ALL_DAYS">كل الأيام المتاحة</option>
+     <option value="TODAY">اليوم</option>
+     <option value="UPCOMING">القادمة</option>
+     <option value="RECENT">السابقة القريبة</option>
     </select>
    </div>
   </div>
-  <div class="row" style="margin-top:6px">
-   <span id="status" class="small">جاري التحميل التلقائي لجميع الدوريات...</span>
-   <span id="autoSyncBadge" class="tag">تحديث تلقائي: مفعّل</span>
+  <div class="row" style="margin-top:8px">
+   <span id="status" class="muted">جاري التحميل...</span>
+   <span class="pill ok">تحديث تلقائي</span>
   </div>
-  <button class="action" onclick="loadAllLeagues(false)">🔄 تحديث فوري لجميع الدوريات</button>
+  <button class="btn primary full" onclick="loadAllLeagues(false)">تحديث الآن</button>
  </div>
 
  <div id="matches"></div>
 </section>
 
 <section id="best">
- <h2>🔥 أفضل التوقعات (مع إبراز الماتشات الكبار)</h2>
- <div class="intro">صفّ حسب السوق أو أظهر أفضل توقعات الماتشات الكبار مباشرة.</div>
-
+ <h2>أفضل التوقعات</h2>
  <div class="chips" id="bestMarketChips">
   <button class="chip active" onclick="setBestMarket('ALL',this)">الكل</button>
-  <button class="chip" onclick="setBestMarket('BIG',this)">👑 الماتشات الكبار</button>
+  <button class="chip" onclick="setBestMarket('BIG',this)">الماتشات الكبار</button>
   <button class="chip" onclick="setBestMarket('1X2',this)">1X2</button>
   <button class="chip" onclick="setBestMarket('DC',this)">Double Chance</button>
   <button class="chip" onclick="setBestMarket('BTTS',this)">BTTS</button>
   <button class="chip" onclick="setBestMarket('GOALS',this)">Over / Under</button>
   <button class="chip" onclick="setBestMarket('AH',this)">Asian Handicap</button>
   <button class="chip" onclick="setBestMarket('EH',this)">European Handicap</button>
-  <button class="chip" onclick="setBestMarket('HALVES',this)">الشوط 1 و 2</button>
+  <button class="chip" onclick="setBestMarket('HALVES',this)">الشوطين</button>
  </div>
-
  <div id="bestList"></div>
 </section>
 
 <section id="value">
- <h2>💎 مصدر الأودز الحقيقي، مقارنة الشركات، وحساب Value بدون هامش</h2>
- <div class="intro">
-  اربط مصدراً حقيقياً عبر رابط <b>JSON</b> أو <b>API خارجي</b> (يدعم الصيغة المبسطة وصيغة <b>The Odds API v4</b> تلقائياً)، أو الصق JSON مباشرة، مع مطابقة مرنة لأسماء الفرق وحساب `No-Vig`، `True Edge`، `EV`، و`Kelly`.
- </div>
-
- <div class="card">
-  <h4>🌐 جلب الأودز من رابط JSON أو API خارجي</h4>
+ <h2>مقارنة شركات المراهنات وValue (بدون هامش)</h2>
+ <div class="box">
   <div class="grid-2">
    <div>
-    <label>رابط JSON أو endpoint الخاص بـ API</label>
-    <input type="text" id="oddsUrlInput" placeholder="مثال: https://api.the-odds-api.com/v4/sports/soccer_epl/odds/?regions=eu&markets=h2h&apiKey=YOUR_KEY أو ./odds.json">
+    <label class="muted">رابط JSON أو API</label>
+    <input type="text" id="oddsUrlInput" placeholder="رابط JSON أو The Odds API">
    </div>
    <div>
-    <label>API Key (اختياري — يُرسل في Header أو كـ apiKey إذا لم يكن في الرابط)</label>
-    <input type="text" id="oddsApiKeyInput" placeholder="مثال: abc123xyz (اختياري)">
+    <label class="muted">API Key (اختياري)</label>
+    <input type="text" id="oddsApiKeyInput" placeholder="مفتاح API إن لزم">
    </div>
   </div>
   <div class="grid-2">
    <div>
-    <label>مفتاح المصفوفة داخل JSON (اختياري، مثل data أو results)</label>
-    <input type="text" id="oddsRootKeyInput" placeholder="اتركه فارغاً للكشف التلقائي">
+    <label class="muted">مفتاح المصفوفة في JSON (اختياري)</label>
+    <input type="text" id="oddsRootKeyInput" placeholder="مثال: data">
    </div>
    <div>
-    <label>خيار التحديث التلقائي للأودز عند تحديث المباريات</label>
+    <label class="muted">الجلب التلقائي</label>
     <select id="autoFetchOddsMode">
-     <option value="ON">نعم — جلب الأودز تلقائياً عند وجود رابط محفوظ</option>
-     <option value="OFF">لا — جلب يدوي فقط</option>
+     <option value="ON">مفعّل عند وجود رابط</option>
+     <option value="OFF">يدوي فقط</option>
     </select>
    </div>
   </div>
-
-  <div class="actions-row">
-   <button class="mini-btn win" onclick="fetchExternalOdds(false)">🌐 جلب الأودز الآن</button>
-   <button class="mini-btn push" onclick="saveOddsSourceConfig()">💾 حفظ إعدادات المصدر</button>
-   <button class="mini-btn del" onclick="clearExternalOdds()">🗑️ مسح الأودز الخارجية</button>
+  <div class="row" style="margin-top:8px">
+   <button class="btn win sm" onclick="fetchExternalOdds(false)">جلب الآن</button>
+   <button class="btn push sm" onclick="saveOddsSourceConfig()">حفظ الإعدادات</button>
+   <button class="btn sm" onclick="clearExternalOdds()">مسح الأودز الخارجية</button>
   </div>
 
-  <h4 style="margin-top:14px">📥 أو لصق JSON مباشر (صيغة مبسطة أو The Odds API)</h4>
-  <textarea id="oddsJsonInput" placeholder='مثال صيغة مبسطة:
-[{"home":"Man Utd","away":"Chelsea","books":{"Pinnacle":{"HOME":1.85,"DRAW":3.70,"AWAY":4.20},"Bet365":{"HOME":1.80,"DRAW":3.60,"AWAY":4.10}}}]'></textarea>
-  <button class="mini-btn win" onclick="applyPastedOdds()">📥 تطبيق JSON الملصوق</button>
-
-  <p id="oddsSourceStatus" class="small" style="margin-top:8px">الوضع الحالي: محاكاة سوق افتراضية مع دعم كامل لمصادر JSON وAPI الخارجية.</p>
+  <div style="margin-top:10px">
+   <label class="muted">أو لصق JSON مباشر</label>
+   <textarea id="oddsJsonInput" placeholder='[{"home":"Arsenal","away":"Chelsea","books":{"Pinnacle":{"HOME":1.85,"DRAW":3.70,"AWAY":4.20}}}]'></textarea>
+   <button class="btn win sm" onclick="applyPastedOdds()">تطبيق JSON</button>
+  </div>
+  <p id="oddsSourceStatus" class="muted" style="margin-top:8px">الوضع الحالي: تقدير سوق افتراضي مع دعم كامل لمصادر JSON وAPI الخارجية.</p>
  </div>
 
- <div class="card">
-  <label>اختر مباراة لمقارنة شركات المراهنات وحساب Value</label>
+ <div class="box">
+  <label class="muted">اختر مباراة</label>
   <select id="valueMatchSelect" onchange="renderValueTab()"></select>
-  <div id="valueContent" style="margin-top:12px"></div>
+  <div id="valueContent" style="margin-top:10px"></div>
  </div>
 </section>
 
 <section id="coupons">
- <h2>🎟️ قسائم حسب درجة الخطورة وقسائم فريدة (Unique Coupons)</h2>
- <div class="intro">
-  يتم تجميع أحسن التوقعات من الماتشات الكبار والمباريات المتاحة في قسائم مختلفة حسب درجة الخطورة، مع توليد <b>قسائم فريدة</b> لا تتكرر فيها المباريات بين القسائم الفريدة ويمكن حفظها مباشرة في السجل.
- </div>
+ <h2>القسائم حسب الخطورة والقسائم الفريدة</h2>
  <div id="couponList"></div>
 </section>
 
 <section id="analysis">
- <h2>🤖 التحليل الإحصائي الشامل للمباراة</h2>
- <div class="intro">يعرض قوة الهجوم والدفاع المعدّلة حسب الخصم (`Elo`)، `xG` المضيف والضيف، مصفوفة النتائج، وجميع الأسواق المطلوبة.</div>
- <div class="card">
-  <label>اختر مباراة</label>
+ <h2>التحليل الإحصائي</h2>
+ <div class="box">
+  <label class="muted">اختر مباراة</label>
   <select id="analysisSelect" onchange="renderAnalysisTab()"></select>
-
   <div class="chips" id="analysisMarketChips">
-   <button class="chip active" onclick="setAnalysisMarket('ALL',this)">كل الأسواق</button>
+   <button class="chip active" onclick="setAnalysisMarket('ALL',this)">الكل</button>
    <button class="chip" onclick="setAnalysisMarket('1X2',this)">1X2</button>
    <button class="chip" onclick="setAnalysisMarket('DC',this)">Double Chance</button>
    <button class="chip" onclick="setAnalysisMarket('BTTS',this)">BTTS</button>
    <button class="chip" onclick="setAnalysisMarket('GOALS',this)">Over / Under</button>
    <button class="chip" onclick="setAnalysisMarket('AH',this)">Asian Handicap</button>
    <button class="chip" onclick="setAnalysisMarket('EH',this)">European Handicap</button>
-   <button class="chip" onclick="setAnalysisMarket('HALVES',this)">الشوط 1 و 2</button>
+   <button class="chip" onclick="setAnalysisMarket('HALVES',this)">الشوطين</button>
   </div>
-
-  <div id="analysisContent" style="margin-top:12px"></div>
+  <div id="analysisContent" style="margin-top:10px"></div>
  </div>
 </section>
 
 <section id="backtest">
- <h2>🧪 اختبار النموذج تاريخياً (Backtesting) ومعايرة الاحتمالات</h2>
- <div class="intro">
-  يختبر النموذج على المباريات السابقة عبر بناء حالة الفرق والـ `Elo` والهجوم/الدفاع من المباريات التي سُبقت تاريخ كل مباراة فقط (بدون تسرب بيانات مستقبلي).
- </div>
-
- <div class="card">
+ <h2>Backtest ومعايرة الاحتمالات</h2>
+ <div class="box">
   <div class="grid-2">
    <div>
-    <label>البطولة للاختبار التاريخي</label>
+    <label class="muted">البطولة</label>
     <select id="btLeagueSelect"></select>
    </div>
    <div>
-    <label>السوق المختبر في Backtest</label>
+    <label class="muted">السوق</label>
     <select id="btMarketSelect">
      <option value="HOME">فوز المضيف (1)</option>
      <option value="DRAW">التعادل (X)</option>
@@ -246,43 +208,44 @@ footer{text-align:center;padding:24px;color:#8395ac;font-size:12px}
      <option value="DC_1X">Double Chance (1X)</option>
      <option value="DC_X2">Double Chance (X2)</option>
      <option value="DC_12">Double Chance (12)</option>
-     <option value="BTTS_Y">BTTS Yes (يسجل الفريقان)</option>
-     <option value="OVER_25">Over 2.5 Goals</option>
-     <option value="UNDER_25">Under 2.5 Goals</option>
+     <option value="BTTS_Y">BTTS Yes</option>
+     <option value="OVER_25">Over 2.5</option>
+     <option value="UNDER_25">Under 2.5</option>
     </select>
    </div>
   </div>
   <div class="grid-2">
    <div>
-    <label>عتبة الاحتمال الدنيا للدخول (%)</label>
-    <input type="number" id="btMinProb" value="50" min="0" max="99" step="1">
+    <label class="muted">الحد الأدنى للاحتمال (%)</label>
+    <input type="number" id="btMinProb" value="50" min="0" max="99">
    </div>
    <div>
-    <label>عدد آخر مباريات للاختبار (0 = الكل بعد حد التأسيس)</label>
+    <label class="muted">عدد آخر مباريات (0 = الكل)</label>
     <input type="number" id="btLastN" value="150" min="0" max="2000" step="10">
    </div>
   </div>
-  <button class="action" onclick="runBacktest()">▶️ تشغيل Backtest ومعايرة الاحتمالات</button>
-  <div id="backtestResults" style="margin-top:14px"></div>
+  <button class="btn primary full" onclick="runBacktest()">تشغيل الاختبار</button>
+  <div id="backtestResults" style="margin-top:12px"></div>
  </div>
 </section>
 
 <section id="history">
- <h2>📊 سجل الأداء والعائد الافتراضي (ROI)</h2>
- <div class="card">
-  <div class="stats cols-3">
-   <div class="stat">التوقعات المسجلة<b id="totalPicks">0</b></div>
-   <div class="stat">النتائج المسوّاة<b id="settledPicks">0</b></div>
-   <div class="stat">التوقعات الصحيحة<b id="wonPicks">0</b></div>
+ <h2>سجل الأداء والعائد (ROI)</h2>
+ <div class="box">
+  <div class="grid-4">
+   <div class="stat">المسجلة<b id="totalPicks">0</b></div>
+   <div class="stat">المسوّاة<b id="settledPicks">0</b></div>
+   <div class="stat">الرابحة<b id="wonPicks">0</b></div>
    <div class="stat">نسبة النجاح<b id="winRate">0%</b></div>
-   <div class="stat">صافي الوحدات (1u/pick)<b id="netUnits">0.00u</b></div>
-   <div class="stat">العائد الافتراضي (ROI)<b id="roiPct">0.0%</b></div>
   </div>
-  <div class="actions-row">
-   <button class="mini-btn win" onclick="settleFromResults()">⚡ تسوية تلقائية من النتائج</button>
-   <button class="mini-btn del" onclick="clearHistory()">🗑️ مسح السجل</button>
+  <div class="grid-2" style="margin-top:8px">
+   <div class="stat">صافي الوحدات (1u)<b id="netUnits">0.00u</b></div>
+   <div class="stat">العائد ROI<b id="roiPct">0.0%</b></div>
   </div>
-  <p class="small">يدعم التسوية التلقائية مع مطابقة مرنة لأسماء الفرق لأسواق 1X2، Double Chance، BTTS، Over/Under، European Handicap، وAsian Handicap.</p>
+  <div class="row" style="margin-top:10px">
+   <button class="btn win sm" onclick="settleFromResults()">تسوية تلقائية</button>
+   <button class="btn sm" onclick="clearHistory()">مسح السجل</button>
+  </div>
  </div>
  <div id="historyList"></div>
 </section>
@@ -290,74 +253,52 @@ footer{text-align:center;padding:24px;color:#8395ac;font-size:12px}
 </main>
 
 <div id="toast" class="toast"></div>
-
-<footer>
- MATCH AI V9 © 2026 • البيانات التاريخية: Open Matchday • لأغراض تحليلية وإحصائية فقط وليست نصيحة مالية.
-</footer>
+<footer>MATCH AI • بيانات Open Matchday • لأغراض تحليلية وإحصائية فقط.</footer>
 
 <script>
 const BASE = "https://raw.githubusercontent.com/oladeeayo/open-matchday/master/data";
 
 const ALL_LEAGUES = [
- { id: "ENG_1_premier-league", name: "إنجلترا • Premier League", tier: "TOP5" },
- { id: "ESP_1_la-liga", name: "إسبانيا • La Liga", tier: "TOP5" },
- { id: "GER_1_bundesliga", name: "ألمانيا • Bundesliga", tier: "TOP5" },
- { id: "ITA_1_serie-a", name: "إيطاليا • Serie A", tier: "TOP5" },
- { id: "FRA_1_ligue-1", name: "فرنسا • Ligue 1", tier: "TOP5" },
- { id: "EUR_CL_uefa-champions-league", name: "أوروبا • UEFA Champions League", tier: "BIG_COMP" },
- { id: "EUR_EL_uefa-europa-league", name: "أوروبا • UEFA Europa League", tier: "BIG_COMP" },
- { id: "ENG_2_championship", name: "إنجلترا • Championship", tier: "OTHER" },
- { id: "POR_1_liga-portugal", name: "البرتغال • Liga Portugal", tier: "OTHER" },
- { id: "NED_1_eredivisie", name: "هولندا • Eredivisie", tier: "OTHER" },
- { id: "TUR_1_super-lig", name: "تركيا • Süper Lig", tier: "OTHER" },
- { id: "BEL_1_pro-league", name: "بلجيكا • Pro League", tier: "OTHER" },
- { id: "SCO_1_premiership", name: "إسكتلندا • Premiership", tier: "OTHER" },
- { id: "ARG_1_liga-profesional", name: "الأرجنتين • Liga Profesional", tier: "OTHER" },
- { id: "BRA_1_serie-a", name: "البرازيل • Série A", tier: "OTHER" },
- { id: "USA_1_mls", name: "أمريكا • MLS", tier: "OTHER" },
- { id: "KSA_1_pro-league", name: "السعودية • Saudi Pro League", tier: "OTHER" }
+ { id: "ENG_1_premier-league", name: "Premier League", tier: "TOP5" },
+ { id: "ESP_1_la-liga", name: "La Liga", tier: "TOP5" },
+ { id: "GER_1_bundesliga", name: "Bundesliga", tier: "TOP5" },
+ { id: "ITA_1_serie-a", name: "Serie A", tier: "TOP5" },
+ { id: "FRA_1_ligue-1", name: "Ligue 1", tier: "TOP5" },
+ { id: "EUR_CL_uefa-champions-league", name: "Champions League", tier: "BIG_COMP" },
+ { id: "EUR_EL_uefa-europa-league", name: "Europa League", tier: "BIG_COMP" },
+ { id: "ENG_2_championship", name: "Championship", tier: "OTHER" },
+ { id: "POR_1_liga-portugal", name: "Liga Portugal", tier: "OTHER" },
+ { id: "NED_1_eredivisie", name: "Eredivisie", tier: "OTHER" },
+ { id: "TUR_1_super-lig", name: "Süper Lig", tier: "OTHER" },
+ { id: "BEL_1_pro-league", name: "Pro League", tier: "OTHER" },
+ { id: "SCO_1_premiership", name: "Premiership", tier: "OTHER" },
+ { id: "ARG_1_liga-profesional", name: "Liga Profesional", tier: "OTHER" },
+ { id: "BRA_1_serie-a", name: "Série A (BRA)", tier: "OTHER" },
+ { id: "USA_1_mls", name: "MLS", tier: "OTHER" },
+ { id: "KSA_1_pro-league", name: "Saudi Pro League", tier: "OTHER" }
 ];
 
 const BOOKMAKERS = ["Pinnacle", "Bet365", "1xBet", "Betfair"];
 const AUTO_REFRESH_MS = 10 * 60 * 1000;
 
-/* قاموس اختصارات ومرادفات شائعة لتعزيز المطابقة المرنة */
 const TEAM_ALIASES = {
- "man utd": "manchester united",
- "man united": "manchester united",
- "mufc": "manchester united",
- "man city": "manchester city",
- "mcfc": "manchester city",
- "spurs": "tottenham hotspur",
- "tottenham": "tottenham hotspur",
- "psg": "paris saint germain",
- "paris sg": "paris saint germain",
- "atletico madrid": "atletico madrid",
- "atletico": "atletico madrid",
- "inter milan": "internazionale",
- "inter": "internazionale",
- "ac milan": "milan",
- "bayern munich": "bayern munchen",
- "bayern": "bayern munchen",
- "dortmund": "borussia dortmund",
- "bvb": "borussia dortmund",
- "leverkusen": "bayer leverkusen",
- "rb leipzig": "leipzig",
- "barca": "barcelona",
- "real madrid": "real madrid",
- "wolves": "wolverhampton wanderers",
- "brighton": "brighton and hove albion",
- "west ham": "west ham united",
- "newcastle": "newcastle united",
- "nottingham": "nottingham forest",
- "sheffield utd": "sheffield united"
+ "man utd": "manchester united", "man united": "manchester united", "mufc": "manchester united",
+ "man city": "manchester city", "mcfc": "manchester city",
+ "spurs": "tottenham hotspur", "tottenham": "tottenham hotspur",
+ "psg": "paris saint germain", "paris sg": "paris saint germain",
+ "atletico madrid": "atletico madrid", "atletico": "atletico madrid",
+ "inter milan": "internazionale", "inter": "internazionale", "ac milan": "milan",
+ "bayern munich": "bayern munchen", "bayern": "bayern munchen",
+ "dortmund": "borussia dortmund", "bvb": "borussia dortmund",
+ "leverkusen": "bayer leverkusen", "rb leipzig": "leipzig",
+ "barca": "barcelona", "real madrid": "real madrid"
 };
 
 let allResults = [];
 let resultsByLeague = {};
 let feedAnalyzed = [];
 let generatedUniqueCoupons = [];
-let externalOddsList = []; // قائمة أودز خارجية مطابقة مرناً
+let externalOddsList = [];
 let customOddsOverrides = {};
 let bestMarketFilter = "ALL";
 let analysisMarketFilter = "ALL";
@@ -367,7 +308,7 @@ function showToast(msg){
  el.textContent = msg;
  el.style.display = "block";
  clearTimeout(showToast._t);
- showToast._t = setTimeout(()=>{ el.style.display = "none"; }, 3000);
+ showToast._t = setTimeout(()=>{ el.style.display = "none"; }, 2800);
 }
 
 function localDate(offsetDays=0){
@@ -376,22 +317,15 @@ function localDate(offsetDays=0){
  return new Intl.DateTimeFormat("en-CA",{ timeZone:"Africa/Algiers" }).format(base);
 }
 
-/* مطابقة مرنة لأسماء الفرق (Fuzzy & Normalized Team Matching) */
 function normalizeTeamName(raw){
  let s = String(raw || "").toLowerCase().trim();
  if(!s)return "";
- // إزالة ما بين الأقواس وتوحيد الحروف
  s = s.replace(/\([^)]*\)/g, " ");
  s = s.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
  s = s.replace(/['’`.-]/g, " ");
  s = s.replace(/\b(fc|cf|sc|ac|as|afc|ssc|cd|ud|sd|rc|rcd|fk|sk|bk|sv|vfb|fsv|tsg|rb|club|deportivo|atletico|real|sporting|united|city|town|albion|wanderers|rovers|athletic)\b/g, " ");
  s = s.replace(/\s+/g, " ").trim();
- if(TEAM_ALIASES[s])return TEAM_ALIASES[s];
- return s;
-}
-
-function teamTokens(norm){
- return norm ? norm.split(" ").filter(t=>t.length>=2) : [];
+ return TEAM_ALIASES[s] || s;
 }
 
 function teamSimilarityScore(nameA, nameB){
@@ -406,48 +340,30 @@ function teamSimilarityScore(nameA, nameB){
  if(nA === nB)return 0.96;
 
  if(nA.includes(nB) || nB.includes(nA)){
-  const ratio = Math.min(nA.length, nB.length) / Math.max(nA.length, nB.length);
-  return 0.80 + 0.14 * ratio;
+  return 0.80 + 0.14 * (Math.min(nA.length, nB.length) / Math.max(nA.length, nB.length));
  }
 
- const tokA = teamTokens(nA);
- const tokB = teamTokens(nB);
+ const tokA = nA.split(" ").filter(t=>t.length>=2);
+ const tokB = nB.split(" ").filter(t=>t.length>=2);
  if(tokA.length && tokB.length){
   let overlap = 0;
   tokA.forEach(t=>{
    if(tokB.some(u=>u===t || (t.length>=4 && u.startsWith(t)) || (u.length>=4 && t.startsWith(u))))overlap++;
   });
-  const jaccard = overlap / new Set([...tokA, ...tokB]).size;
-  if(overlap > 0)return 0.55 + 0.35 * jaccard;
+  if(overlap > 0){
+   const jaccard = overlap / new Set([...tokA, ...tokB]).size;
+   return 0.55 + 0.35 * jaccard;
+  }
  }
 
- // تشابه الأحرف البسيط (Dice coefficient على الثنائيات)
- function bigrams(str){
-  const set = [];
-  for(let i=0;i<str.length-1;i++)set.push(str.slice(i,i+2));
-  return set;
- }
- const bgA = bigrams(nA), bgB = bigrams(nB);
- if(bgA.length && bgB.length){
-  let inter = 0;
-  const copyB = [...bgB];
-  bgA.forEach(x=>{
-   const idx = copyB.indexOf(x);
-   if(idx>=0){ inter++; copyB.splice(idx,1); }
-  });
-  return (2 * inter) / (bgA.length + bgB.length);
- }
- return 0;
-}
-
-function matchTeamName(targetName, candidateNames, threshold=0.62){
- let bestName = null, bestScore = 0;
- candidateNames.forEach(cand=>{
-  if(!cand)return;
-  const sc = teamSimilarityScore(targetName, cand);
-  if(sc > bestScore){ bestScore = sc; bestName = cand; }
- });
- return bestScore >= threshold ? { name: bestName, score: bestScore } : null;
+ const bgA = [], bgB = [];
+ for(let i=0;i<nA.length-1;i++)bgA.push(nA.slice(i,i+2));
+ for(let i=0;i<nB.length-1;i++)bgB.push(nB.slice(i,i+2));
+ if(!bgA.length || !bgB.length)return 0;
+ let inter = 0;
+ const copyB = [...bgB];
+ bgA.forEach(x=>{ const idx = copyB.indexOf(x); if(idx>=0){ inter++; copyB.splice(idx,1); } });
+ return (2 * inter) / (bgA.length + bgB.length);
 }
 
 const filterSel = document.getElementById("leagueFilter");
@@ -462,7 +378,6 @@ ALL_LEAGUES.forEach(l=>{
  btLeagueSel.appendChild(o2);
 });
 
-/* تحميل وحفظ إعدادات مصدر الأودز */
 (function initOddsConfig(){
  try{
   const cfg = JSON.parse(localStorage.getItem("matchai_odds_cfg")||"{}");
@@ -474,14 +389,13 @@ ALL_LEAGUES.forEach(l=>{
 })();
 
 function saveOddsSourceConfig(){
- const cfg = {
+ localStorage.setItem("matchai_odds_cfg", JSON.stringify({
   url: document.getElementById("oddsUrlInput").value.trim(),
   apiKey: document.getElementById("oddsApiKeyInput").value.trim(),
   rootKey: document.getElementById("oddsRootKeyInput").value.trim(),
   autoMode: document.getElementById("autoFetchOddsMode").value
- };
- localStorage.setItem("matchai_odds_cfg", JSON.stringify(cfg));
- showToast("تم حفظ إعدادات مصدر الأودز.");
+ }));
+ showToast("تم حفظ الإعدادات.");
 }
 
 function tab(id,button){
@@ -522,10 +436,7 @@ function parseCSV(text){
    row=[]; cell="";
   }else cell+=c;
  }
- if(cell!=="" || row.length){
-  row.push(cell);
-  rows.push(row);
- }
+ if(cell!=="" || row.length){ row.push(cell); rows.push(row); }
  if(!rows.length)return [];
  const headers=rows.shift().map(x=>x.trim());
  return rows.map(r=>{
@@ -537,14 +448,12 @@ function parseCSV(text){
 
 async function getCSV(url){
  const response=await fetch(url);
- if(!response.ok)throw new Error("تعذر تحميل ملف البيانات");
+ if(!response.ok)throw new Error("fetch error");
  return parseCSV(await response.text());
 }
 
-function safe(value){
- return String(value||"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
+function safe(v){
+ return String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
 
 function num(v){
@@ -554,8 +463,7 @@ function num(v){
 }
 
 function daysBetween(d1Str,d2Str){
- const t1=Date.parse(d1Str);
- const t2=Date.parse(d2Str);
+ const t1=Date.parse(d1Str), t2=Date.parse(d2Str);
  if(!Number.isFinite(t1)||!Number.isFinite(t2))return 30;
  return Math.max(0,(t1-t2)/(1000*60*60*24));
 }
@@ -576,8 +484,7 @@ function dixonColesTau(x,y,lambdaH,lambdaA,rho=-0.06){
 }
 
 function buildMatrix(homeLambda,awayLambda,useDC=true){
- const maxG=7;
- const grid=[];
+ const maxG=7, grid=[];
  let sum=0;
  for(let x=0;x<=maxG;x++){
   grid[x]=[];
@@ -589,9 +496,7 @@ function buildMatrix(homeLambda,awayLambda,useDC=true){
   }
  }
  if(sum>0){
-  for(let x=0;x<=maxG;x++){
-   for(let y=0;y<=maxG;y++)grid[x][y]/=sum;
-  }
+  for(let x=0;x<=maxG;x++)for(let y=0;y<=maxG;y++)grid[x][y]/=sum;
  }
  return grid;
 }
@@ -599,92 +504,69 @@ function buildMatrix(homeLambda,awayLambda,useDC=true){
 function computeEloAndStrength(historyMatches,refDate){
  const elo={};
  const getElo=t=>elo[t]??1500;
-
  const sorted=[...historyMatches]
   .filter(m=>num(m.ft_home)!==null && num(m.ft_away)!==null && (!refDate || !m.date || m.date < refDate))
   .sort((a,b)=>String(a.date||"").localeCompare(String(b.date||"")));
 
  sorted.forEach(m=>{
   const fh=num(m.ft_home), fa=num(m.ft_away);
-  const rh=getElo(m.home)+55;
-  const ra=getElo(m.away);
-  const eh=1/(1+Math.pow(10,(ra-rh)/400));
-  const ea=1-eh;
-
+  const rh=getElo(m.home)+55, ra=getElo(m.away);
+  const eh=1/(1+Math.pow(10,(ra-rh)/400)), ea=1-eh;
   let sh=0.5, sa=0.5;
-  if(fh>fa){ sh=1; sa=0; }
-  else if(fa>fh){ sh=0; sa=1; }
-
+  if(fh>fa){ sh=1; sa=0; } else if(fa>fh){ sh=0; sa=1; }
   const gd=Math.abs(fh-fa);
   const k=22*(gd>=2 ? 1 + (gd-1)*0.25 : 1);
-
   elo[m.home]=getElo(m.home)+k*(sh-eh);
   elo[m.away]=getElo(m.away)+k*(sa-ea);
  });
-
- return { sorted, elo, getElo };
+ return { sorted, getElo };
 }
 
 function weightedTeamProfile(sortedMatches,team,venue,getElo,refDate){
  const decayLambda=0.008;
  let wSum=0, attNum=0, defNum=0, count=0;
-
  for(let i=sortedMatches.length-1;i>=0;i--){
   const m=sortedMatches[i];
-  const mHomeMatch = teamSimilarityScore(m.home, team) >= 0.72;
-  const mAwayMatch = teamSimilarityScore(m.away, team) >= 0.72;
-
-  if(venue==="home" && !mHomeMatch)continue;
-  if(venue==="away" && !mAwayMatch)continue;
-  if(venue==="all" && !mHomeMatch && !mAwayMatch)continue;
-
-  const isHomeMatch = mHomeMatch;
-  const gf = isHomeMatch ? num(m.ft_home) : num(m.ft_away);
-  const ga = isHomeMatch ? num(m.ft_away) : num(m.ft_home);
-  const opp = isHomeMatch ? m.away : m.home;
+  const mH = teamSimilarityScore(m.home, team) >= 0.72;
+  const mA = teamSimilarityScore(m.away, team) >= 0.72;
+  if(venue==="home" && !mH)continue;
+  if(venue==="away" && !mA)continue;
+  if(venue==="all" && !mH && !mA)continue;
+  const gf = mH ? num(m.ft_home) : num(m.ft_away);
+  const ga = mH ? num(m.ft_away) : num(m.ft_home);
+  const opp = mH ? m.away : m.home;
   if(gf===null || ga===null)continue;
-
-  const oppElo = getElo(opp);
-  const oppStrengthFactor = Math.max(0.75, Math.min(1.30, oppElo / 1500));
+  const oppFactor = Math.max(0.75, Math.min(1.30, getElo(opp)/1500));
   const ageDays = refDate ? daysBetween(refDate, m.date) : (sortedMatches.length-1-i)*7;
   const w = Math.exp(-decayLambda * ageDays);
-
-  attNum += w * (gf * oppStrengthFactor);
-  defNum += w * (ga / oppStrengthFactor);
+  attNum += w * (gf * oppFactor);
+  defNum += w * (ga / oppFactor);
   wSum += w;
   count++;
   if(count>=14)break;
  }
-
  if(!count || wSum<=0)return null;
- return { played: count, attRaw: attNum / wSum, defRaw: defNum / wSum };
+ return { played:count, attRaw:attNum/wSum, defRaw:defNum/wSum };
 }
 
 function simulateLambdaPair(homeLambda,awayLambda,labelPrefix,groupTag){
  const grid=buildMatrix(homeLambda,awayLambda,true);
- let pHome=0,pDraw=0,pAway=0,pOver05=0,pOver15=0,pOver25=0,pUnder35=0;
-
+ let pHome=0,pDraw=0,pAway=0,pOver05=0,pOver15=0;
  for(let x=0;x<grid.length;x++){
   for(let y=0;y<grid[x].length;y++){
    const p=grid[x][y], tot=x+y;
-   if(x>y)pHome+=p;
-   else if(x===y)pDraw+=p;
-   else pAway+=p;
+   if(x>y)pHome+=p; else if(x===y)pDraw+=p; else pAway+=p;
    if(tot>=1)pOver05+=p;
    if(tot>=2)pOver15+=p;
-   if(tot>=3)pOver25+=p;
-   if(tot<=3)pUnder35+=p;
   }
  }
-
  return {
-  pHome,pDraw,pAway,pOver05,pOver15,pOver25,pUnder35,
   markets:[
    {code:"H1_HOME",name:`${labelPrefix} فوز المضيف`,p:pHome,group:groupTag},
    {code:"H1_DRAW",name:`${labelPrefix} التعادل`,p:pDraw,group:groupTag},
    {code:"H1_AWAY",name:`${labelPrefix} فوز الضيف`,p:pAway,group:groupTag},
-   {code:"H1_O05",name:`${labelPrefix} أكثر من 0.5 هدف`,p:pOver05,group:"GOALS"},
-   {code:"H1_O15",name:`${labelPrefix} أكثر من 1.5 هدف`,p:pOver15,group:"GOALS"}
+   {code:"H1_O05",name:`${labelPrefix} Over 0.5`,p:pOver05,group:"GOALS"},
+   {code:"H1_O15",name:`${labelPrefix} Over 1.5`,p:pOver15,group:"GOALS"}
   ]
  };
 }
@@ -692,56 +574,44 @@ function simulateLambdaPair(homeLambda,awayLambda,labelPrefix,groupTag){
 function asianHandicapProb(grid,side,line){
  const frac = Math.abs(line % 1);
  if(Math.abs(frac - 0.25) < 0.01 || Math.abs(frac - 0.75) < 0.01){
-  const step = 0.25;
-  const r1 = asianHandicapProb(grid,side,line - step);
-  const r2 = asianHandicapProb(grid,side,line + step);
-  return {
-   effectiveWinProb: 0.5*r1.effectiveWinProb + 0.5*r2.effectiveWinProb,
-   win: 0.5*r1.win + 0.5*r2.win,
-   push: 0.5*r1.push + 0.5*r2.push,
-   loss: 0.5*r1.loss + 0.5*r2.loss
-  };
+  const r1 = asianHandicapProb(grid,side,line - 0.25);
+  const r2 = asianHandicapProb(grid,side,line + 0.25);
+  return { effectiveWinProb: 0.5*r1.effectiveWinProb + 0.5*r2.effectiveWinProb };
  }
-
- let win=0, push=0, loss=0;
+ let win=0, push=0;
  for(let x=0;x<grid.length;x++){
   for(let y=0;y<grid[x].length;y++){
    const p=grid[x][y];
    const diff = side==="HOME" ? (x - y + line) : (y - x + line);
    if(diff > 1e-6)win+=p;
    else if(Math.abs(diff) <= 1e-6)push+=p;
-   else loss+=p;
   }
  }
- return { effectiveWinProb: win + 0.5*push, win, push, loss };
+ return { effectiveWinProb: win + 0.5*push };
 }
 
 function europeanHandicapProb(grid,side,line){
- let win=0, draw=0, loss=0;
+ let win=0, draw=0;
  for(let x=0;x<grid.length;x++){
   for(let y=0;y<grid[x].length;y++){
    const p=grid[x][y];
    const diff = side==="HOME" ? ((x + line) - y) : ((y + line) - x);
    if(diff > 0)win+=p;
    else if(diff === 0)draw+=p;
-   else loss+=p;
   }
  }
- return { win, draw, loss };
+ return { win, draw };
 }
 
 function model(leagueResults,home,away,refDate=null){
  const { sorted, getElo } = computeEloAndStrength(leagueResults, refDate);
  const h = weightedTeamProfile(sorted, home, "home", getElo, refDate);
  const a = weightedTeamProfile(sorted, away, "away", getElo, refDate);
-
  if(!h || !a || h.played<2 || a.played<2)return null;
 
  const validPast = sorted.filter(m=>num(m.ft_home)!==null && num(m.ft_away)!==null);
- const leagueHomeAvg = validPast.length
-  ? validPast.reduce((s,m)=>s+num(m.ft_home),0)/validPast.length : 1.50;
- const leagueAwayAvg = validPast.length
-  ? validPast.reduce((s,m)=>s+num(m.ft_away),0)/validPast.length : 1.20;
+ const leagueHomeAvg = validPast.length ? validPast.reduce((s,m)=>s+num(m.ft_home),0)/validPast.length : 1.5;
+ const leagueAwayAvg = validPast.length ? validPast.reduce((s,m)=>s+num(m.ft_away),0)/validPast.length : 1.2;
 
  const attH = h.attRaw / Math.max(0.4, leagueHomeAvg);
  const defH = h.defRaw / Math.max(0.4, leagueAwayAvg);
@@ -750,107 +620,68 @@ function model(leagueResults,home,away,refDate=null){
 
  const homeElo = Math.round(getElo(home));
  const awayElo = Math.round(getElo(away));
- const eloDiff = homeElo - awayElo;
- const eloAdj = Math.max(0.85, Math.min(1.18, 1 + eloDiff / 1600));
+ const eloAdj = Math.max(0.85, Math.min(1.18, 1 + (homeElo - awayElo)/1600));
 
  const homeGoals = Math.max(0.25, Math.min(4.8, leagueHomeAvg * attH * defA * eloAdj));
  const awayGoals = Math.max(0.20, Math.min(4.5, leagueAwayAvg * attA * defH * (2 - eloAdj)));
-
  const grid = buildMatrix(homeGoals, awayGoals, true);
 
- let pHome=0, pDraw=0, pAway=0;
- let pO05=0, pO15=0, pO25=0, pO35=0;
- let pBttsYes=0;
-
+ let pHome=0, pDraw=0, pAway=0, pO05=0, pO15=0, pO25=0, pO35=0, pBttsYes=0;
  for(let x=0;x<grid.length;x++){
   for(let y=0;y<grid[x].length;y++){
    const p=grid[x][y], tot=x+y;
-   if(x>y)pHome+=p;
-   else if(x===y)pDraw+=p;
-   else pAway+=p;
-
-   if(tot>=1)pO05+=p;
-   if(tot>=2)pO15+=p;
-   if(tot>=3)pO25+=p;
-   if(tot>=4)pO35+=p;
-
+   if(x>y)pHome+=p; else if(x===y)pDraw+=p; else pAway+=p;
+   if(tot>=1)pO05+=p; if(tot>=2)pO15+=p; if(tot>=3)pO25+=p; if(tot>=4)pO35+=p;
    if(x>=1 && y>=1)pBttsYes+=p;
   }
  }
 
- const pBttsNo = Math.max(0, 1 - pBttsYes);
- const pDC_1X = pHome + pDraw;
- const pDC_X2 = pDraw + pAway;
- const pDC_12 = pHome + pAway;
-
- const ah_m05_H = asianHandicapProb(grid,"HOME",-0.5);
- const ah_p05_A = asianHandicapProb(grid,"AWAY",0.5);
- const ah_m025_H = asianHandicapProb(grid,"HOME",-0.25);
- const ah_p025_A = asianHandicapProb(grid,"AWAY",0.25);
- const ah_m10_H = asianHandicapProb(grid,"HOME",-1.0);
- const ah_p10_A = asianHandicapProb(grid,"AWAY",1.0);
-
- const eh_m1_H = europeanHandicapProb(grid,"HOME",-1);
- const eh_m1_D = eh_m1_H.draw;
- const eh_p1_A = europeanHandicapProb(grid,"AWAY",1);
-
- const h1Home = homeGoals * 0.43;
- const h1Away = awayGoals * 0.43;
- const h2Home = homeGoals * 0.57;
- const h2Away = awayGoals * 0.57;
- const firstHalf = simulateLambdaPair(h1Home, h1Away, "الشوط 1", "HALVES");
- const secondHalf = simulateLambdaPair(h2Home, h2Away, "الشوط 2", "HALVES");
+ const ehH = europeanHandicapProb(grid,"HOME",-1);
+ const ehA = europeanHandicapProb(grid,"AWAY",1);
+ const firstHalf = simulateLambdaPair(homeGoals*0.43, awayGoals*0.43, "الشوط 1", "HALVES");
+ const secondHalf = simulateLambdaPair(homeGoals*0.57, awayGoals*0.57, "الشوط 2", "HALVES");
 
  const m1X2 = [
-  {code:"HOME",name:"فوز الفريق المضيف (1)",p:pHome,group:"1X2"},
+  {code:"HOME",name:"فوز المضيف (1)",p:pHome,group:"1X2"},
   {code:"DRAW",name:"التعادل (X)",p:pDraw,group:"1X2"},
-  {code:"AWAY",name:"فوز الفريق الضيف (2)",p:pAway,group:"1X2"}
+  {code:"AWAY",name:"فوز الضيف (2)",p:pAway,group:"1X2"}
  ];
-
  const mDC = [
-  {code:"DC_1X",name:"Double Chance (1X)",p:pDC_1X,group:"DC"},
-  {code:"DC_X2",name:"Double Chance (X2)",p:pDC_X2,group:"DC"},
-  {code:"DC_12",name:"Double Chance (12)",p:pDC_12,group:"DC"}
+  {code:"DC_1X",name:"Double Chance (1X)",p:pHome+pDraw,group:"DC"},
+  {code:"DC_X2",name:"Double Chance (X2)",p:pDraw+pAway,group:"DC"},
+  {code:"DC_12",name:"Double Chance (12)",p:pHome+pAway,group:"DC"}
  ];
-
  const mBTTS = [
-  {code:"BTTS_Y",name:"BTTS Yes (يسجل الفريقان)",p:pBttsYes,group:"BTTS"},
-  {code:"BTTS_N",name:"BTTS No (لا يسجل أحدهما)",p:pBttsNo,group:"BTTS"}
+  {code:"BTTS_Y",name:"BTTS Yes",p:pBttsYes,group:"BTTS"},
+  {code:"BTTS_N",name:"BTTS No",p:Math.max(0,1-pBttsYes),group:"BTTS"}
  ];
-
  const mGoals = [
-  {code:"OVER_15",name:"Over 1.5 Goals",p:pO15,group:"GOALS"},
-  {code:"OVER_25",name:"Over 2.5 Goals",p:pO25,group:"GOALS"},
-  {code:"UNDER_25",name:"Under 2.5 Goals",p:Math.max(0,1-pO25),group:"GOALS"},
-  {code:"UNDER_35",name:"Under 3.5 Goals",p:Math.max(0,1-pO35),group:"GOALS"},
-  {code:"OVER_05",name:"Over 0.5 Goals",p:pO05,group:"GOALS"}
+  {code:"OVER_15",name:"Over 1.5",p:pO15,group:"GOALS"},
+  {code:"OVER_25",name:"Over 2.5",p:pO25,group:"GOALS"},
+  {code:"UNDER_25",name:"Under 2.5",p:Math.max(0,1-pO25),group:"GOALS"},
+  {code:"UNDER_35",name:"Under 3.5",p:Math.max(0,1-pO35),group:"GOALS"},
+  {code:"OVER_05",name:"Over 0.5",p:pO05,group:"GOALS"}
  ];
-
  const mAH = [
-  {code:"AH_H_M05",name:"Asian Handicap Home -0.5",p:ah_m05_H.effectiveWinProb,group:"AH"},
-  {code:"AH_A_P05",name:"Asian Handicap Away +0.5",p:ah_p05_A.effectiveWinProb,group:"AH"},
-  {code:"AH_H_M025",name:"Asian Handicap Home -0.25",p:ah_m025_H.effectiveWinProb,group:"AH"},
-  {code:"AH_A_P025",name:"Asian Handicap Away +0.25",p:ah_p025_A.effectiveWinProb,group:"AH"},
-  {code:"AH_H_M10",name:"Asian Handicap Home -1.0 (Push)",p:ah_m10_H.effectiveWinProb,group:"AH"},
-  {code:"AH_A_P10",name:"Asian Handicap Away +1.0 (Push)",p:ah_p10_A.effectiveWinProb,group:"AH"}
+  {code:"AH_H_M05",name:"Asian Handicap Home -0.5",p:asianHandicapProb(grid,"HOME",-0.5).effectiveWinProb,group:"AH"},
+  {code:"AH_A_P05",name:"Asian Handicap Away +0.5",p:asianHandicapProb(grid,"AWAY",0.5).effectiveWinProb,group:"AH"},
+  {code:"AH_H_M025",name:"Asian Handicap Home -0.25",p:asianHandicapProb(grid,"HOME",-0.25).effectiveWinProb,group:"AH"},
+  {code:"AH_A_P025",name:"Asian Handicap Away +0.25",p:asianHandicapProb(grid,"AWAY",0.25).effectiveWinProb,group:"AH"},
+  {code:"AH_H_M10",name:"Asian Handicap Home -1.0",p:asianHandicapProb(grid,"HOME",-1.0).effectiveWinProb,group:"AH"},
+  {code:"AH_A_P10",name:"Asian Handicap Away +1.0",p:asianHandicapProb(grid,"AWAY",1.0).effectiveWinProb,group:"AH"}
  ];
-
  const mEH = [
-  {code:"EH_H_M1",name:"European Handicap Home (-1)",p:eh_m1_H.win,group:"EH"},
-  {code:"EH_D_M1",name:"European Handicap Draw (-1)",p:eh_m1_D,group:"EH"},
-  {code:"EH_A_P1",name:"European Handicap Away (+1)",p:eh_p1_A.win,group:"EH"}
+  {code:"EH_H_M1",name:"European Handicap Home (-1)",p:ehH.win,group:"EH"},
+  {code:"EH_D_M1",name:"European Handicap Draw (-1)",p:ehH.draw,group:"EH"},
+  {code:"EH_A_P1",name:"European Handicap Away (+1)",p:ehA.win,group:"EH"}
  ];
-
  const halfMarkets = [...firstHalf.markets, ...secondHalf.markets].sort((x,y)=>y.p-x.p);
  const coreMarkets = [...m1X2, ...mDC, ...mBTTS, ...mGoals, ...mAH, ...mEH].sort((x,y)=>y.p-x.p);
  const allMarkets = [...coreMarkets, ...halfMarkets].sort((x,y)=>y.p-x.p);
 
  return {
-  homeGoals, awayGoals,
-  h1Home, h1Away, h2Home, h2Away,
-  homeElo, awayElo,
-  m1X2, mDC, mBTTS, mGoals, mAH, mEH, halfMarkets,
-  allMarkets,
+  homeGoals, awayGoals, homeElo, awayElo,
+  m1X2, mDC, mBTTS, mGoals, mAH, mEH, halfMarkets, allMarkets,
   best: coreMarkets[0]
  };
 }
@@ -859,164 +690,118 @@ function isBigMatch(leagueTier, analysis){
  if(leagueTier === "BIG_COMP")return true;
  if(!analysis)return false;
  const avgElo = (analysis.homeElo + analysis.awayElo) / 2;
- const bothStrong = analysis.homeElo >= 1535 && analysis.awayElo >= 1535;
- return (leagueTier === "TOP5" && avgElo >= 1535) || bothStrong || avgElo >= 1585;
+ return (leagueTier === "TOP5" && avgElo >= 1535) || (analysis.homeElo >= 1535 && analysis.awayElo >= 1535) || avgElo >= 1585;
 }
 
 function fairOddsFromProb(prob){
- const clamped = Math.max(0.04, Math.min(0.95, Number(prob)||0.5));
- return Number((1 / clamped).toFixed(2));
+ return Number((1 / Math.max(0.04, Math.min(0.95, Number(prob)||0.5))).toFixed(2));
 }
 
-/* البحث عن أودز حقيقية مطابقة مرناً للمباراة */
 function findMatchedExternalBooks(item){
  if(!externalOddsList.length)return null;
- let bestEntry = null, bestScore = 0;
-
+ let best=null, bestSc=0;
  externalOddsList.forEach(row=>{
-  const sHome = teamSimilarityScore(item.home, row.home);
-  const sAway = teamSimilarityScore(item.away, row.away);
-  let score = (sHome + sAway) / 2;
-  if(row.date && item.date && row.date === item.date)score += 0.12;
-  if(sHome >= 0.62 && sAway >= 0.62 && score > bestScore){
-   bestScore = score;
-   bestEntry = row.books;
-  }
+  const sH = teamSimilarityScore(item.home, row.home);
+  const sA = teamSimilarityScore(item.away, row.away);
+  let sc = (sH + sA)/2;
+  if(row.date && item.date && row.date === item.date)sc += 0.12;
+  if(sH >= 0.62 && sA >= 0.62 && sc > bestSc){ bestSc=sc; best=row.books; }
  });
- return bestEntry;
+ return best;
 }
 
 function getBooksForMatch(item){
  const key = `${item.date}|${item.home}|${item.away}`;
- if(customOddsOverrides[key])return { books: customOddsOverrides[key], source: "MANUAL" };
-
+ if(customOddsOverrides[key])return { books:customOddsOverrides[key], source:"MANUAL" };
  const ext = findMatchedExternalBooks(item);
- if(ext)return { books: ext, source: "LIVE_EXTERNAL" };
+ if(ext)return { books:ext, source:"LIVE_EXTERNAL" };
 
  const r = item.analysis;
  const pH = r ? r.m1X2.find(x=>x.code==="HOME").p : 0.45;
  const pD = r ? r.m1X2.find(x=>x.code==="DRAW").p : 0.27;
  const pA = r ? r.m1X2.find(x=>x.code==="AWAY").p : 0.28;
-
- const margins = { "Pinnacle":1.025, "Betfair":1.045, "Bet365":1.065, "1xBet":1.075 };
+ const margins = { Pinnacle:1.025, Betfair:1.045, Bet365:1.065, "1xBet":1.075 };
  const books = {};
  BOOKMAKERS.forEach(b=>{
   const m = margins[b];
   books[b] = {
-   "HOME": Number((1 / (Math.max(0.05,pH) * m)).toFixed(2)),
-   "DRAW": Number((1 / (Math.max(0.05,pD) * m)).toFixed(2)),
-   "AWAY": Number((1 / (Math.max(0.05,pA) * m)).toFixed(2))
+   HOME: Number((1/(Math.max(0.05,pH)*m)).toFixed(2)),
+   DRAW: Number((1/(Math.max(0.05,pD)*m)).toFixed(2)),
+   AWAY: Number((1/(Math.max(0.05,pA)*m)).toFixed(2))
   };
  });
- return { books, source: "SIMULATED" };
+ return { books, source:"SIMULATED" };
 }
 
 function marketNoVigAnalysis(books, code, modelProb){
  const entries = [];
  Object.entries(books).forEach(([book, map])=>{
   const o = Number(map[code]);
-  if(Number.isFinite(o) && o > 1){
-   entries.push({ book, odds: o, rawImplied: 1/o });
-  }
+  if(Number.isFinite(o) && o > 1)entries.push({ book, odds:o, rawImplied:1/o });
  });
  if(!entries.length)return null;
-
- const totalRawImplied = entries.reduce((s,e)=>s+e.rawImplied, 0);
- entries.forEach(e=>{
-  e.fairProb = e.rawImplied / totalRawImplied;
-  e.ev = (modelProb * e.odds) - 1;
- });
-
+ const totalRaw = entries.reduce((s,e)=>s+e.rawImplied, 0);
+ entries.forEach(e=>{ e.fairProb = e.rawImplied/totalRaw; e.ev = (modelProb*e.odds) - 1; });
  const bestEntry = [...entries].sort((a,b)=>b.odds-a.odds)[0];
  const avgFairProb = entries.reduce((s,e)=>s+e.fairProb, 0) / entries.length;
- const bestEv = (modelProb * bestEntry.odds) - 1;
- const trueEdgePct = (modelProb - avgFairProb) * 100;
- const kellyFull = bestEntry.odds > 1 ? Math.max(0, (modelProb * bestEntry.odds - 1) / (bestEntry.odds - 1)) : 0;
-
+ const bestEv = (modelProb*bestEntry.odds) - 1;
+ const trueEdgePct = (modelProb - avgFairProb)*100;
+ const kellyFull = bestEntry.odds > 1 ? Math.max(0, (modelProb*bestEntry.odds - 1)/(bestEntry.odds - 1)) : 0;
  return {
-  entries,
-  bestEntry,
-  avgFairProb,
-  fairOdds: 1 / Math.max(0.01, avgFairProb),
-  trueEdgePct,
-  evPct: bestEv * 100,
-  kellyQuarterPct: kellyFull * 25,
+  entries, bestEntry, avgFairProb,
+  fairOdds: 1/Math.max(0.01, avgFairProb),
+  trueEdgePct, evPct: bestEv*100,
+  kellyQuarterPct: kellyFull*25,
   isValue: bestEv > 0.01 && trueEdgePct > 1.0
  };
 }
 
 async function loadAllLeagues(isAutoSync=false){
  const status = document.getElementById("status");
- if(!isAutoSync)status.textContent = "⏳ جاري تحديث جميع الدوريات ومباريات كل الأيام...";
+ if(!isAutoSync)status.textContent = "جاري التحميل...";
+ const todayStr = localDate(0), minDateStr = localDate(-2), maxDateStr = localDate(7);
+ allResults = []; resultsByLeague = {}; const collected = [];
 
- const todayStr = localDate(0);
- const minDateStr = localDate(-2);
- const maxDateStr = localDate(7);
-
- allResults = [];
- resultsByLeague = {};
- const collected = [];
-
- const tasks = ALL_LEAGUES.map(async leagueObj=>{
-  const folder = BASE + "/" + leagueObj.id;
+ await Promise.all(ALL_LEAGUES.map(async l=>{
   try{
    const [f,r] = await Promise.all([
-    getCSV(folder + "/fixtures_2627.csv"),
-    getCSV(folder + "/results_2627.csv")
+    getCSV(`${BASE}/${l.id}/fixtures_2627.csv`),
+    getCSV(`${BASE}/${l.id}/results_2627.csv`)
    ]);
+   resultsByLeague[l.id] = r;
+   r.forEach(row=>allResults.push({ ...row, leagueId:l.id }));
 
-   resultsByLeague[leagueObj.id] = r;
-   r.forEach(row=>allResults.push({ ...row, leagueId: leagueObj.id }));
+   let fixtures = f.filter(m=>m.home && m.away && m.date && m.date >= minDateStr && m.date <= maxDateStr);
+   if(!fixtures.length)fixtures = f.filter(m=>m.home && m.away && m.date).slice(0,12);
 
-   let candidateFixtures = f.filter(m=>m.home && m.away && m.date && m.date >= minDateStr && m.date <= maxDateStr);
-   if(!candidateFixtures.length){
-    candidateFixtures = f.filter(m=>m.home && m.away && m.date).slice(0, 12);
-   }
-
-   candidateFixtures.forEach(m=>{
+   fixtures.forEach(m=>{
     const analysis = model(r, m.home, m.away, m.date);
-    const big = isBigMatch(leagueObj.tier, analysis);
     collected.push({
-     leagueId: leagueObj.id,
-     leagueName: leagueObj.name,
-     tier: leagueObj.tier,
-     date: m.date,
-     time: m.time || "",
-     home: m.home,
-     away: m.away,
-     isBig: big,
-     dayBucket: m.date === todayStr ? "TODAY" : (m.date > todayStr ? "UPCOMING" : "RECENT"),
+     leagueId:l.id, leagueName:l.name, tier:l.tier,
+     date:m.date, time:m.time||"", home:m.home, away:m.away,
+     isBig:isBigMatch(l.tier, analysis),
+     dayBucket: m.date===todayStr ? "TODAY" : (m.date>todayStr ? "UPCOMING" : "RECENT"),
      analysis
     });
    });
   }catch(_){}
- });
-
- await Promise.all(tasks);
+ }));
 
  collected.sort((a,b)=>{
-  const dayRank = d => d==="TODAY" ? 0 : d==="UPCOMING" ? 1 : 2;
-  if(dayRank(a.dayBucket) !== dayRank(b.dayBucket))return dayRank(a.dayBucket) - dayRank(b.dayBucket);
-  if(a.date !== b.date)return String(a.date).localeCompare(String(b.date));
-  if(a.isBig !== b.isBig)return a.isBig ? -1 : 1;
-  const pa = a.analysis ? a.analysis.best.p : -1;
-  const pb = b.analysis ? b.analysis.best.p : -1;
-  return pb - pa;
+  const rank = d => d==="TODAY"?0:d==="UPCOMING"?1:2;
+  if(rank(a.dayBucket)!==rank(b.dayBucket))return rank(a.dayBucket)-rank(b.dayBucket);
+  if(a.date!==b.date)return String(a.date).localeCompare(String(b.date));
+  if(a.isBig!==b.isBig)return a.isBig?-1:1;
+  return (b.analysis?b.analysis.best.p:-1) - (a.analysis?a.analysis.best.p:-1);
  });
 
  feedAnalyzed = collected;
-
- // جلب تلقائي للأودز الخارجية إذا كان مفعّلاً ومضبوطاً
  const cfg = JSON.parse(localStorage.getItem("matchai_odds_cfg")||"{}");
- if(cfg.url && document.getElementById("autoFetchOddsMode").value === "ON"){
+ if(cfg.url && document.getElementById("autoFetchOddsMode").value==="ON"){
   await fetchExternalOdds(true);
  }
 
- const bigCount = feedAnalyzed.filter(x=>x.isBig).length;
- const syncTime = new Date().toLocaleTimeString("ar-DZ",{ hour:"2-digit", minute:"2-digit" });
-
- status.textContent = `تم تحميل ${feedAnalyzed.length} مباراة عبر ${ALL_LEAGUES.length} دوري (منها ${bigCount} ماتش كبير) • آخر تحديث: ${syncTime}`;
-
+ status.textContent = `${feedAnalyzed.length} مباراة • ${feedAnalyzed.filter(x=>x.isBig).length} ماتش كبير`;
  renderBigMatchesBox();
  renderMatchesList();
  renderBest();
@@ -1025,69 +810,51 @@ async function loadAllLeagues(isAutoSync=false){
  renderValueTab();
  renderAnalysisTab();
  settleFromResults(true);
- if(isAutoSync)showToast(`تم التحديث التلقائي (${syncTime})`);
+ if(isAutoSync)showToast("تم التحديث التلقائي");
 }
 
-/* تحويل صيغ JSON و API الخارجية (بسيطة أو The Odds API) */
 function normalizeExternalOddsPayload(rawData, rootKey=""){
  let arr = rawData;
- if(rootKey && rawData && typeof rawData === "object" && Array.isArray(rawData[rootKey])){
-  arr = rawData[rootKey];
- }else if(!Array.isArray(rawData) && rawData && typeof rawData === "object"){
+ if(rootKey && rawData && typeof rawData==="object" && Array.isArray(rawData[rootKey]))arr = rawData[rootKey];
+ else if(!Array.isArray(rawData) && rawData && typeof rawData==="object"){
   arr = rawData.data || rawData.matches || rawData.events || rawData.results || [];
  }
  if(!Array.isArray(arr))return [];
-
  const parsed = [];
  arr.forEach(item=>{
   if(!item)return;
   const home = item.home || item.home_team || item.homeTeam || "";
   const away = item.away || item.away_team || item.awayTeam || "";
   if(!home || !away)return;
-
   const date = item.date || (item.commence_time ? String(item.commence_time).slice(0,10) : "");
   const books = {};
-
-  // حالة 1: كائن books جاهز { Pinnacle: { HOME, DRAW, AWAY } أو { "1", "X", "2" } }
-  if(item.books && typeof item.books === "object" && !Array.isArray(item.books)){
+  if(item.books && typeof item.books==="object" && !Array.isArray(item.books)){
    Object.entries(item.books).forEach(([bName, mMap])=>{
-    if(!mMap || typeof mMap !== "object")return;
+    if(!mMap)return;
     const hO = Number(mMap.HOME ?? mMap["1"] ?? mMap.home);
     const dO = Number(mMap.DRAW ?? mMap["X"] ?? mMap.draw);
     const aO = Number(mMap.AWAY ?? mMap["2"] ?? mMap.away);
-    if(hO > 1 || dO > 1 || aO > 1){
-     books[bName] = { HOME: hO||0, DRAW: dO||0, AWAY: aO||0 };
-    }
+    if(hO>1 || dO>1 || aO>1)books[bName] = { HOME:hO||0, DRAW:dO||0, AWAY:aO||0 };
    });
   }
-
-  // حالة 2: صيغة The Odds API (item.bookmakers -> markets -> key:"h2h" -> outcomes)
   if(Array.isArray(item.bookmakers)){
    item.bookmakers.forEach(bm=>{
-    const bName = bm.title || bm.key || "Bookmaker";
-    const h2h = (bm.markets || []).find(mk=>mk.key === "h2h");
+    const h2h = (bm.markets||[]).find(mk=>mk.key==="h2h");
     if(!h2h || !Array.isArray(h2h.outcomes))return;
-
     let hO=0, dO=0, aO=0;
     h2h.outcomes.forEach(oc=>{
-     const price = Number(oc.price);
-     if(!(price > 1))return;
-     const nm = String(oc.name || "").toLowerCase();
-     if(nm === "draw" || nm === "x")dO = price;
-     else if(teamSimilarityScore(home, oc.name) >= teamSimilarityScore(away, oc.name))hO = price;
-     else aO = price;
+     const p = Number(oc.price);
+     if(!(p>1))return;
+     const nm = String(oc.name||"").toLowerCase();
+     if(nm==="draw"||nm==="x")dO=p;
+     else if(teamSimilarityScore(home,oc.name)>=teamSimilarityScore(away,oc.name))hO=p;
+     else aO=p;
     });
-    if(hO > 1 || dO > 1 || aO > 1){
-     books[bName] = { HOME: hO||0, DRAW: dO||0, AWAY: aO||0 };
-    }
+    if(hO>1 || dO>1 || aO>1)books[bm.title||bm.key||"Bookmaker"] = { HOME:hO||0, DRAW:dO||0, AWAY:aO||0 };
    });
   }
-
-  if(Object.keys(books).length){
-   parsed.push({ date, home, away, books });
-  }
+  if(Object.keys(books).length)parsed.push({ date, home, away, books });
  });
-
  return parsed;
 }
 
@@ -1095,104 +862,62 @@ async function fetchExternalOdds(silent=false){
  let url = document.getElementById("oddsUrlInput").value.trim();
  const apiKey = document.getElementById("oddsApiKeyInput").value.trim();
  const rootKey = document.getElementById("oddsRootKeyInput").value.trim();
- if(!url){ if(!silent)showToast("أدخل رابط JSON أو API أولاً."); return; }
-
- if(apiKey && !url.includes("apiKey=")){
-  url += (url.includes("?") ? "&" : "?") + "apiKey=" + encodeURIComponent(apiKey);
- }
-
+ if(!url){ if(!silent)showToast("أدخل رابط JSON أو API"); return; }
+ if(apiKey && !url.includes("apiKey="))url += (url.includes("?")?"&":"?") + "apiKey=" + encodeURIComponent(apiKey);
  try{
-  const headers = {};
-  if(apiKey)headers["x-api-key"] = apiKey;
+  const headers = apiKey ? { "x-api-key": apiKey } : {};
   const res = await fetch(url, { headers });
-  if(!res.ok)throw new Error("HTTP " + res.status);
-  const data = await res.json();
-  const normalized = normalizeExternalOddsPayload(data, rootKey);
-  externalOddsList = normalized;
-  document.getElementById("oddsSourceStatus").textContent =
-   `تم جلب ${normalized.length} مباراة أودز حقيقية من المصدر مع مطابقة مرنة للأسماء.`;
-  renderValueTab();
-  renderCoupons();
-  if(!silent)showToast(`تم تحميل ${normalized.length} مباراة أودز بنجاح.`);
- }catch(e){
-  if(!silent)showToast("تعذر جلب المصدر الخارجي (تحقق من الرابط أو المفتاح أو CORS).");
- }
+  if(!res.ok)throw new Error("HTTP");
+  externalOddsList = normalizeExternalOddsPayload(await res.json(), rootKey);
+  document.getElementById("oddsSourceStatus").textContent = `تم جلب ${externalOddsList.length} مباراة أودز.`;
+  renderValueTab(); renderCoupons();
+  if(!silent)showToast(`تم جلب ${externalOddsList.length} مباراة`);
+ }catch(_){ if(!silent)showToast("تعذر جلب المصدر الخارجي"); }
 }
 
 function applyPastedOdds(){
  const raw = document.getElementById("oddsJsonInput").value.trim();
  const rootKey = document.getElementById("oddsRootKeyInput").value.trim();
- if(!raw){ showToast("الصق JSON أولاً."); return; }
+ if(!raw){ showToast("الصق JSON أولاً"); return; }
  try{
-  const parsedJson = JSON.parse(raw);
-  const normalized = normalizeExternalOddsPayload(parsedJson, rootKey);
-  if(!normalized.length){ showToast("لم يتم العثور على مباريات بأودز صالحة في JSON."); return; }
-  externalOddsList = normalized;
-  document.getElementById("oddsSourceStatus").textContent =
-   `تم تطبيق ${normalized.length} مباراة أودز من JSON الملصوق مع مطابقة مرنة للأسماء.`;
-  renderValueTab();
-  renderCoupons();
-  showToast(`تم تطبيق ${normalized.length} مباراة.`);
- }catch(e){
-  showToast("صيغة JSON غير صحيحة.");
- }
+  const parsed = normalizeExternalOddsPayload(JSON.parse(raw), rootKey);
+  if(!parsed.length){ showToast("لا توجد أودز صالحة"); return; }
+  externalOddsList = parsed;
+  document.getElementById("oddsSourceStatus").textContent = `تم تطبيق ${parsed.length} مباراة أودز.`;
+  renderValueTab(); renderCoupons();
+  showToast("تم التطبيق");
+ }catch(_){ showToast("JSON غير صالح"); }
 }
 
 function clearExternalOdds(){
- externalOddsList = [];
- customOddsOverrides = {};
- document.getElementById("oddsSourceStatus").textContent =
-  "تم مسح الأودز الخارجية — الوضع الحالي: محاكاة سوق افتراضية.";
- renderValueTab();
- renderCoupons();
- showToast("تم مسح الأودز الخارجية.");
+ externalOddsList = []; customOddsOverrides = {};
+ document.getElementById("oddsSourceStatus").textContent = "تم مسح الأودز الخارجية.";
+ renderValueTab(); renderCoupons();
 }
 
-/* صندوق أحسن التوقعات في الماتشات الكبار */
 function renderBigMatchesBox(){
  const box = document.getElementById("bigMatchesTopBox");
- const bigPicks = [];
- const seen = new Set();
-
+ const seen = new Set(), topBig = [];
  feedAnalyzed.forEach(item=>{
   if(!item.isBig || !item.analysis)return;
-  const key = `${item.date}|${item.home}|${item.away}`;
-  if(seen.has(key))return;
-  seen.add(key);
-
-  const bestCandidate = item.analysis.best;
-  bigPicks.push({
-   leagueName: item.leagueName,
-   date: item.date,
-   home: item.home,
-   away: item.away,
-   code: bestCandidate.code,
-   market: bestCandidate.name,
-   p: bestCandidate.p,
-   estOdds: fairOddsFromProb(bestCandidate.p)
-  });
+  const k = `${item.date}|${item.home}|${item.away}`;
+  if(seen.has(k))return;
+  seen.add(k);
+  topBig.push({ ...item, market:item.analysis.best.name, code:item.analysis.best.code, p:item.analysis.best.p });
  });
-
- const topBig = bigPicks.sort((a,b)=>b.p-a.p).slice(0,4);
- if(!topBig.length){ box.innerHTML = ""; return; }
-
+ topBig.sort((a,b)=>b.p-a.p);
+ const picks = topBig.slice(0,4);
+ if(!picks.length){ box.innerHTML=""; return; }
  box.innerHTML = `
-  <div class="featured">
-   <div class="row">
-    <h3>👑 أحسن توقعات الماتشات الكبار</h3>
-    <span class="big-badge">${topBig.length} مباريات كبرى</span>
-   </div>
-   <p class="small">أقوى الاختيارات الإحصائية المستخلصة تلقائياً من قمم الدوريات والمباريات الكبرى.</p>
-   ${topBig.map(it=>`
-    <div class="pick">
-     <div>
-      <span class="muted">${safe(it.leagueName)} • ${safe(it.date)}</span><br>
-      <b>${safe(it.home)} × ${safe(it.away)}</b> — <span class="green">${safe(it.market)}</span>
-     </div>
+  <div class="box highlight">
+   <div class="row"><h3>أحسن توقعات الماتشات الكبار</h3><span class="pill big">${picks.length} مباريات</span></div>
+   ${picks.map(it=>`
+    <div class="line">
+     <div><b>${safe(it.home)} × ${safe(it.away)}</b> <span class="muted">(${safe(it.leagueName)})</span><br><span class="green">${safe(it.market)}</span></div>
      <b>${(it.p*100).toFixed(1)}%</b>
     </div>
    `).join("")}
-   <button class="action" onclick="saveBigMatchesPicks()">💾 حفظ توقعات الماتشات الكبار في السجل</button>
+   <button class="btn primary full" onclick="saveBigMatchesPicks()">حفظ توقعات الماتشات الكبار</button>
   </div>
  `;
 }
@@ -1201,66 +926,39 @@ function saveBigMatchesPicks(){
  const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
  const seen = new Set();
  let added = 0;
-
- feedAnalyzed
-  .filter(x=>x.isBig && x.analysis)
-  .sort((a,b)=>b.analysis.best.p - a.analysis.best.p)
-  .slice(0,4)
-  .forEach(it=>{
-   const key = `${it.date}|${it.home}|${it.away}`;
-   if(seen.has(key))return;
-   seen.add(key);
-   const exists = saved.some(p=>p.date===it.date && p.home===it.home && p.away===it.away && p.code===it.analysis.best.code);
-   if(!exists){
-    saved.push({
-     date: it.date, league: it.leagueId, home: it.home, away: it.away,
-     code: it.analysis.best.code, market: it.analysis.best.name,
-     probability: it.analysis.best.p, estOdds: fairOddsFromProb(it.analysis.best.p),
-     status: "pending"
-    });
-    added++;
-   }
-  });
-
+ feedAnalyzed.filter(x=>x.isBig && x.analysis).sort((a,b)=>b.analysis.best.p-a.analysis.best.p).slice(0,4).forEach(it=>{
+  const k = `${it.date}|${it.home}|${it.away}`;
+  if(seen.has(k))return;
+  seen.add(k);
+  const exists = saved.some(p=>p.date===it.date && teamSimilarityScore(p.home,it.home)>=0.75 && teamSimilarityScore(p.away,it.away)>=0.75 && p.code===it.analysis.best.code);
+  if(!exists){
+   saved.push({ date:it.date, league:it.leagueId, home:it.home, away:it.away, code:it.analysis.best.code, market:it.analysis.best.name, probability:it.analysis.best.p, estOdds:fairOddsFromProb(it.analysis.best.p), status:"pending" });
+   added++;
+  }
+ });
  localStorage.setItem("matchai_picks",JSON.stringify(saved));
  renderHistory();
- showToast(added ? `تم حفظ ${added} توقعات من الماتشات الكبار.` : "التوقعات محفوظة مسبقاً.");
+ showToast(added ? `تم حفظ ${added} توقعات` : "محفوظة مسبقاً");
 }
 
 function renderMatchesList(){
  const leagueVal = document.getElementById("leagueFilter").value;
  const dayVal = document.getElementById("dayFilter").value;
  const list = document.getElementById("matches");
-
- const filtered = feedAnalyzed.filter(m=>{
-  const okLeague = leagueVal==="ALL" || m.leagueId===leagueVal;
-  const okDay = dayVal==="ALL_DAYS" || m.dayBucket===dayVal;
-  return okLeague && okDay;
- });
-
- if(!filtered.length){
-  list.innerHTML = '<div class="card">لا توجد مباريات مطابقة للفلتر الحالي.</div>';
-  return;
- }
+ const filtered = feedAnalyzed.filter(m=>(leagueVal==="ALL"||m.leagueId===leagueVal)&&(dayVal==="ALL_DAYS"||m.dayBucket===dayVal));
+ if(!filtered.length){ list.innerHTML='<div class="box">لا توجد مباريات.</div>'; return; }
 
  list.innerHTML = filtered.slice(0,80).map(m=>{
-  const globalIdx = feedAnalyzed.indexOf(m);
-  const bestText = m.analysis
-   ? `<span class="green">${safe(m.analysis.best.name)} (${(m.analysis.best.p*100).toFixed(1)}%)</span>`
-   : `<span class="muted">بيانات تاريخية غير كافية</span>`;
-  const bigTag = m.isBig ? `<span class="big-badge">👑 ماتش كبير</span>` : "";
-
+  const idx = feedAnalyzed.indexOf(m);
+  const best = m.analysis ? `<span class="green">${safe(m.analysis.best.name)} (${(m.analysis.best.p*100).toFixed(1)}%)</span>` : `<span class="muted">بيانات غير كافية</span>`;
   return `
-   <div class="card">
-    <div class="row">
-     <div class="row" style="gap:6px"><span class="tag">${safe(m.leagueName)}</span>${bigTag}</div>
-     <span class="muted">${safe(m.date)} ${safe(m.time)}</span>
-    </div>
-    <div class="match">${safe(m.home)} <span class="green">×</span> ${safe(m.away)}</div>
-    <div class="row"><span class="small">أفضل اختيار:</span><b>${bestText}</b></div>
-    <div class="actions-row">
-     <button class="mini-btn win" style="flex:1" onclick="jumpToMatchTab('analysis',${globalIdx})">🤖 التحليل الكامل</button>
-     <button class="mini-btn push" style="flex:1" onclick="jumpToMatchTab('value',${globalIdx})">💎 مقارنة الأودز & Value</button>
+   <div class="box">
+    <div class="row"><div class="row" style="gap:6px"><span class="pill">${safe(m.leagueName)}</span>${m.isBig?'<span class="pill big">كبير</span>':''}</div><span class="muted">${safe(m.date)}</span></div>
+    <div class="match-title">${safe(m.home)} × ${safe(m.away)}</div>
+    <div class="row"><span class="muted">الأفضل:</span><b>${best}</b></div>
+    <div class="row" style="margin-top:8px">
+     <button class="btn win sm" style="flex:1" onclick="jumpToMatchTab('analysis',${idx})">التحليل</button>
+     <button class="btn push sm" style="flex:1" onclick="jumpToMatchTab('value',${idx})">الأودز وValue</button>
     </div>
    </div>
   `;
@@ -1270,94 +968,420 @@ function renderMatchesList(){
 function jumpToMatchTab(targetTab,idx){
  const navMap = { today:0, best:1, value:2, coupons:3, analysis:4, backtest:5, history:6 };
  tab(targetTab, document.querySelectorAll("nav button")[navMap[targetTab]]);
- if(targetTab==="analysis"){
-  document.getElementById("analysisSelect").value = String(idx);
-  renderAnalysisTab();
- }else if(targetTab==="value"){
-  document.getElementById("valueMatchSelect").value = String(idx);
-  renderValueTab();
- }
+ if(targetTab==="analysis"){ document.getElementById("analysisSelect").value=String(idx); renderAnalysisTab(); }
+ else if(targetTab==="value"){ document.getElementById("valueMatchSelect").value=String(idx); renderValueTab(); }
 }
 
 function populateSelectors(){
  const aSel = document.getElementById("analysisSelect");
  const vSel = document.getElementById("valueMatchSelect");
- if(!feedAnalyzed.length){
-  aSel.innerHTML = vSel.innerHTML = '<option value="">لا توجد مباريات متاحة حالياً</option>';
-  return;
- }
- const opts = feedAnalyzed.map((m,i)=>
-  `<option value="${i}">${m.isBig ? "👑 " : ""}${safe(m.home)} × ${safe(m.away)} (${safe(m.date)} • ${safe(m.leagueName)})</option>`
- ).join("");
- aSel.innerHTML = opts;
- vSel.innerHTML = opts;
+ if(!feedAnalyzed.length){ aSel.innerHTML = vSel.innerHTML = '<option value="">لا توجد مباريات</option>'; return; }
+ const opts = feedAnalyzed.map((m,i)=>`<option value="${i}">${m.isBig?"★ ":""}${safe(m.home)} × ${safe(m.away)} (${safe(m.date)} • ${safe(m.leagueName)})</option>`).join("");
+ aSel.innerHTML = vSel.innerHTML = opts;
 }
 
-function getFilteredMarkets(r,filterType){
- if(filterType==="1X2")return r.m1X2;
- if(filterType==="DC")return r.mDC;
- if(filterType==="BTTS")return r.mBTTS;
- if(filterType==="GOALS")return r.mGoals;
- if(filterType==="AH")return r.mAH;
- if(filterType==="EH")return r.mEH;
- if(filterType==="HALVES")return r.halfMarkets;
+function getFilteredMarkets(r,f){
+ if(f==="1X2")return r.m1X2;
+ if(f==="DC")return r.mDC;
+ if(f==="BTTS")return r.mBTTS;
+ if(f==="GOALS")return r.mGoals;
+ if(f==="AH")return r.mAH;
+ if(f==="EH")return r.mEH;
+ if(f==="HALVES")return r.halfMarkets;
  return r.allMarkets;
 }
 
 function renderBest(){
  const list = document.getElementById("bestList");
  const rows = [];
-
  feedAnalyzed.forEach(item=>{
   if(!item.analysis)return;
   if(bestMarketFilter==="BIG" && !item.isBig)return;
-  const marketScope = bestMarketFilter==="BIG" ? "ALL" : bestMarketFilter;
-  const cands = getFilteredMarkets(item.analysis, marketScope);
+  const cands = getFilteredMarkets(item.analysis, bestMarketFilter==="BIG"?"ALL":bestMarketFilter);
   if(!cands.length)return;
-  const top = cands[0];
-  rows.push({
-   leagueName: item.leagueName,
-   date: item.date,
-   home: item.home,
-   away: item.away,
-   isBig: item.isBig,
-   market: top.name,
-   p: top.p
-  });
+  rows.push({ ...item, market:cands[0].name, p:cands[0].p });
  });
-
  rows.sort((a,b)=>b.p-a.p);
-
- if(!rows.length){
-  list.innerHTML = '<div class="card">لا توجد مباريات قابلة للتحليل لهذا الفلتر.</div>';
-  return;
- }
-
+ if(!rows.length){ list.innerHTML='<div class="box">لا توجد نتائج.</div>'; return; }
  list.innerHTML = rows.slice(0,50).map(x=>`
-  <div class="card">
-   <div class="row">
-    <div class="row" style="gap:6px"><span class="tag">${safe(x.leagueName)}</span>${x.isBig ? '<span class="big-badge">👑 ماتش كبير</span>' : ''}</div>
-    <span class="muted">${safe(x.date)}</span>
-   </div>
-   <div class="match">${safe(x.home)} × ${safe(x.away)}</div>
-   <div class="pick"><span>أفضل اختيار</span><b>${safe(x.market)}</b></div>
-   <div class="pick"><span>الاحتمال</span><b class="green">${(x.p*100).toFixed(1)}%</b></div>
+  <div class="box">
+   <div class="row"><div class="row" style="gap:6px"><span class="pill">${safe(x.leagueName)}</span>${x.isBig?'<span class="pill big">كبير</span>':''}</div><span class="muted">${safe(x.date)}</span></div>
+   <div class="match-title">${safe(x.home)} × ${safe(x.away)}</div>
+   <div class="line"><span>${safe(x.market)}</span><b class="green">${(x.p*100).toFixed(1)}%</b></div>
   </div>
  `).join("");
 }
 
-/* قسائم حسب درجة الخطورة + قسائم فريدة */
 function renderCoupons(){
  const list = document.getElementById("couponList");
- const allCandidates = [];
- const seenMatch = new Set();
-
- const ordered = [...feedAnalyzed].sort((a,b)=>{
-  if(a.isBig !== b.isBig)return a.isBig ? -1 : 1;
-  const pa = a.analysis ? a.analysis.best.p : -1;
-  const pb = b.analysis ? b.analysis.best.p : -1;
-  return pb - pa;
- });
-
+ const seen = new Set(), pool = [];
+ const ordered = [...feedAnalyzed].sort((a,b)=>(a.isBig!==b.isBig)?(a.isBig?-1:1):((b.analysis?b.analysis.best.p:-1)-(a.analysis?a.analysis.best.p:-1)));
  ordered.forEach(item=>{
-  if(!item.analysis)
+  if(!item.analysis)return;
+  const k = `${item.date}|${normalizeTeamName(item.home)}|${normalizeTeamName(item.away)}`;
+  if(seen.has(k))return;
+  seen.add(k);
+  const { books } = getBooksForMatch(item);
+  const nv = marketNoVigAnalysis(books, item.analysis.m1X2[0].code, item.analysis.m1X2[0].p);
+  pool.push({
+   key:k, leagueId:item.leagueId, leagueName:item.leagueName, date:item.date,
+   home:item.home, away:item.away, isBig:item.isBig,
+   code:item.analysis.best.code, market:item.analysis.best.name,
+   p:item.analysis.best.p, estOdds:fairOddsFromProb(item.analysis.best.p),
+   evPct:nv?nv.evPct:0
+  });
+ });
+ if(!pool.length){ list.innerHTML='<div class="box">لا توجد مباريات كافية للقسائم.</div>'; return; }
+
+ const used = new Set();
+ function takeUnique(fn, maxN){
+  const pick = [...pool].filter(x=>!used.has(x.key)).sort(fn).slice(0, Math.min(maxN, pool.length));
+  pick.forEach(p=>used.add(p.key));
+  return pick;
+ }
+
+ const uLow = takeUnique((a,b)=>(b.isBig?0.05:0)+b.p - ((a.isBig?0.05:0)+a.p), 3);
+ const uMed = takeUnique((a,b)=>Math.abs(b.p-0.57)-Math.abs(a.p-0.57), 4);
+ const uHigh = takeUnique((a,b)=>b.evPct-a.evPct, 4);
+ const bigLow = [...pool].filter(x=>x.isBig).sort((a,b)=>b.p-a.p).slice(0,3);
+ const highGen = [...pool].sort((a,b)=>a.p-b.p).slice(0,5);
+
+ generatedUniqueCoupons = [
+  { id:0, items:uLow },
+  { id:1, items:uMed },
+  { id:2, items:uHigh }
+ ];
+
+ function card(title, items, isUnique=false, idx=-1){
+  const odds = items.length ? items.reduce((m,it)=>m*Math.max(1.15,it.estOdds),1).toFixed(2) : "1.00";
+  return `
+   <div class="box ${isUnique?'highlight':''}">
+    <div class="row"><h3>${title}</h3><span class="pill ${isUnique?'ok':''}">${isUnique?'فريدة • ':''}${items.length} اختيارات • ~${odds}</span></div>
+    ${items.map(it=>`
+     <div class="line">
+      <div>${it.isBig?'<span class="pill big">كبير</span> ':''}<b>${safe(it.home)} × ${safe(it.away)}</b> — ${safe(it.market)} <span class="muted">(${safe(it.leagueName)})</span></div>
+      <span class="green">${(it.p*100).toFixed(1)}%</span>
+     </div>
+    `).join("") || '<p class="muted">لا توجد اختيارات إضافية.</p>'}
+    ${isUnique && items.length ? `<button class="btn primary full" onclick="saveUniqueCoupon(${idx})">حفظ القسيمة الفريدة</button>` : ""}
+   </div>
+  `;
+ }
+
+ list.innerHTML =
+  card("قسيمة فريدة — خطورة منخفضة", uLow, true, 0) +
+  card("قسيمة فريدة — خطورة متوسطة", uMed, true, 1) +
+  card("قسيمة فريدة — خطورة عالية / EV", uHigh, true, 2) +
+  card("قسيمة الماتشات الكبار", bigLow, false) +
+  card("قسيمة مخاطرة مرتفعة عامة", highGen, false);
+}
+
+function saveUniqueCoupon(cIdx){
+ const c = generatedUniqueCoupons[cIdx];
+ if(!c || !c.items.length)return;
+ const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ let added = 0;
+ c.items.forEach(it=>{
+  const exists = saved.some(p=>p.date===it.date && teamSimilarityScore(p.home,it.home)>=0.75 && teamSimilarityScore(p.away,it.away)>=0.75 && p.code===it.code);
+  if(!exists){
+   saved.push({ date:it.date, league:it.leagueId, home:it.home, away:it.away, code:it.code, market:it.market, probability:it.p, estOdds:it.estOdds, status:"pending" });
+   added++;
+  }
+ });
+ localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ renderHistory();
+ showToast(added ? `تم حفظ ${added} توقعات` : "محفوظة مسبقاً");
+}
+
+function renderAnalysisTab(){
+ const idx = Number(document.getElementById("analysisSelect").value);
+ const box = document.getElementById("analysisContent");
+ const item = feedAnalyzed[idx];
+ if(!item || !item.analysis){ box.innerHTML='<p class="muted">بيانات غير كافية.</p>'; return; }
+ const r = item.analysis;
+ const shown = getFilteredMarkets(r, analysisMarketFilter);
+
+ box.innerHTML = `
+  <div class="row"><h3>${safe(item.home)} × ${safe(item.away)}</h3><span class="pill">${safe(item.leagueName)}</span></div>
+  <div class="grid-4" style="margin-top:10px">
+   <div class="stat">xG المضيف<b>${r.homeGoals.toFixed(2)}</b></div>
+   <div class="stat">xG الضيف<b>${r.awayGoals.toFixed(2)}</b></div>
+   <div class="stat">Elo المضيف<b>${r.homeElo}</b></div>
+   <div class="stat">Elo الضيف<b>${r.awayElo}</b></div>
+  </div>
+  ${shown.map(mk=>`
+   <div class="line">
+    <div><b>${safe(mk.name)}</b> <span class="muted">(أودز عادلة: ${fairOddsFromProb(mk.p).toFixed(2)})</span></div>
+    <div>
+     <b class="green">${(mk.p*100).toFixed(1)}%</b>
+     <button class="btn win sm" style="margin-right:6px" onclick="savePickDirect(${idx},'${mk.code}','${safe(mk.name).replace(/'/g,"\\'")}',${mk.p},${fairOddsFromProb(mk.p)})">حفظ</button>
+    </div>
+   </div>
+  `).join("")}
+ `;
+}
+
+function renderValueTab(){
+ const idx = Number(document.getElementById("valueMatchSelect").value);
+ const box = document.getElementById("valueContent");
+ const item = feedAnalyzed[idx];
+ if(!item || !item.analysis){ box.innerHTML='<p class="muted">اختر مباراة صالحة.</p>'; return; }
+
+ const { books, source } = getBooksForMatch(item);
+ const srcLabel = source==="LIVE_EXTERNAL" ? "أودز خارجية" : source==="MANUAL" ? "أودز يدوية" : "تقدير افتراضي";
+
+ const cards = item.analysis.m1X2.map(mk=>{
+  const info = marketNoVigAnalysis(books, mk.code, mk.p);
+  if(!info)return "";
+  return `
+   <div class="box" style="background:#16253d">
+    <div class="row"><b>${safe(mk.name)} — احتمال النموذج ${(mk.p*100).toFixed(1)}%</b><span class="pill ${info.isValue?'ok':''}">${info.isValue?'VALUE':'NO VALUE'} (EV ${info.evPct.toFixed(1)}%)</span></div>
+    <p class="muted" style="margin:6px 0 0">احتمال عادل: <b>${(info.avgFairProb*100).toFixed(1)}%</b> | أفضل سعر: <b class="gold">${info.bestEntry.odds.toFixed(2)}</b> (${safe(info.bestEntry.book)}) | Edge: <b>${info.trueEdgePct>=0?'+':''}${info.trueEdgePct.toFixed(1)}%</b> | Kelly/4: <b>${info.kellyQuarterPct.toFixed(1)}%</b></p>
+    <table>
+     <thead><tr><th>الشركة</th><th>الأودز</th><th>خام</th><th>عادل</th><th>EV</th></tr></thead>
+     <tbody>
+      ${info.entries.map(e=>`<tr><td>${safe(e.book)}</td><td>${e.odds.toFixed(2)}</td><td>${(e.rawImplied*100).toFixed(1)}%</td><td>${(e.fairProb*100).toFixed(1)}%</td><td class="${e.ev>=0?'green':'red'}">${(e.ev*100).toFixed(1)}%</td></tr>`).join("")}
+     </tbody>
+    </table>
+    <button class="btn primary full" onclick="savePickDirect(${idx},'${mk.code}','${safe(mk.name).replace(/'/g,"\\'")}',${mk.p},${info.bestEntry.odds},${info.trueEdgePct},'${info.bestEntry.book}')">حفظ بأفضل أودز (${info.bestEntry.odds.toFixed(2)})</button>
+   </div>
+  `;
+ }).join("");
+
+ const bookNames = Array.from(new Set([...BOOKMAKERS, ...Object.keys(books)]));
+ const editRows = bookNames.map(b=>{
+  const cur = books[b] || { HOME:2.0, DRAW:3.4, AWAY:3.6 };
+  return `<tr><td>${safe(b)}</td><td><input type="number" step="0.01" id="ed_${safe(b)}_HOME" value="${cur.HOME||2.0}" style="margin:0;padding:5px"></td><td><input type="number" step="0.01" id="ed_${safe(b)}_DRAW" value="${cur.DRAW||3.4}" style="margin:0;padding:5px"></td><td><input type="number" step="0.01" id="ed_${safe(b)}_AWAY" value="${cur.AWAY||3.6}" style="margin:0;padding:5px"></td></tr>`;
+ }).join("");
+
+ box.innerHTML = `
+  <div class="row" style="margin-bottom:8px"><b>${safe(item.home)} × ${safe(item.away)}</b><span class="pill">${srcLabel}</span></div>
+  ${cards}
+  <div class="box" style="background:#142238">
+   <h3>تعديل أودز الشركات (1X2)</h3>
+   <table><thead><tr><th>الشركة</th><th>1</th><th>X</th><th>2</th></tr></thead><tbody>${editRows}</tbody></table>
+   <button class="btn win full" onclick="saveManualBooks(${idx})">تحديث الأودز</button>
+  </div>
+ `;
+}
+
+function saveManualBooks(idx){
+ const item = feedAnalyzed[idx];
+ if(!item)return;
+ const { books } = getBooksForMatch(item);
+ const bookNames = Array.from(new Set([...BOOKMAKERS, ...Object.keys(books)]));
+ const updated = {};
+ bookNames.forEach(b=>{
+  updated[b] = {
+   HOME: Number(document.getElementById(`ed_${b}_HOME`).value)||2.0,
+   DRAW: Number(document.getElementById(`ed_${b}_DRAW`).value)||3.4,
+   AWAY: Number(document.getElementById(`ed_${b}_AWAY`).value)||3.6
+  };
+ });
+ customOddsOverrides[`${item.date}|${item.home}|${item.away}`] = updated;
+ renderValueTab();
+ showToast("تم التحديث");
+}
+
+function savePickDirect(idx,code,marketName,prob,odds,edgePct=null,bookmaker=null){
+ const item = feedAnalyzed[idx];
+ if(!item)return;
+ const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ const exists = saved.some(p=>p.date===item.date && teamSimilarityScore(p.home,item.home)>=0.75 && teamSimilarityScore(p.away,item.away)>=0.75 && p.code===code);
+ if(exists){ showToast("محفوظ مسبقاً"); return; }
+ saved.push({ date:item.date, league:item.leagueId, home:item.home, away:item.away, code, market:marketName, probability:Number(prob), estOdds:Number(odds), edgePct:typeof edgePct==="number"&&Number.isFinite(edgePct)?edgePct:null, bookmaker:bookmaker||null, status:"pending" });
+ localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ renderHistory();
+ showToast("تم الحفظ");
+}
+
+function evalMarketCode(code,fh,fa){
+ if(fh===null || fa===null)return null;
+ const tot = fh+fa;
+ if(code==="HOME")return fh>fa?"won":"lost";
+ if(code==="DRAW")return fh===fa?"won":"lost";
+ if(code==="AWAY")return fa>fh?"won":"lost";
+ if(code==="DC_1X")return fh>=fa?"won":"lost";
+ if(code==="DC_X2")return fa>=fh?"won":"lost";
+ if(code==="DC_12")return fh!==fa?"won":"lost";
+ if(code==="BTTS_Y")return (fh>=1&&fa>=1)?"won":"lost";
+ if(code==="BTTS_N")return (fh===0||fa===0)?"won":"lost";
+ if(code==="OVER_05")return tot>=1?"won":"lost";
+ if(code==="OVER_15")return tot>=2?"won":"lost";
+ if(code==="OVER_25")return tot>=3?"won":"lost";
+ if(code==="UNDER_25")return tot<=2?"won":"lost";
+ if(code==="UNDER_35")return tot<=3?"won":"lost";
+ if(code==="AH_H_M05")return ((fh-fa)-0.5)>0?"won":"lost";
+ if(code==="AH_A_P05")return ((fa-fh)+0.5)>0?"won":"lost";
+ if(code==="AH_H_M10"){ const d=(fh-fa)-1; return d>0?"won":d===0?"push":"lost"; }
+ if(code==="AH_A_P10"){ const d=(fa-fh)+1; return d>0?"won":d===0?"push":"lost"; }
+ if(code==="EH_H_M1")return ((fh-1)>fa)?"won":"lost";
+ if(code==="EH_D_M1")return ((fh-1)===fa)?"won":"lost";
+ if(code==="EH_A_P1")return ((fa+1)>fh)?"won":"lost";
+ return null;
+}
+
+function runBacktest(){
+ const leagueId = document.getElementById("btLeagueSelect").value;
+ const code = document.getElementById("btMarketSelect").value;
+ const minProb = (Number(document.getElementById("btMinProb").value)||0)/100;
+ const lastN = Number(document.getElementById("btLastN").value)||0;
+ const box = document.getElementById("backtestResults");
+
+ const chronological = [...(resultsByLeague[leagueId]||[])]
+  .filter(m=>num(m.ft_home)!==null && num(m.ft_away)!==null && m.home && m.away)
+  .sort((a,b)=>String(a.date||"").localeCompare(String(b.date||"")));
+
+ if(chronological.length < 25){ box.innerHTML='<p class="red">بيانات غير كافية.</p>'; return; }
+
+ const startIdx = Math.max(15, lastN>0 ? chronological.length-lastN : 15);
+ let bets=0, wins=0, pushes=0, netUnits=0, brierSum=0, logLossSum=0, probCount=0;
+ const bins = [
+  { label:"30-39%", min:0.30, max:0.40, n:0, sumP:0, hit:0 },
+  { label:"40-49%", min:0.40, max:0.50, n:0, sumP:0, hit:0 },
+  { label:"50-59%", min:0.50, max:0.60, n:0, sumP:0, hit:0 },
+  { label:"60-69%", min:0.60, max:0.70, n:0, sumP:0, hit:0 },
+  { label:"70%+",   min:0.70, max:1.01, n:0, sumP:0, hit:0 }
+ ];
+
+ for(let i=startIdx;i<chronological.length;i++){
+  const m = chronological[i];
+  const res = model(chronological.slice(0,i), m.home, m.away, m.date);
+  if(!res)continue;
+  const mk = res.allMarkets.find(x=>x.code===code);
+  if(!mk)continue;
+  const outcome = evalMarketCode(code, num(m.ft_home), num(m.ft_away));
+  if(!outcome)continue;
+  const p = Math.max(0.01, Math.min(0.99, mk.p));
+  const y = outcome==="won"?1:0;
+  if(outcome!=="push"){
+   brierSum += Math.pow(p-y,2);
+   logLossSum += -(y*Math.log(p)+(1-y)*Math.log(1-p));
+   probCount++;
+   const bin = bins.find(b=>p>=b.min&&p<b.max);
+   if(bin){ bin.n++; bin.sumP+=p; bin.hit+=y; }
+  }
+  if(p>=minProb){
+   bets++;
+   const estO = Math.max(1.05, Number(((1/p)*0.95).toFixed(2)));
+   if(outcome==="won"){ wins++; netUnits+=(estO-1); }
+   else if(outcome==="push")pushes++;
+   else netUnits-=1;
+  }
+ }
+
+ const winRate = bets>0 ? ((wins/Math.max(1,bets-pushes))*100).toFixed(1)+"%" : "0.0%";
+ const roi = bets>0 ? ((netUnits/bets)*100).toFixed(1)+"%" : "0.0%";
+
+ box.innerHTML = `
+  <div class="grid-4">
+   <div class="stat">رهانات<b>${bets}</b></div>
+   <div class="stat">نسبة النجاح<b>${winRate}</b></div>
+   <div class="stat">ROI<b>${Number(roi)>=0?'+':''}${roi}</b></div>
+   <div class="stat">Brier<b>${probCount?(brierSum/probCount).toFixed(4):'-'}</b></div>
+  </div>
+  <p class="muted" style="margin-top:8px">Log Loss: <b>${probCount?(logLossSum/probCount).toFixed(4):'-'}</b></p>
+  <table>
+   <thead><tr><th>المجال</th><th>العدد</th><th>المتوقع</th><th>الفعلي</th><th>الفرق</th></tr></thead>
+   <tbody>
+    ${bins.map(b=>{
+     if(!b.n)return `<tr><td>${b.label}</td><td>0</td><td>-</td><td>-</td><td>-</td></tr>`;
+     const pred=(b.sumP/b.n)*100, act=(b.hit/b.n)*100, diff=act-pred;
+     return `<tr><td>${b.label}</td><td>${b.n}</td><td>${pred.toFixed(1)}%</td><td><b>${act.toFixed(1)}%</b></td><td class="${Math.abs(diff)<=6?'green':'gold'}">${diff>=0?'+':''}${diff.toFixed(1)}%</td></tr>`;
+    }).join("")}
+   </tbody>
+  </table>
+ `;
+}
+
+function settleFromResults(silent=false){
+ if(!allResults.length){ if(!silent)showToast("لا توجد نتائج"); return; }
+ const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ let updated = 0;
+ saved.forEach(p=>{
+  if(p.status!=="pending")return;
+  let best=null, bestSc=0;
+  allResults.forEach(r=>{
+   if(p.date && r.date && p.date!==r.date)return;
+   const sH=teamSimilarityScore(p.home,r.home), sA=teamSimilarityScore(p.away,r.away);
+   if(sH>=0.65 && sA>=0.65 && (sH+sA)/2 > bestSc){ bestSc=(sH+sA)/2; best=r; }
+  });
+  if(best){
+   const out = evalMarketCode(p.code, num(best.ft_home), num(best.ft_away));
+   if(out){ p.status=out; updated++; }
+  }
+ });
+ localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ renderHistory();
+ if(!silent)showToast(updated?`تمت تسوية ${updated}`:"لا توجد نتائج جديدة");
+}
+
+function setManualStatus(i,s){
+ const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ if(!saved[i])return;
+ saved[i].status=s;
+ localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ renderHistory();
+}
+
+function deletePick(i){
+ const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ saved.splice(i,1);
+ localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ renderHistory();
+}
+
+function clearHistory(){
+ if(!confirm("مسح السجل بالكامل؟"))return;
+ localStorage.removeItem("matchai_picks");
+ renderHistory();
+}
+
+function renderHistory(){
+ const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ const settled = saved.filter(p=>p.status==="won"||p.status==="lost"||p.status==="push");
+ const active = saved.filter(p=>p.status==="won"||p.status==="lost");
+ const won = saved.filter(p=>p.status==="won").length;
+ let netUnits = 0;
+ settled.forEach(p=>{
+  const o = Number(p.estOdds)||fairOddsFromProb(p.probability||0.55);
+  if(p.status==="won")netUnits+=(o-1);
+  else if(p.status==="lost")netUnits-=1;
+ });
+ const roiPct = settled.length ? (netUnits/settled.length)*100 : 0;
+
+ document.getElementById("totalPicks").textContent = saved.length;
+ document.getElementById("settledPicks").textContent = settled.length;
+ document.getElementById("wonPicks").textContent = won;
+ document.getElementById("winRate").textContent = active.length ? Math.round(won/active.length*100)+"%" : "0%";
+ const netEl = document.getElementById("netUnits");
+ netEl.textContent = (netUnits>=0?"+":"")+netUnits.toFixed(2)+"u";
+ netEl.className = netUnits<0?"red":"";
+ const roiEl = document.getElementById("roiPct");
+ roiEl.textContent = (roiPct>=0?"+":"")+roiPct.toFixed(1)+"%";
+ roiEl.className = roiPct<0?"red":"";
+
+ document.getElementById("historyList").innerHTML = saved.map((p,i)=>{
+  const o = Number(p.estOdds)||fairOddsFromProb(p.probability||0.55);
+  const stLabel = p.status==="won"?"رابح":p.status==="lost"?"خاسر":p.status==="push"?"Push":"بانتظار النتيجة";
+  return `
+   <div class="box">
+    <div class="row"><b>${safe(p.home)} × ${safe(p.away)}</b><span class="pill ${p.status==='won'?'ok':''}">${stLabel}</span></div>
+    <p class="muted" style="margin:5px 0">${safe(p.market)} • ${safe(p.date)} • ${((p.probability||0)*100).toFixed(1)}% • أودز ${o.toFixed(2)}</p>
+    <div class="row">
+     <button class="btn win sm" onclick="setManualStatus(${i},'won')">رابح</button>
+     <button class="btn loss sm" onclick="setManualStatus(${i},'lost')">خاسر</button>
+     <button class="btn push sm" onclick="setManualStatus(${i},'push')">Push</button>
+     <button class="btn sm" onclick="deletePick(${i})">حذف</button>
+    </div>
+   </div>
+  `;
+ }).join("") || '<div class="box">لا توجد توقعات محفوظة.</div>';
+}
+
+renderHistory();
+loadAllLeagues(false);
+setInterval(()=>loadAllLeagues(true), AUTO_REFRESH_MS);
+</script>
+</body>
+</html>
