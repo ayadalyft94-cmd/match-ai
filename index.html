@@ -3,28 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MATCH AI — Live, Custom Days, League Filter, Custom Selection & 50+ Odds Coupon</title>
+<title>MATCH AI — منصة تحليل المباريات العصرية ولوحة المؤسس</title>
 <style>
+:root{
+ --bg-main:#070c16;
+ --bg-grad:radial-gradient(circle at 15% 0%, #11233b 0%, #070c16 55%, #050811 100%);
+ --card:rgba(16, 26, 45, 0.88);
+ --card-hover:rgba(22, 36, 62, 0.96);
+ --border:rgba(148, 163, 184, 0.16);
+ --border-accent:rgba(16, 185, 129, 0.45);
+ --text:#f1f5f9;
+ --muted:#94a3b8;
+ --accent:#10b981;
+ --accent-2:#38bdf8;
+ --gold:#fbbf24;
+ --danger:#f43f5e;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#0b1220;color:#eef2f7;font-family:system-ui,-apple-system,Arial,sans-serif;line-height:1.5}
-header{background:#121c2e;padding:15px 16px;border-bottom:1px solid #22324d}
-.logo{font-size:22px;font-weight:800;color:#34d399}
-.sub{color:#94a3b8;font-size:12px;margin-top:3px}
-nav{display:flex;gap:6px;padding:10px 14px;overflow:auto;background:#0e1626;border-bottom:1px solid #1e2d45}
-nav button,.btn,.chip{border:1px solid #2b3e5c;border-radius:8px;padding:8px 12px;background:#162236;color:#e2e8f0;font-weight:600;font-size:13px;white-space:nowrap}
-nav button.active,.btn.primary,.chip.active{background:#34d399;color:#062017;border-color:#34d399}
-.btn.sm{padding:6px 10px;font-size:12px}
-.btn.win{background:#144333;border-color:#267358;color:#6ee7b7}
-.btn.loss{background:#471b22;border-color:#7d2d3a;color:#fda4af}
-.btn.push{background:#3d3519;border-color:#75652d;color:#fde68a}
-main{max-width:940px;margin:0 auto;padding:14px}
+body{
+ margin:0;
+ background:var(--bg-main);
+ background-image:var(--bg-grad);
+ color:var(--text);
+ font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+ line-height:1.55;
+ min-height:100vh;
+}
+header{
+ background:rgba(11, 19, 34, 0.9);
+ backdrop-filter:blur(12px);
+ padding:16px 20px;
+ border-bottom:1px solid var(--border);
+}
+.header-inner{
+ max-width:1020px;
+ margin:0 auto;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:12px;
+ flex-wrap:wrap;
+}
+.logo{
+ font-size:23px;
+ font-weight:900;
+ letter-spacing:0.3px;
+ background:linear-gradient(90deg,#34d399,#38bdf8);
+ -webkit-background-clip:text;
+ -webkit-text-fill-color:transparent;
+}
+.sub{color:var(--muted);font-size:12px;margin-top:2px}
+.auth-bar{
+ display:flex;
+ align-items:center;
+ gap:8px;
+ flex-wrap:wrap;
+}
+.user-badge{
+ background:rgba(16,185,129,0.14);
+ border:1px solid rgba(16,185,129,0.38);
+ color:#6ee7b7;
+ padding:6px 12px;
+ border-radius:999px;
+ font-size:12px;
+ font-weight:700;
+}
+.user-badge.founder{
+ background:rgba(251,191,36,0.15);
+ border-color:rgba(251,191,36,0.45);
+ color:#fde68a;
+}
+nav{
+ display:flex;
+ gap:8px;
+ padding:10px 16px;
+ overflow:auto;
+ background:rgba(9, 15, 28, 0.85);
+ border-bottom:1px solid var(--border);
+}
+nav button,.btn,.chip{
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:8px 14px;
+ background:rgba(23, 36, 61, 0.85);
+ color:#e2e8f0;
+ font-weight:600;
+ font-size:13px;
+ white-space:nowrap;
+ transition:all 0.18s ease;
+ box-shadow:0 2px 6px rgba(0,0,0,0.22);
+}
+nav button:hover,.btn:hover,.chip:hover{
+ transform:translateY(-1px);
+ border-color:rgba(148,163,184,0.38);
+ background:rgba(31, 48, 80, 0.95);
+}
+nav button.active,.btn.primary,.chip.active{
+ background:linear-gradient(135deg,#10b981,#059669);
+ color:#041c14;
+ border-color:#34d399;
+ font-weight:700;
+ box-shadow:0 4px 14px rgba(16,185,129,0.28);
+}
+.btn.sm{padding:6px 11px;font-size:12px;border-radius:8px}
+.btn.win{background:rgba(16,185,129,0.18);border-color:rgba(52,211,153,0.4);color:#6ee7b7}
+.btn.loss{background:rgba(244,63,94,0.18);border-color:rgba(251,113,133,0.4);color:#fda4af}
+.btn.push{background:rgba(251,191,36,0.16);border-color:rgba(251,191,36,0.38);color:#fde68a}
+main{max-width:1020px;margin:0 auto;padding:16px}
 section{display:none}
-section.active{display:block}
-h2{font-size:18px;margin:8px 0 12px}
-h3{font-size:15px;margin:0}
-.box{background:#121e33;border:1px solid #223452;border-radius:10px;padding:14px;margin-bottom:12px}
-.box.highlight{border-color:#34d399}
-.box.live-box{border-color:#f59e0b}
+section.active{display:block;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+h2{font-size:19px;margin:8px 0 12px;font-weight:800}
+h3{font-size:15px;margin:0;font-weight:700}
+.box{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:14px;
+ padding:16px;
+ margin-bottom:12px;
+ box-shadow:0 8px 24px rgba(0,0,0,0.28);
+ transition:border-color 0.2s ease,background 0.2s ease;
+}
+.box:hover{border-color:rgba(148,163,184,0.26);background:var(--card-hover)}
+.box.highlight{border-color:var(--border-accent)}
+.box.live-box{border-color:rgba(251,191,36,0.45)}
+.box.auth-box{border-color:rgba(56,189,248,0.4);background:rgba(15,28,50,0.95)}
+.box.founder-panel{border-color:rgba(251,191,36,0.55);background:rgba(24,27,42,0.96)}
 .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .grid-2{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:680px){.grid-2{grid-template-columns:1fr 1fr}}
@@ -32,39 +136,84 @@ h3{font-size:15px;margin:0}
 @media(min-width:720px){.grid-3{grid-template-columns:repeat(3,1fr)}}
 .grid-4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 @media(min-width:680px){.grid-4{grid-template-columns:repeat(4,1fr)}}
-.stat{background:#182740;border-radius:8px;padding:10px;text-align:center}
-.stat b{display:block;font-size:17px;color:#34d399;margin-top:3px}
-.stat b.red{color:#f87171}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.chip{border-radius:16px;padding:6px 11px;font-size:12px}
-.line{padding:9px 0;border-top:1px solid #223452;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.match-title{font-weight:700;font-size:16px;text-align:center;margin:8px 0}
-.score-pill{background:#2a1f0d;color:#fbbf24;border:1px solid #926718;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700}
-.pill{background:#1e344d;color:#93c5fd;padding:3px 8px;border-radius:12px;font-size:11px}
-.pill.ok{background:#133d2f;color:#6ee7b7}
-.pill.big{background:#2d2247;color:#ddd6fe}
-.pill.high-odds{background:#3b1d2b;color:#fda4af}
-.muted{color:#94a3b8;font-size:12px}
+.stat{
+ background:rgba(24,38,66,0.85);
+ border:1px solid rgba(148,163,184,0.12);
+ border-radius:12px;
+ padding:12px;
+ text-align:center;
+}
+.stat b{display:block;font-size:18px;color:#34d399;margin-top:4px}
+.stat b.red{color:#fb7185}
+.stat b.gold{color:#fbbf24}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.chip{border-radius:999px;padding:6px 13px;font-size:12px}
+.line{padding:10px 0;border-top:1px solid rgba(148,163,184,0.12);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.match-title{font-weight:800;font-size:17px;text-align:center;margin:10px 0;color:#f8fafc}
+.score-pill{
+ background:rgba(251,191,36,0.16);
+ color:#fde68a;
+ border:1px solid rgba(251,191,36,0.42);
+ padding:4px 11px;
+ border-radius:999px;
+ font-size:12px;
+ font-weight:700;
+}
+.pill{background:rgba(56,189,248,0.15);color:#7dd3fc;border:1px solid rgba(56,189,248,0.28);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600}
+.pill.ok{background:rgba(16,185,129,0.16);color:#6ee7b7;border-color:rgba(52,211,153,0.34)}
+.pill.big{background:rgba(168,85,247,0.18);color:#e9d5ff;border-color:rgba(192,132,252,0.35)}
+.pill.high-odds{background:rgba(251,191,36,0.18);color:#fde68a;border-color:rgba(251,191,36,0.4)}
+.muted{color:var(--muted);font-size:12px}
 .green{color:#34d399}
-.red{color:#f87171}
+.red{color:#fb7185}
 .gold{color:#fbbf24}
-select,input,textarea{width:100%;background:#182740;color:#f1f5f9;border:1px solid #30476b;border-radius:8px;padding:8px 10px;margin-top:4px;font-family:inherit}
+select,input{
+ width:100%;
+ background:rgba(24,38,66,0.9);
+ color:#f8fafc;
+ border:1px solid rgba(148,163,184,0.24);
+ border-radius:10px;
+ padding:9px 12px;
+ margin-top:4px;
+ font-family:inherit;
+}
+select:focus,input:focus{outline:none;border-color:#34d399}
 input[type="checkbox"]{width:auto;margin:0;transform:scale(1.15);cursor:pointer}
-textarea{min-height:68px;font-family:monospace;font-size:12px}
 button{cursor:pointer}
 .full{width:100%;margin-top:8px}
 table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px}
-th,td{border:1px solid #263959;padding:7px;text-align:center}
-th{background:#182740}
-.toast{position:fixed;bottom:14px;left:14px;right:14px;max-width:420px;margin:auto;background:#173347;border:1px solid #34d399;color:#fff;padding:10px 14px;border-radius:8px;font-size:13px;display:none;z-index:50}
-footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
+th,td{border:1px solid rgba(148,163,184,0.16);padding:8px;text-align:center}
+th{background:rgba(24,38,66,0.95)}
+.toast{
+ position:fixed;
+ bottom:16px;
+ left:16px;
+ right:16px;
+ max-width:420px;
+ margin:auto;
+ background:#0f293a;
+ border:1px solid #34d399;
+ color:#fff;
+ padding:11px 15px;
+ border-radius:10px;
+ font-size:13px;
+ display:none;
+ z-index:60;
+ box-shadow:0 10px 25px rgba(0,0,0,0.45);
+}
+footer{text-align:center;padding:22px;color:#64748b;font-size:12px}
 </style>
 </head>
 <body>
 
 <header>
- <div class="logo">MATCH AI</div>
- <div class="sub">مباريات مباشرة • تحديد وترتيب الأيام • اختيار حسب الدوري • قسائم من اختياراتك • قسيمة يومية 50+ أودز</div>
+ <div class="header-inner">
+  <div>
+   <div class="logo">MATCH AI</div>
+   <div class="sub">منصة احترافية لتحليل مباريات كرة القدم • قسائم 5 و6 و50+ • لوحة المؤسس</div>
+  </div>
+  <div class="auth-bar" id="headerAuthBar"></div>
+ </div>
 </header>
 
 <nav>
@@ -72,10 +221,10 @@ footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
  <button onclick="tab('live',this)">المباريات المباشرة</button>
  <button onclick="tab('best',this)">أفضل التوقعات</button>
  <button onclick="tab('coupons',this)">القسائم</button>
- <button onclick="tab('value',this)">الأودز وValue</button>
  <button onclick="tab('analysis',this)">التحليل</button>
  <button onclick="tab('backtest',this)">Backtest</button>
- <button onclick="tab('history',this)">الأداء</button>
+ <button onclick="tab('history',this)">أداء قسائم الموقع</button>
+ <button onclick="tab('account',this)">الحساب</button>
 </nav>
 
 <main>
@@ -112,14 +261,14 @@ footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
 
   <div class="chips" style="margin-top:8px">
    <button class="chip" onclick="presetDays(-1,0)">أمس واليوم</button>
-   <button class="chip active" id="chipTodayOnly" onclick="presetDays(0,0)">اليوم فقط</button>
+   <button class="chip active" onclick="presetDays(0,0)">اليوم فقط</button>
    <button class="chip" onclick="presetDays(0,3)">اليوم + 3 أيام</button>
    <button class="chip" onclick="presetDays(-2,7)">كل الأيام المتاحة</button>
   </div>
 
   <div class="row" style="margin-top:6px">
    <span id="status" class="muted">جاري التحميل...</span>
-   <span class="pill ok">تحديث تلقائي</span>
+   <span id="minOddsStatusBadge" class="pill ok">الحد الأدنى للأودز: 1.30+</span>
   </div>
   <div class="row" style="margin-top:8px">
    <button class="btn primary" style="flex:1" onclick="loadAllLeagues(false)">تحديث الآن</button>
@@ -184,14 +333,32 @@ footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
 </section>
 
 <section id="coupons">
- <h2>القسائم اليومية، قسيمة 50+ أودز، وقسائم المباريات المختارة</h2>
+ <h2>القسائم اليومية (5 و6) • قسيمة 50+ (حتى 15 مباراة بأودز 1.50+) • قسائمك المختارة</h2>
+
+ <div class="grid-2">
+  <div class="box highlight">
+   <div class="row">
+    <h3>قسيمة اليوم — أودز ~5.00</h3>
+    <span id="odds5Badge" class="pill ok">~5.00</span>
+   </div>
+   <div id="coupon5Box" style="margin-top:8px"></div>
+  </div>
+
+  <div class="box highlight">
+   <div class="row">
+    <h3>قسيمة اليوم — أودز ~6.00</h3>
+    <span id="odds6Badge" class="pill ok">~6.00</span>
+   </div>
+   <div id="coupon6Box" style="margin-top:8px"></div>
+  </div>
+ </div>
 
  <div class="box highlight">
   <div class="row">
-   <h3>قسيمة اليوم بأودز مرتفعة (من مباريات اليوم نفسه)</h3>
+   <h3>قسيمة اليوم — أودز 50+ (أودز كل مباراة ≥ 1.50 • بحد أقصى 15 مباراة)</h3>
    <div class="row" style="gap:6px">
-    <span class="muted">الحد المستهدف للأودز:</span>
-    <input type="number" id="highOddsTargetInput" value="50" min="5" max="10000" step="5" style="width:90px;margin:0;padding:5px 8px" onchange="renderCoupons()">
+    <span class="muted">الهدف:</span>
+    <input type="number" id="highOddsTargetInput" value="50" min="10" max="50000" step="5" style="width:92px;margin:0;padding:5px 8px" onchange="renderCoupons()">
    </div>
   </div>
   <div id="dailyHighOddsCouponBox" style="margin-top:8px"></div>
@@ -206,52 +373,6 @@ footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
  </div>
 
  <div id="couponList"></div>
-</section>
-
-<section id="value">
- <h2>مقارنة شركات المراهنات وValue (بدون هامش)</h2>
- <div class="box">
-  <div class="grid-2">
-   <div>
-    <label class="muted">رابط JSON أو API</label>
-    <input type="text" id="oddsUrlInput" placeholder="رابط JSON أو The Odds API">
-   </div>
-   <div>
-    <label class="muted">API Key (اختياري)</label>
-    <input type="text" id="oddsApiKeyInput" placeholder="مفتاح API إن لزم">
-   </div>
-  </div>
-  <div class="grid-2">
-   <div>
-    <label class="muted">مفتاح المصفوفة في JSON (اختياري)</label>
-    <input type="text" id="oddsRootKeyInput" placeholder="مثال: data">
-   </div>
-   <div>
-    <label class="muted">الجلب التلقائي</label>
-    <select id="autoFetchOddsMode">
-     <option value="ON">مفعّل عند وجود رابط</option>
-     <option value="OFF">يدوي فقط</option>
-    </select>
-   </div>
-  </div>
-  <div class="row" style="margin-top:8px">
-   <button class="btn win sm" onclick="fetchExternalOdds(false)">جلب الآن</button>
-   <button class="btn push sm" onclick="saveOddsSourceConfig()">حفظ الإعدادات</button>
-   <button class="btn sm" onclick="clearExternalOdds()">مسح الأودز الخارجية</button>
-  </div>
-  <div style="margin-top:10px">
-   <label class="muted">أو لصق JSON مباشر</label>
-   <textarea id="oddsJsonInput" placeholder='[{"home":"Arsenal","away":"Chelsea","books":{"Pinnacle":{"HOME":1.85,"DRAW":3.70,"AWAY":4.20}}}]'></textarea>
-   <button class="btn win sm" onclick="applyPastedOdds()">تطبيق JSON</button>
-  </div>
-  <p id="oddsSourceStatus" class="muted" style="margin-top:8px">الوضع الحالي: تقدير سوق افتراضي مع دعم كامل لمصادر JSON وAPI الخارجية.</p>
- </div>
-
- <div class="box">
-  <label class="muted">اختر مباراة</label>
-  <select id="valueMatchSelect" onchange="renderValueTab()"></select>
-  <div id="valueContent" style="margin-top:10px"></div>
- </div>
 </section>
 
 <section id="analysis">
@@ -299,7 +420,7 @@ footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
   <div class="grid-2">
    <div>
     <label class="muted">الحد الأدنى للاحتمال (%)</label>
-    <input type="number" id="btMinProb" value="50" min="0" max="99">
+    <input type="number" id="btMinProb" value="40" min="0" max="99">
    </div>
    <div>
     <label class="muted">عدد آخر مباريات (0 = الكل)</label>
@@ -312,30 +433,64 @@ footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
 </section>
 
 <section id="history">
- <h2>سجل الأداء والعائد (ROI)</h2>
+ <h2>أداء قسائم الموقع فقط (نسبة إصابة توقعات الموقع)</h2>
  <div class="box">
   <div class="grid-4">
-   <div class="stat">المسجلة<b id="totalPicks">0</b></div>
+   <div class="stat">مباريات قسائم الموقع<b id="totalPicks">0</b></div>
    <div class="stat">المسوّاة<b id="settledPicks">0</b></div>
-   <div class="stat">الرابحة<b id="wonPicks">0</b></div>
-   <div class="stat">نسبة النجاح<b id="winRate">0%</b></div>
-  </div>
-  <div class="grid-2" style="margin-top:8px">
-   <div class="stat">صافي الوحدات (1u)<b id="netUnits">0.00u</b></div>
-   <div class="stat">العائد ROI<b id="roiPct">0.0%</b></div>
+   <div class="stat">التوقعات الصحيحة<b id="wonPicks">0</b></div>
+   <div class="stat">نسبة نجاح الموقع<b id="winRate" class="gold">0%</b></div>
   </div>
   <div class="row" style="margin-top:10px">
-   <button class="btn win sm" onclick="settleFromResults()">تسوية تلقائية</button>
-   <button class="btn sm" onclick="clearHistory()">مسح السجل</button>
+   <button class="btn win sm" onclick="settleFromResults()">تسوية تلقائية من النتائج</button>
+   <button class="btn sm" onclick="clearHistory()">مسح سجل قسائم الموقع</button>
   </div>
  </div>
  <div id="historyList"></div>
 </section>
 
+<section id="account">
+ <h2>الحسابات ولوحة تحكم المؤسس</h2>
+ <div class="grid-2">
+  <div class="box auth-box">
+   <h3>إنشاء حساب جديد أو تسجيل الدخول</h3>
+   <div style="margin-top:8px">
+    <label class="muted">اسم المستخدم</label>
+    <input type="text" id="authUsername" placeholder="مثال: ahmed_dz">
+   </div>
+   <div style="margin-top:8px">
+    <label class="muted">كلمة المرور</label>
+    <input type="password" id="authPassword" placeholder="كلمة المرور">
+   </div>
+   <div class="row" style="margin-top:10px">
+    <button class="btn primary" style="flex:1" onclick="registerAccount()">إنشاء حساب</button>
+    <button class="btn win" style="flex:1" onclick="loginAccount()">تسجيل الدخول</button>
+   </div>
+  </div>
+
+  <div class="box highlight">
+   <h3>دخول حساب المؤسس (Founder)</h3>
+   <p class="muted" style="margin:6px 0">دخول مباشر للوحة المؤسس للتحكم في إعدادات المنصة وإحصائياتها.</p>
+   <div style="margin-top:8px">
+    <label class="muted">اسم حساب المؤسس</label>
+    <input type="text" id="founderUserInput" value="founder">
+   </div>
+   <div style="margin-top:8px">
+    <label class="muted">رمز المؤسس السري</label>
+    <input type="password" id="founderPassInput" value="MATCHAI-FOUNDER-2026">
+   </div>
+   <button class="btn push full" onclick="loginAsFounder()">دخول كحساب المؤسس</button>
+  </div>
+ </div>
+
+ <div class="box" id="currentAccountBox"></div>
+ <div id="founderDashboardBox"></div>
+</section>
+
 </main>
 
 <div id="toast" class="toast"></div>
-<footer>MATCH AI • بيانات Open Matchday • لأغراض تحليلية وإحصائية فقط.</footer>
+<footer>MATCH AI • منصة تحليل المباريات العصرية • لأغراض تحليلية وإحصائية فقط.</footer>
 
 <script>
 const BASE = "https://raw.githubusercontent.com/oladeeayo/open-matchday/master/data";
@@ -360,8 +515,8 @@ const ALL_LEAGUES = [
  { id: "KSA_1_pro-league", name: "Saudi Pro League", tier: "OTHER" }
 ];
 
-const BOOKMAKERS = ["Pinnacle", "Bet365", "1xBet", "Betfair"];
 const AUTO_REFRESH_MS = 10 * 60 * 1000;
+const FOUNDER_CREDS = { username: "founder", secret: "MATCHAI-FOUNDER-2026" };
 
 const TEAM_ALIASES = {
  "man utd": "manchester united", "man united": "manchester united", "mufc": "manchester united",
@@ -381,14 +536,42 @@ let resultsByLeague = {};
 let feedAnalyzed = [];
 let activeLeagueFilter = "ALL";
 let selectedMatchKeys = new Set();
-let liveScoresMap = {}; // key -> { homeGoals, awayGoals, minute }
-let generatedUniqueCoupons = [];
-let generatedCustomCoupons = [];
+let liveScoresMap = {};
+let generatedCoupon5 = [];
+let generatedCoupon6 = [];
 let generatedDailyHighOddsItems = [];
-let externalOddsList = [];
-let customOddsOverrides = {};
+let generatedCustomCoupons = [];
+let generatedUniqueCoupons = [];
 let bestMarketFilter = "ALL";
 let analysisMarketFilter = "ALL";
+
+function getPlatformSettings(){
+ try{
+  const s = JSON.parse(localStorage.getItem("matchai_platform_settings")||"{}");
+  const minOdds = Number(s.minOdds);
+  return { minOdds: (Number.isFinite(minOdds) && minOdds >= 1.05 && minOdds <= 10) ? minOdds : 1.30 };
+ }catch(_){ return { minOdds: 1.30 }; }
+}
+
+function savePlatformSettings(newMinOdds){
+ const val = Number(newMinOdds);
+ if(!Number.isFinite(val) || val < 1.05 || val > 10){
+  showToast("أدخل حداً أدنى للأودز بين 1.05 و10");
+  return;
+ }
+ localStorage.setItem("matchai_platform_settings", JSON.stringify({ minOdds: Number(val.toFixed(2)) }));
+ syncMinOddsUI();
+ recalculateAllWithSettings();
+ showToast(`تم تحديث الحد الأدنى للأودز إلى ${val.toFixed(2)}`);
+}
+
+function syncMinOddsUI(){
+ const { minOdds } = getPlatformSettings();
+ const badge = document.getElementById("minOddsStatusBadge");
+ if(badge)badge.textContent = `الحد الأدنى للأودز: ${minOdds.toFixed(2)}+`;
+ const inp = document.getElementById("founderMinOddsInput");
+ if(inp)inp.value = minOdds.toFixed(2);
+}
 
 function showToast(msg){
  const el = document.getElementById("toast");
@@ -468,7 +651,126 @@ function teamSimilarityScore(nameA, nameB){
  return (2 * inter) / (bgA.length + bgB.length);
 }
 
-/* بناء أزرار الدوريات لتصفية كل دوري وحده عند الضغط */
+/* نظام الحسابات وحساب المؤسس + لوحة تحكم المؤسس */
+function getUsersStore(){
+ try{ return JSON.parse(localStorage.getItem("matchai_users_v1")||"[]"); }catch(_){ return []; }
+}
+function getSessionUser(){
+ try{ return JSON.parse(localStorage.getItem("matchai_session_v1")||"null"); }catch(_){ return null; }
+}
+function setSessionUser(u){
+ if(u)localStorage.setItem("matchai_session_v1", JSON.stringify(u));
+ else localStorage.removeItem("matchai_session_v1");
+ renderAccountUI();
+}
+function registerAccount(){
+ const username = document.getElementById("authUsername").value.trim();
+ const password = document.getElementById("authPassword").value.trim();
+ if(!username || password.length < 3){ showToast("أدخل اسم مستخدم وكلمة مرور (3 أحرف+)"); return; }
+ const users = getUsersStore();
+ if(users.some(u=>u.username.toLowerCase() === username.toLowerCase())){
+  showToast("اسم المستخدم موجود مسبقاً"); return;
+ }
+ users.push({ username, password, role:"member", createdAt:localDate(0) });
+ localStorage.setItem("matchai_users_v1", JSON.stringify(users));
+ setSessionUser({ username, role:"member" });
+ showToast("تم إنشاء الحساب وتسجيل الدخول");
+}
+function loginAccount(){
+ const username = document.getElementById("authUsername").value.trim();
+ const password = document.getElementById("authPassword").value.trim();
+ const users = getUsersStore();
+ const found = users.find(u=>u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+ if(!found){ showToast("بيانات الدخول غير صحيحة"); return; }
+ setSessionUser({ username: found.username, role: found.role || "member" });
+ showToast("تم تسجيل الدخول");
+}
+function loginAsFounder(){
+ const u = document.getElementById("founderUserInput").value.trim();
+ const p = document.getElementById("founderPassInput").value.trim();
+ if(u.toLowerCase() !== FOUNDER_CREDS.username || p !== FOUNDER_CREDS.secret){
+  showToast("بيانات حساب المؤسس غير صحيحة");
+  return;
+ }
+ setSessionUser({ username: "المؤسس (Founder)", role: "founder" });
+ showToast("مرحباً بك في لوحة تحكم المؤسس");
+}
+function logoutAccount(){
+ setSessionUser(null);
+ showToast("تم تسجيل الخروج");
+}
+
+function renderFounderDashboard(isFounder){
+ const panel = document.getElementById("founderDashboardBox");
+ if(!isFounder){ panel.innerHTML = ""; return; }
+
+ const { minOdds } = getPlatformSettings();
+ const usersCount = getUsersStore().length;
+ const sitePicks = JSON.parse(localStorage.getItem("matchai_site_picks")||"[]");
+ const wonCount = sitePicks.filter(x=>x.status==="won").length;
+ const activeCount = sitePicks.filter(x=>x.status==="won"||x.status==="lost").length;
+ const hitRate = activeCount ? Math.round((wonCount/activeCount)*100) : 0;
+
+ panel.innerHTML = `
+  <div class="box founder-panel">
+   <div class="row">
+    <h3>لوحة تحكم المؤسس — إعدادات وإحصائيات المنصة</h3>
+    <span class="pill big">Founder Control</span>
+   </div>
+
+   <div class="grid-4" style="margin-top:10px">
+    <div class="stat">المباريات المحللة<b>${feedAnalyzed.length}</b></div>
+    <div class="stat">الحسابات المسجلة<b>${usersCount}</b></div>
+    <div class="stat">اختيارات القسائم<b>${sitePicks.length}</b></div>
+    <div class="stat">نسبة نجاح الموقع<b class="gold">${hitRate}%</b></div>
+   </div>
+
+   <div class="grid-2" style="margin-top:12px">
+    <div>
+     <label class="muted">الحد الأدنى للأودز على مستوى المنصة</label>
+     <input type="number" step="0.05" min="1.05" max="10" id="founderMinOddsInput" value="${minOdds.toFixed(2)}">
+    </div>
+    <div style="display:flex;align-items:flex-end">
+     <button class="btn primary full" onclick="savePlatformSettings(document.getElementById('founderMinOddsInput').value)">تطبيق الحد الأدنى للأودز</button>
+    </div>
+   </div>
+
+   <div class="row" style="margin-top:10px">
+    <button class="btn win sm" onclick="loadAllLeagues(false)">إعادة تحليل كل المباريات</button>
+    <button class="btn push sm" onclick="settleFromResults()">تسوية نتائج القسائم الآن</button>
+   </div>
+  </div>
+ `;
+}
+
+function renderAccountUI(){
+ const sess = getSessionUser();
+ const bar = document.getElementById("headerAuthBar");
+ const box = document.getElementById("currentAccountBox");
+ if(!sess){
+  bar.innerHTML = `<button class="btn sm primary" onclick="tab('account',document.querySelectorAll('nav button')[7])">إنشاء حساب / دخول المؤسس</button>`;
+  box.innerHTML = `<h3>الحالة الحالية: زائر</h3><p class="muted" style="margin-top:4px">يمكنك إنشاء حساب جديد أو الدخول كحساب المؤسس.</p>`;
+  renderFounderDashboard(false);
+  return;
+ }
+ const isF = sess.role === "founder";
+ bar.innerHTML = `
+  <span class="user-badge ${isF?'founder':''}">${isF?'★ حساب المؤسس':'عضو: '+safe(sess.username)}</span>
+  <button class="btn sm" onclick="logoutAccount()">خروج</button>
+ `;
+ box.innerHTML = `
+  <div class="row">
+   <h3>الحساب النشط: ${safe(sess.username)}</h3>
+   <span class="pill ${isF?'big':'ok'}">${isF?'المؤسس • صلاحيات كاملة':'حساب عضو'}</span>
+  </div>
+  <p class="muted" style="margin-top:6px">${isF?'أنت مسجل الدخول بصفتك مؤسس المنصة MATCH AI.':'حسابك مفعل وجاهز لمتابعة القسائم والتحليلات.'}</p>
+ `;
+ renderFounderDashboard(isF);
+}
+renderAccountUI();
+syncMinOddsUI();
+
+/* أزرار الدوريات لعرض كل دوري لوحده */
 const chipsBar = document.getElementById("leagueChipsBar");
 const btLeagueSel = document.getElementById("btLeagueSelect");
 
@@ -493,28 +795,6 @@ function selectLeagueChip(leagueId){
  renderMatchesList();
 }
 
-(function initOddsConfig(){
- try{
-  const cfg = JSON.parse(localStorage.getItem("matchai_odds_cfg")||"{}");
-  if(cfg.url)document.getElementById("oddsUrlInput").value = cfg.url;
-  if(cfg.apiKey)document.getElementById("oddsApiKeyInput").value = cfg.apiKey;
-  if(cfg.rootKey)document.getElementById("oddsRootKeyInput").value = cfg.rootKey;
-  if(cfg.autoMode)document.getElementById("autoFetchOddsMode").value = cfg.autoMode;
-  if(cfg.liveUrl)document.getElementById("liveFeedUrlInput").value = cfg.liveUrl;
- }catch(_){}
-})();
-
-function saveOddsSourceConfig(){
- localStorage.setItem("matchai_odds_cfg", JSON.stringify({
-  url: document.getElementById("oddsUrlInput").value.trim(),
-  apiKey: document.getElementById("oddsApiKeyInput").value.trim(),
-  rootKey: document.getElementById("oddsRootKeyInput").value.trim(),
-  autoMode: document.getElementById("autoFetchOddsMode").value,
-  liveUrl: document.getElementById("liveFeedUrlInput").value.trim()
- }));
- showToast("تم حفظ الإعدادات.");
-}
-
 function tab(id,button){
  document.querySelectorAll("main section").forEach(s=>s.classList.remove("active"));
  document.getElementById(id).classList.add("active");
@@ -522,6 +802,8 @@ function tab(id,button){
  if(button)button.classList.add("active");
  if(id==="live")renderLiveTab();
  if(id==="coupons")renderCoupons();
+ if(id==="history")renderHistory();
+ if(id==="account")renderAccountUI();
 }
 
 function setBestMarket(cat,btn){
@@ -722,6 +1004,19 @@ function europeanHandicapProb(grid,side,line){
  return { win, draw };
 }
 
+function oddsFromProb(prob){
+ const { minOdds } = getPlatformSettings();
+ const raw = 1 / Math.max(0.04, Math.min(0.76, Number(prob)||0.5));
+ return Number(Math.max(minOdds, raw).toFixed(2));
+}
+
+function pickBestMarketWithMinOdds(markets){
+ const { minOdds } = getPlatformSettings();
+ const withOdds = markets.map(m=>({ ...m, odds: oddsFromProb(m.p) }));
+ const valid = withOdds.filter(m=>m.odds >= minOdds).sort((a,b)=>b.p-a.p);
+ return valid[0] || withOdds.sort((a,b)=>b.p-a.p)[0];
+}
+
 function model(leagueResults,home,away,refDate=null){
  const { sorted, getElo } = computeEloAndStrength(leagueResults, refDate);
  const h = weightedTeamProfile(sorted, home, "home", getElo, refDate);
@@ -796,13 +1091,27 @@ function model(leagueResults,home,away,refDate=null){
  ];
  const halfMarkets = [...firstHalf.markets, ...secondHalf.markets].sort((x,y)=>y.p-x.p);
  const coreMarkets = [...m1X2, ...mDC, ...mBTTS, ...mGoals, ...mAH, ...mEH].sort((x,y)=>y.p-x.p);
- const allMarkets = [...coreMarkets, ...halfMarkets].sort((x,y)=>y.p-x.p);
+ const allMarkets = [...coreMarkets, ...halfMarkets].sort((x,y)=>y.p-x.p).map(m=>({ ...m, odds: oddsFromProb(m.p) }));
 
  return {
   homeGoals, awayGoals, homeElo, awayElo,
   m1X2, mDC, mBTTS, mGoals, mAH, mEH, halfMarkets, allMarkets,
-  best: coreMarkets[0]
+  best: pickBestMarketWithMinOdds(coreMarkets)
  };
+}
+
+function recalculateAllWithSettings(){
+ feedAnalyzed.forEach(item=>{
+  if(item.leagueId && resultsByLeague[item.leagueId]){
+   item.analysis = model(resultsByLeague[item.leagueId], item.home, item.away, item.date);
+  }
+ });
+ renderBigMatchesBox();
+ renderMatchesList();
+ renderBest();
+ renderCoupons();
+ renderAnalysisTab();
+ renderAccountUI();
 }
 
 function isBigMatch(leagueTier, analysis){
@@ -812,87 +1121,34 @@ function isBigMatch(leagueTier, analysis){
  return (leagueTier === "TOP5" && avgElo >= 1535) || (analysis.homeElo >= 1535 && analysis.awayElo >= 1535) || avgElo >= 1585;
 }
 
-function fairOddsFromProb(prob){
- return Number((1 / Math.max(0.04, Math.min(0.95, Number(prob)||0.5))).toFixed(2));
-}
-
-/* اختيار سوق بأودز أعلى لقسيمة الأودز المرتفعة 50+ */
-function pickHigherOddsMarket(analysis){
+function pickMarketMin150(analysis){
  if(!analysis)return null;
- const candidates = analysis.allMarkets.filter(m=>m.p >= 0.14 && m.p <= 0.45).sort((a,b)=>a.p-b.p);
- const chosen = candidates[0] || [...analysis.allMarkets].sort((a,b)=>a.p-b.p)[0];
+ const cands = analysis.allMarkets
+  .filter(m=>m.odds >= 1.50 && m.p >= 0.16)
+  .sort((a,b)=>b.p-a.p);
+ const chosen = cands[0] || analysis.allMarkets.filter(m=>m.odds >= 1.50).sort((a,b)=>a.odds-b.odds)[0];
  if(!chosen)return null;
- return {
-  code: chosen.code,
-  market: chosen.name,
-  p: chosen.p,
-  odds: fairOddsFromProb(chosen.p)
- };
+ return { code: chosen.code, market: chosen.name, p: chosen.p, odds: chosen.odds };
 }
 
-function findMatchedExternalBooks(item){
- if(!externalOddsList.length)return null;
- let best=null, bestSc=0;
- externalOddsList.forEach(row=>{
-  const sH = teamSimilarityScore(item.home, row.home);
-  const sA = teamSimilarityScore(item.away, row.away);
-  let sc = (sH + sA)/2;
-  if(row.date && item.date && row.date === item.date)sc += 0.12;
-  if(sH >= 0.62 && sA >= 0.62 && sc > bestSc){ bestSc=sc; best=row.books; }
- });
- return best;
-}
-
-function getBooksForMatch(item){
- const key = `${item.date}|${item.home}|${item.away}`;
- if(customOddsOverrides[key])return { books:customOddsOverrides[key], source:"MANUAL" };
- const ext = findMatchedExternalBooks(item);
- if(ext)return { books:ext, source:"LIVE_EXTERNAL" };
-
- const r = item.analysis;
- const pH = r ? r.m1X2.find(x=>x.code==="HOME").p : 0.45;
- const pD = r ? r.m1X2.find(x=>x.code==="DRAW").p : 0.27;
- const pA = r ? r.m1X2.find(x=>x.code==="AWAY").p : 0.28;
- const margins = { Pinnacle:1.025, Betfair:1.045, Bet365:1.065, "1xBet":1.075 };
- const books = {};
- BOOKMAKERS.forEach(b=>{
-  const m = margins[b];
-  books[b] = {
-   HOME: Number((1/(Math.max(0.05,pH)*m)).toFixed(2)),
-   DRAW: Number((1/(Math.max(0.05,pD)*m)).toFixed(2)),
-   AWAY: Number((1/(Math.max(0.05,pA)*m)).toFixed(2))
-  };
- });
- return { books, source:"SIMULATED" };
-}
-
-function marketNoVigAnalysis(books, code, modelProb){
- const entries = [];
- Object.entries(books).forEach(([book, map])=>{
-  const o = Number(map[code]);
-  if(Number.isFinite(o) && o > 1)entries.push({ book, odds:o, rawImplied:1/o });
- });
- if(!entries.length)return null;
- const totalRaw = entries.reduce((s,e)=>s+e.rawImplied, 0);
- entries.forEach(e=>{ e.fairProb = e.rawImplied/totalRaw; e.ev = (modelProb*e.odds) - 1; });
- const bestEntry = [...entries].sort((a,b)=>b.odds-a.odds)[0];
- const avgFairProb = entries.reduce((s,e)=>s+e.fairProb, 0) / entries.length;
- const bestEv = (modelProb*bestEntry.odds) - 1;
- const trueEdgePct = (modelProb - avgFairProb)*100;
- const kellyFull = bestEntry.odds > 1 ? Math.max(0, (modelProb*bestEntry.odds - 1)/(bestEntry.odds - 1)) : 0;
- return {
-  entries, bestEntry, avgFairProb,
-  fairOdds: 1/Math.max(0.01, avgFairProb),
-  trueEdgePct, evPct: bestEv*100,
-  kellyQuarterPct: kellyFull*25,
-  isValue: bestEv > 0.01 && trueEdgePct > 1.0
- };
+function buildTargetOddsCoupon(pool, targetOdds, maxMatches=25){
+ const { minOdds } = getPlatformSettings();
+ const sorted = [...pool].filter(x=>x.odds >= minOdds).sort((a,b)=>b.p-a.p);
+ const picked = [];
+ let prod = 1;
+ for(const item of sorted){
+  if(picked.length >= maxMatches)break;
+  picked.push(item);
+  prod *= item.odds;
+  if(prod >= targetOdds * 0.92 && picked.length >= 2)break;
+ }
+ return { items: picked, totalOdds: prod };
 }
 
 async function loadAllLeagues(isAutoSync=false){
  const status = document.getElementById("status");
  if(!isAutoSync)status.textContent = "جاري التحميل...";
- const todayStr = localDate(0), minDateStr = localDate(-2), maxDateStr = localDate(7);
+ const minDateStr = localDate(-2), maxDateStr = localDate(7);
  allResults = []; resultsByLeague = {}; const collected = [];
 
  await Promise.all(ALL_LEAGUES.map(async l=>{
@@ -913,7 +1169,6 @@ async function loadAllLeagues(isAutoSync=false){
      leagueId:l.id, leagueName:l.name, tier:l.tier,
      date:m.date, time:m.time||"", home:m.home, away:m.away,
      isBig:isBigMatch(l.tier, analysis),
-     dayBucket: m.date===todayStr ? "TODAY" : (m.date>todayStr ? "UPCOMING" : "RECENT"),
      analysis
     });
    });
@@ -921,14 +1176,6 @@ async function loadAllLeagues(isAutoSync=false){
  }));
 
  feedAnalyzed = collected;
- const cfg = JSON.parse(localStorage.getItem("matchai_odds_cfg")||"{}");
- if(cfg.url && document.getElementById("autoFetchOddsMode").value==="ON"){
-  await fetchExternalOdds(true);
- }
- if(cfg.liveUrl){
-  await fetchLiveScores(true);
- }
-
  status.textContent = `${feedAnalyzed.length} مباراة • ${feedAnalyzed.filter(x=>x.isBig).length} ماتش كبير`;
  updateSelectedCountUI();
  renderBigMatchesBox();
@@ -937,8 +1184,8 @@ async function loadAllLeagues(isAutoSync=false){
  renderBest();
  renderCoupons();
  populateSelectors();
- renderValueTab();
  renderAnalysisTab();
+ renderAccountUI();
  settleFromResults(true);
  if(isAutoSync)showToast("تم التحديث التلقائي");
 }
@@ -971,18 +1218,20 @@ function renderMatchesList(){
 
  if(!filtered.length){ list.innerHTML='<div class="box">لا توجد مباريات ضمن الدوري أو الأيام المحددة.</div>'; return; }
 
- list.innerHTML = filtered.slice(0,90).map(m=>{
+ list.innerHTML = filtered.slice(0,95).map(m=>{
   const idx = feedAnalyzed.indexOf(m);
   const k = matchUniqueKey(m);
   const checked = selectedMatchKeys.has(k) ? "checked" : "";
-  const best = m.analysis ? `<span class="green">${safe(m.analysis.best.name)} (${(m.analysis.best.p*100).toFixed(1)}%)</span>` : `<span class="muted">بيانات غير كافية</span>`;
+  const best = m.analysis
+   ? `<span class="green">${safe(m.analysis.best.name)} (${(m.analysis.best.p*100).toFixed(1)}% • أودز ${m.analysis.best.odds.toFixed(2)})</span>`
+   : `<span class="muted">بيانات غير كافية</span>`;
   const live = getLiveScoreForMatch(m);
   const liveBadge = live ? `<span class="score-pill">${live.homeGoals} - ${live.awayGoals} ${live.minute?`(${safe(live.minute)})`:''}</span>` : `<span class="muted">${safe(m.date)}</span>`;
 
   return `
    <div class="box">
     <div class="row">
-     <div class="row" style="gap:6px">
+     <div class="row" style="gap:7px">
       <input type="checkbox" ${checked} onchange="toggleMatchSelection('${encodeURIComponent(k)}', this.checked)">
       <span class="pill">${safe(m.leagueName)}</span>
       ${m.isBig?'<span class="pill big">كبير</span>':''}
@@ -991,9 +1240,8 @@ function renderMatchesList(){
     </div>
     <div class="match-title">${safe(m.home)} × ${safe(m.away)}</div>
     <div class="row"><span class="muted">الأفضل:</span><b>${best}</b></div>
-    <div class="row" style="margin-top:8px">
-     <button class="btn win sm" style="flex:1" onclick="jumpToMatchTab('analysis',${idx})">التحليل</button>
-     <button class="btn push sm" style="flex:1" onclick="jumpToMatchTab('value',${idx})">الأودز وValue</button>
+    <div class="row" style="margin-top:10px">
+     <button class="btn win sm" style="flex:1" onclick="jumpToMatchTab('analysis',${idx})">فتح التحليل</button>
     </div>
    </div>
   `;
@@ -1029,7 +1277,6 @@ function goCouponsFromSelection(){
  tab("coupons", document.querySelectorAll("nav button")[3]);
 }
 
-/* المباريات المباشرة والنتيجة المباشرة */
 function getLiveScoreForMatch(m){
  const k = matchUniqueKey(m);
  if(liveScoresMap[k])return liveScoresMap[k];
@@ -1093,15 +1340,14 @@ function renderLiveTab(){
  if(!feedAnalyzed.length){ sel.innerHTML=""; list.innerHTML='<div class="box">لا توجد مباريات.</div>'; return; }
 
  sel.innerHTML = feedAnalyzed.map((m,i)=>`<option value="${i}">${safe(m.home)} × ${safe(m.away)} (${safe(m.date)})</option>`).join("");
-
  const todayStr = localDate(0);
- const liveMatches = feedAnalyzed.filter(m=>getLiveScoreForMatch(m) || m.date === todayStr).slice(0,40);
+ const liveMatches = feedAnalyzed.filter(m=>getLiveScoreForMatch(m) || m.date === todayStr).slice(0,45);
 
  if(!liveMatches.length){ list.innerHTML='<div class="box">لا توجد مباريات مباشرة حالياً.</div>'; return; }
 
  list.innerHTML = liveMatches.map(m=>{
   const lv = getLiveScoreForMatch(m);
-  const scoreText = lv ? `${lv.homeGoals} - ${lv.awayGoals}` : "لم تبدأ / بانتظار النتيجة";
+  const scoreText = lv ? `${lv.homeGoals} - ${lv.awayGoals}` : "بانتظار النتيجة";
   const minText = lv ? (lv.minute || "مباشر") : (m.time || m.date);
   return `
    <div class="box live-box">
@@ -1113,74 +1359,98 @@ function renderLiveTab(){
  }).join("");
 }
 
-/* القسائم: قسيمة اليوم 50+ أودز + قسائم من المباريات المختارة + قسائم فريدة */
 function renderCoupons(){
- const list = document.getElementById("couponList");
+ const { minOdds } = getPlatformSettings();
+ const c5Box = document.getElementById("coupon5Box");
+ const c6Box = document.getElementById("coupon6Box");
  const highOddsBox = document.getElementById("dailyHighOddsCouponBox");
  const customBox = document.getElementById("customSelectedCouponsBox");
- const targetOdds = Math.max(2, Number(document.getElementById("highOddsTargetInput").value) || 50);
+ const list = document.getElementById("couponList");
+ const targetOdds = Math.max(5, Number(document.getElementById("highOddsTargetInput").value) || 50);
 
  const todayStr = localDate(0);
  const seenToday = new Set();
- const todayHighPool = [];
+ const todayPool = [];
 
- feedAnalyzed
-  .filter(m=>m.date === todayStr && m.analysis)
-  .forEach(item=>{
-   const k = matchUniqueKey(item);
-   if(seenToday.has(k))return;
-   seenToday.add(k);
-   const highPick = pickHigherOddsMarket(item.analysis);
-   if(highPick){
-    todayHighPool.push({
-     leagueId:item.leagueId, leagueName:item.leagueName, date:item.date,
-     home:item.home, away:item.away, isBig:item.isBig,
-     code:highPick.code, market:highPick.market, p:highPick.p, odds:highPick.odds
-    });
-   }
+ feedAnalyzed.filter(m=>m.date === todayStr && m.analysis).forEach(item=>{
+  const k = matchUniqueKey(item);
+  if(seenToday.has(k))return;
+  seenToday.add(k);
+  const best = item.analysis.best;
+  const pick150 = pickMarketMin150(item.analysis);
+  todayPool.push({
+   key: k, leagueId: item.leagueId, leagueName: item.leagueName, date: item.date,
+   home: item.home, away: item.away, isBig: item.isBig,
+   code: best.code, market: best.name, p: best.p, odds: best.odds,
+   pick150
   });
+ });
 
- // ترتيب تصاعدي للاحتمال للحصول على أودز أعلى وتجميعها حتى بلوغ هدف الأودز (مثلاً 50+)
- todayHighPool.sort((a,b)=>a.p-b.p);
+ const b5 = buildTargetOddsCoupon(todayPool, 5.0, 25);
+ const b6 = buildTargetOddsCoupon(todayPool, 6.0, 25);
+ generatedCoupon5 = b5.items;
+ generatedCoupon6 = b6.items;
+ document.getElementById("odds5Badge").textContent = `~${b5.totalOdds.toFixed(2)} • ${b5.items.length} مباريات`;
+ document.getElementById("odds6Badge").textContent = `~${b6.totalOdds.toFixed(2)} • ${b6.items.length} مباريات`;
+
+ function renderSmallTargetBox(boxEl, items, totOdds, saveFnName, label){
+  if(!items.length){ boxEl.innerHTML = `<p class="muted">لا توجد مباريات كافية اليوم لقسيمة ${label}.</p>`; return; }
+  boxEl.innerHTML = `
+   ${items.map(it=>`<div class="line"><div><b>${safe(it.home)} × ${safe(it.away)}</b> — ${safe(it.market)}</div><span class="gold">${it.odds.toFixed(2)}</span></div>`).join("")}
+   <div class="row" style="margin-top:8px"><span class="muted">إجمالي الأودز: <b class="green">${totOdds.toFixed(2)}</b></span></div>
+   <button class="btn win sm full" onclick="${saveFnName}()">حفظ قسيمة ${label}</button>
+  `;
+ }
+ renderSmallTargetBox(c5Box, b5.items, b5.totalOdds, "saveCoupon5", "أودز ~5");
+ renderSmallTargetBox(c6Box, b6.items, b6.totalOdds, "saveCoupon6", "أودز ~6");
+
+ const high150Pool = todayPool
+  .filter(x=>x.pick150 && x.pick150.odds >= 1.50)
+  .sort((a,b)=>b.pick150.p - a.pick150.p);
+
  generatedDailyHighOddsItems = [];
- let runningOdds = 1;
- for(const it of todayHighPool){
-  generatedDailyHighOddsItems.push(it);
-  runningOdds *= Math.max(1.2, it.odds);
-  if(runningOdds >= targetOdds && generatedDailyHighOddsItems.length >= 2)break;
+ let running50 = 1;
+ for(const item of high150Pool){
+  if(generatedDailyHighOddsItems.length >= 15)break;
+  generatedDailyHighOddsItems.push({
+   leagueId: item.leagueId, leagueName: item.leagueName, date: item.date,
+   home: item.home, away: item.away, isBig: item.isBig,
+   code: item.pick150.code, market: item.pick150.market, p: item.pick150.p, odds: item.pick150.odds
+  });
+  running50 *= item.pick150.odds;
+  if(running50 >= targetOdds)break;
  }
 
  if(!generatedDailyHighOddsItems.length){
-  highOddsBox.innerHTML = `<p class="muted">لا توجد مباريات كافية اليوم لتكوين قسيمة بأودز ${targetOdds}+.</p>`;
+  highOddsBox.innerHTML = `<p class="muted">لا توجد مباريات اليوم بأودز 1.50+ كافية.</p>`;
  }else{
   highOddsBox.innerHTML = `
    <div class="row" style="margin-bottom:6px">
-    <span class="pill high-odds">الأودز الإجمالية: ${runningOdds.toFixed(2)} (الهدف: ${targetOdds}+)</span>
-    <span class="muted">${generatedDailyHighOddsItems.length} اختيارات من مباريات اليوم</span>
+    <span class="pill high-odds">الأودز: ${running50.toFixed(2)} (الهدف: ${targetOdds}+)</span>
+    <span class="muted">${generatedDailyHighOddsItems.length} / 15 مباراة كحد أقصى • كل مباراة ≥ 1.50</span>
    </div>
    ${generatedDailyHighOddsItems.map(it=>`
     <div class="line">
      <div><b>${safe(it.home)} × ${safe(it.away)}</b> — ${safe(it.market)} <span class="muted">(${safe(it.leagueName)})</span></div>
-     <span class="gold">أودز ~${it.odds.toFixed(2)} (${(it.p*100).toFixed(1)}%)</span>
+     <span class="gold">أودز ${it.odds.toFixed(2)} (${(it.p*100).toFixed(1)}%)</span>
     </div>
    `).join("")}
-   <button class="btn primary full" onclick="saveDailyHighOddsCoupon()">حفظ قسيمة اليوم المرتفعة (${runningOdds.toFixed(2)})</button>
+   <button class="btn primary full" onclick="saveDailyHighOddsCoupon()">حفظ قسيمة اليوم (${running50.toFixed(2)})</button>
   `;
  }
 
- // قسائم من المباريات التي اختارها المستخدم يدوياً
  const selectedItems = [];
  const seenSel = new Set();
  feedAnalyzed.forEach(item=>{
   const k = matchUniqueKey(item);
   if(!selectedMatchKeys.has(k) || !item.analysis || seenSel.has(k))return;
   seenSel.add(k);
-  const altPick = pickHigherOddsMarket(item.analysis) || item.analysis.best;
+  const alt = pickMarketMin150(item.analysis) || item.analysis.best;
   selectedItems.push({
    leagueId:item.leagueId, leagueName:item.leagueName, date:item.date,
    home:item.home, away:item.away, isBig:item.isBig,
-   safeCode:item.analysis.best.code, safeMarket:item.analysis.best.name, safeP:item.analysis.best.p, safeOdds:fairOddsFromProb(item.analysis.best.p),
-   highCode:altPick.code || item.analysis.best.code, highMarket:altPick.market || item.analysis.best.name, highP:altPick.p || item.analysis.best.p, highOdds:altPick.odds || fairOddsFromProb(item.analysis.best.p)
+   safeCode:item.analysis.best.code, safeMarket:item.analysis.best.name, safeP:item.analysis.best.p, safeOdds:item.analysis.best.odds,
+   highCode:alt.code, highMarket:alt.market, highP:alt.p, highOdds:alt.odds
   });
  });
 
@@ -1194,27 +1464,24 @@ function renderCoupons(){
    ? { ...x, code:x.safeCode, market:x.safeMarket, p:x.safeP, estOdds:x.safeOdds }
    : { ...x, code:x.highCode, market:x.highMarket, p:x.highP, estOdds:x.highOdds }
   );
-
   generatedCustomCoupons = [cSafe, cHigh, cSplit];
 
   function renderCustomVariant(title, arr, idx){
-   const totO = arr.reduce((m,it)=>m*Math.max(1.1,it.estOdds),1).toFixed(2);
+   const totO = arr.reduce((m,it)=>m*Math.max(minOdds,it.estOdds),1).toFixed(2);
    return `
-    <div class="box" style="background:#16253d;margin-top:8px">
+    <div class="box" style="background:rgba(22,36,62,0.9);margin-top:8px">
      <div class="row"><b>${title}</b><span class="pill ok">${arr.length} اختيارات • أودز ~${totO}</span></div>
-     ${arr.map(it=>`<div class="line"><span><b>${safe(it.home)} × ${safe(it.away)}</b> — ${safe(it.market)}</span><span class="green">${(it.p*100).toFixed(1)}%</span></div>`).join("")}
+     ${arr.map(it=>`<div class="line"><span><b>${safe(it.home)} × ${safe(it.away)}</b> — ${safe(it.market)}</span><span class="green">${(it.p*100).toFixed(1)}% (${it.estOdds.toFixed(2)})</span></div>`).join("")}
      <button class="btn win sm full" onclick="saveCustomCoupon(${idx})">حفظ هذه القسيمة المختارة</button>
     </div>
    `;
   }
-
   customBox.innerHTML =
    renderCustomVariant("قسيمة 1 من اختياراتك — أعلى أمان", cSafe, 0) +
    renderCustomVariant("قسيمة 2 من اختياراتك — أودز أعلى", cHigh, 1) +
    renderCustomVariant("قسيمة 3 من اختياراتك — مزيج متوازن", cSplit, 2);
  }
 
- // القسائم الفريدة العامة
  const seen = new Set(), pool = [];
  const ordered = [...feedAnalyzed].sort((a,b)=>(a.isBig!==b.isBig)?(a.isBig?-1:1):((b.analysis?b.analysis.best.p:-1)-(a.analysis?a.analysis.best.p:-1)));
  ordered.forEach(item=>{
@@ -1222,17 +1489,13 @@ function renderCoupons(){
   const k = matchUniqueKey(item);
   if(seen.has(k))return;
   seen.add(k);
-  const { books } = getBooksForMatch(item);
-  const nv = marketNoVigAnalysis(books, item.analysis.m1X2[0].code, item.analysis.m1X2[0].p);
   pool.push({
    key:k, leagueId:item.leagueId, leagueName:item.leagueName, date:item.date,
    home:item.home, away:item.away, isBig:item.isBig,
    code:item.analysis.best.code, market:item.analysis.best.name,
-   p:item.analysis.best.p, estOdds:fairOddsFromProb(item.analysis.best.p),
-   evPct:nv?nv.evPct:0
+   p:item.analysis.best.p, estOdds:item.analysis.best.odds
   });
  });
-
  if(!pool.length){ list.innerHTML=""; return; }
 
  const used = new Set();
@@ -1243,16 +1506,16 @@ function renderCoupons(){
  }
 
  const uLow = takeUnique((a,b)=>(b.isBig?0.05:0)+b.p - ((a.isBig?0.05:0)+a.p), 3);
- const uMed = takeUnique((a,b)=>Math.abs(b.p-0.57)-Math.abs(a.p-0.57), 4);
- const uHigh = takeUnique((a,b)=>b.evPct-a.evPct, 4);
+ const uMed = takeUnique((a,b)=>Math.abs(b.p-0.55)-Math.abs(a.p-0.55), 4);
+ const uHigh = takeUnique((a,b)=>b.estOdds-a.estOdds, 4);
  generatedUniqueCoupons = [{items:uLow},{items:uMed},{items:uHigh}];
 
  function uCard(title, items, idx){
-  const odds = items.length ? items.reduce((m,it)=>m*Math.max(1.15,it.estOdds),1).toFixed(2) : "1.00";
+  const odds = items.length ? items.reduce((m,it)=>m*Math.max(minOdds,it.estOdds),1).toFixed(2) : "1.00";
   return `
    <div class="box highlight">
     <div class="row"><h3>${title}</h3><span class="pill ok">فريدة • ${items.length} • ~${odds}</span></div>
-    ${items.map(it=>`<div class="line"><div>${it.isBig?'<span class="pill big">كبير</span> ':''}<b>${safe(it.home)} × ${safe(it.away)}</b> — ${safe(it.market)} <span class="muted">(${safe(it.leagueName)})</span></div><span class="green">${(it.p*100).toFixed(1)}%</span></div>`).join("") || '<p class="muted">لا توجد اختيارات إضافية.</p>'}
+    ${items.map(it=>`<div class="line"><div>${it.isBig?'<span class="pill big">كبير</span> ':''}<b>${safe(it.home)} × ${safe(it.away)}</b> — ${safe(it.market)} <span class="muted">(${safe(it.leagueName)})</span></div><span class="green">${(it.p*100).toFixed(1)}% (${it.estOdds.toFixed(2)})</span></div>`).join("") || '<p class="muted">لا توجد اختيارات إضافية.</p>'}
     ${items.length ? `<button class="btn primary full" onclick="saveUniqueCoupon(${idx})">حفظ القسيمة الفريدة</button>` : ""}
    </div>
   `;
@@ -1261,58 +1524,35 @@ function renderCoupons(){
  list.innerHTML =
   uCard("قسيمة فريدة — خطورة منخفضة", uLow, 0) +
   uCard("قسيمة فريدة — خطورة متوسطة", uMed, 1) +
-  uCard("قسيمة فريدة — خطورة عالية / EV", uHigh, 2);
+  uCard("قسيمة فريدة — أودز أعلى", uHigh, 2);
 }
 
-function saveDailyHighOddsCoupon(){
- if(!generatedDailyHighOddsItems.length)return;
- const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+function persistSiteCouponItems(items){
+ const saved = JSON.parse(localStorage.getItem("matchai_site_picks")||"[]");
  let added = 0;
- generatedDailyHighOddsItems.forEach(it=>{
+ items.forEach(it=>{
   const exists = saved.some(p=>p.date===it.date && teamSimilarityScore(p.home,it.home)>=0.75 && teamSimilarityScore(p.away,it.away)>=0.75 && p.code===it.code);
   if(!exists){
-   saved.push({ date:it.date, league:it.leagueId, home:it.home, away:it.away, code:it.code, market:it.market, probability:it.p, estOdds:it.odds, status:"pending" });
+   saved.push({
+    date:it.date, league:it.leagueId, home:it.home, away:it.away,
+    code:it.code, market:it.market, probability:it.p,
+    estOdds:Number(it.estOdds || it.odds || 1.35),
+    fromSiteCoupon:true, status:"pending"
+   });
    added++;
   }
  });
- localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ localStorage.setItem("matchai_site_picks",JSON.stringify(saved));
  renderHistory();
- showToast(added ? `تم حفظ ${added} توقعات` : "محفوظة مسبقاً");
+ renderAccountUI();
+ showToast(added ? `تم حفظ ${added} اختيارات في سجل قسائم الموقع` : "موجودة مسبقاً في السجل");
 }
 
-function saveCustomCoupon(cIdx){
- const arr = generatedCustomCoupons[cIdx];
- if(!arr || !arr.length)return;
- const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
- let added = 0;
- arr.forEach(it=>{
-  const exists = saved.some(p=>p.date===it.date && teamSimilarityScore(p.home,it.home)>=0.75 && teamSimilarityScore(p.away,it.away)>=0.75 && p.code===it.code);
-  if(!exists){
-   saved.push({ date:it.date, league:it.leagueId, home:it.home, away:it.away, code:it.code, market:it.market, probability:it.p, estOdds:it.estOdds, status:"pending" });
-   added++;
-  }
- });
- localStorage.setItem("matchai_picks",JSON.stringify(saved));
- renderHistory();
- showToast(added ? `تم حفظ ${added} توقعات` : "محفوظة مسبقاً");
-}
-
-function saveUniqueCoupon(cIdx){
- const c = generatedUniqueCoupons[cIdx];
- if(!c || !c.items.length)return;
- const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
- let added = 0;
- c.items.forEach(it=>{
-  const exists = saved.some(p=>p.date===it.date && teamSimilarityScore(p.home,it.home)>=0.75 && teamSimilarityScore(p.away,it.away)>=0.75 && p.code===it.code);
-  if(!exists){
-   saved.push({ date:it.date, league:it.leagueId, home:it.home, away:it.away, code:it.code, market:it.market, probability:it.p, estOdds:it.estOdds, status:"pending" });
-   added++;
-  }
- });
- localStorage.setItem("matchai_picks",JSON.stringify(saved));
- renderHistory();
- showToast(added ? `تم حفظ ${added} توقعات` : "محفوظة مسبقاً");
-}
+function saveCoupon5(){ persistSiteCouponItems(generatedCoupon5); }
+function saveCoupon6(){ persistSiteCouponItems(generatedCoupon6); }
+function saveDailyHighOddsCoupon(){ persistSiteCouponItems(generatedDailyHighOddsItems); }
+function saveCustomCoupon(cIdx){ if(generatedCustomCoupons[cIdx])persistSiteCouponItems(generatedCustomCoupons[cIdx]); }
+function saveUniqueCoupon(cIdx){ if(generatedUniqueCoupons[cIdx])persistSiteCouponItems(generatedUniqueCoupons[cIdx].items); }
 
 function renderBigMatchesBox(){
  const box = document.getElementById("bigMatchesTopBox");
@@ -1322,7 +1562,7 @@ function renderBigMatchesBox(){
   const k = matchUniqueKey(item);
   if(seen.has(k))return;
   seen.add(k);
-  topBig.push({ ...item, market:item.analysis.best.name, code:item.analysis.best.code, p:item.analysis.best.p });
+  topBig.push({ ...item, market:item.analysis.best.name, code:item.analysis.best.code, p:item.analysis.best.p, odds:item.analysis.best.odds });
  });
  topBig.sort((a,b)=>b.p-a.p);
  const picks = topBig.slice(0,4);
@@ -1330,55 +1570,47 @@ function renderBigMatchesBox(){
  box.innerHTML = `
   <div class="box highlight">
    <div class="row"><h3>أحسن توقعات الماتشات الكبار</h3><span class="pill big">${picks.length} مباريات</span></div>
-   ${picks.map(it=>`<div class="line"><div><b>${safe(it.home)} × ${safe(it.away)}</b> <span class="muted">(${safe(it.leagueName)})</span><br><span class="green">${safe(it.market)}</span></div><b>${(it.p*100).toFixed(1)}%</b></div>`).join("")}
-   <button class="btn primary full" onclick="saveBigMatchesPicks()">حفظ توقعات الماتشات الكبار</button>
+   ${picks.map(it=>`<div class="line"><div><b>${safe(it.home)} × ${safe(it.away)}</b> <span class="muted">(${safe(it.leagueName)})</span><br><span class="green">${safe(it.market)} • أودز ${it.odds.toFixed(2)}</span></div><b>${(it.p*100).toFixed(1)}%</b></div>`).join("")}
+   <button class="btn primary full" onclick="saveBigMatchesPicks()">حفظ توقعات الماتشات الكبار في سجل الموقع</button>
   </div>
  `;
 }
 
 function saveBigMatchesPicks(){
- const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
  const seen = new Set();
- let added = 0;
+ const list = [];
  feedAnalyzed.filter(x=>x.isBig && x.analysis).sort((a,b)=>b.analysis.best.p-a.analysis.best.p).slice(0,4).forEach(it=>{
   const k = matchUniqueKey(it);
   if(seen.has(k))return;
   seen.add(k);
-  const exists = saved.some(p=>p.date===it.date && teamSimilarityScore(p.home,it.home)>=0.75 && teamSimilarityScore(p.away,it.away)>=0.75 && p.code===it.analysis.best.code);
-  if(!exists){
-   saved.push({ date:it.date, league:it.leagueId, home:it.home, away:it.away, code:it.analysis.best.code, market:it.analysis.best.name, probability:it.analysis.best.p, estOdds:fairOddsFromProb(it.analysis.best.p), status:"pending" });
-   added++;
-  }
+  list.push({ date:it.date, leagueId:it.leagueId, home:it.home, away:it.away, code:it.analysis.best.code, market:it.analysis.best.name, p:it.analysis.best.p, estOdds:it.analysis.best.odds });
  });
- localStorage.setItem("matchai_picks",JSON.stringify(saved));
- renderHistory();
- showToast(added ? `تم حفظ ${added} توقعات` : "محفوظة مسبقاً");
+ persistSiteCouponItems(list);
 }
 
 function jumpToMatchTab(targetTab,idx){
- const navMap = { today:0, live:1, best:2, coupons:3, value:4, analysis:5, backtest:6, history:7 };
+ const navMap = { today:0, live:1, best:2, coupons:3, analysis:4, backtest:5, history:6, account:7 };
  tab(targetTab, document.querySelectorAll("nav button")[navMap[targetTab]]);
  if(targetTab==="analysis"){ document.getElementById("analysisSelect").value=String(idx); renderAnalysisTab(); }
- else if(targetTab==="value"){ document.getElementById("valueMatchSelect").value=String(idx); renderValueTab(); }
 }
 
 function populateSelectors(){
  const aSel = document.getElementById("analysisSelect");
- const vSel = document.getElementById("valueMatchSelect");
- if(!feedAnalyzed.length){ aSel.innerHTML = vSel.innerHTML = '<option value="">لا توجد مباريات</option>'; return; }
- const opts = feedAnalyzed.map((m,i)=>`<option value="${i}">${m.isBig?"★ ":""}${safe(m.home)} × ${safe(m.away)} (${safe(m.date)} • ${safe(m.leagueName)})</option>`).join("");
- aSel.innerHTML = vSel.innerHTML = opts;
+ if(!feedAnalyzed.length){ aSel.innerHTML = '<option value="">لا توجد مباريات</option>'; return; }
+ aSel.innerHTML = feedAnalyzed.map((m,i)=>`<option value="${i}">${m.isBig?"★ ":""}${safe(m.home)} × ${safe(m.away)} (${safe(m.date)} • ${safe(m.leagueName)})</option>`).join("");
 }
 
 function getFilteredMarkets(r,f){
- if(f==="1X2")return r.m1X2;
- if(f==="DC")return r.mDC;
- if(f==="BTTS")return r.mBTTS;
- if(f==="GOALS")return r.mGoals;
- if(f==="AH")return r.mAH;
- if(f==="EH")return r.mEH;
- if(f==="HALVES")return r.halfMarkets;
- return r.allMarkets;
+ const { minOdds } = getPlatformSettings();
+ const list = f==="1X2" ? r.m1X2.map(x=>({...x,odds:oddsFromProb(x.p)}))
+  : f==="DC" ? r.mDC.map(x=>({...x,odds:oddsFromProb(x.p)}))
+  : f==="BTTS" ? r.mBTTS.map(x=>({...x,odds:oddsFromProb(x.p)}))
+  : f==="GOALS" ? r.mGoals.map(x=>({...x,odds:oddsFromProb(x.p)}))
+  : f==="AH" ? r.mAH.map(x=>({...x,odds:oddsFromProb(x.p)}))
+  : f==="EH" ? r.mEH.map(x=>({...x,odds:oddsFromProb(x.p)}))
+  : f==="HALVES" ? r.halfMarkets.map(x=>({...x,odds:oddsFromProb(x.p)}))
+  : r.allMarkets;
+ return list.filter(m=>m.odds >= minOdds);
 }
 
 function renderBest(){
@@ -1389,15 +1621,15 @@ function renderBest(){
   if(bestMarketFilter==="BIG" && !item.isBig)return;
   const cands = getFilteredMarkets(item.analysis, bestMarketFilter==="BIG"?"ALL":bestMarketFilter);
   if(!cands.length)return;
-  rows.push({ ...item, market:cands[0].name, p:cands[0].p });
+  rows.push({ ...item, market:cands[0].name, p:cands[0].p, odds:cands[0].odds });
  });
  rows.sort((a,b)=>b.p-a.p);
  if(!rows.length){ list.innerHTML='<div class="box">لا توجد نتائج.</div>'; return; }
- list.innerHTML = rows.slice(0,50).map(x=>`
+ list.innerHTML = rows.slice(0,55).map(x=>`
   <div class="box">
    <div class="row"><div class="row" style="gap:6px"><span class="pill">${safe(x.leagueName)}</span>${x.isBig?'<span class="pill big">كبير</span>':''}</div><span class="muted">${safe(x.date)}</span></div>
    <div class="match-title">${safe(x.home)} × ${safe(x.away)}</div>
-   <div class="line"><span>${safe(x.market)}</span><b class="green">${(x.p*100).toFixed(1)}%</b></div>
+   <div class="line"><span>${safe(x.market)} • أودز ${x.odds.toFixed(2)}</span><b class="green">${(x.p*100).toFixed(1)}%</b></div>
   </div>
  `).join("");
 }
@@ -1420,170 +1652,20 @@ function renderAnalysisTab(){
   </div>
   ${shown.map(mk=>`
    <div class="line">
-    <div><b>${safe(mk.name)}</b> <span class="muted">(أودز عادلة: ${fairOddsFromProb(mk.p).toFixed(2)})</span></div>
+    <div><b>${safe(mk.name)}</b> <span class="muted">(أودز: ${mk.odds.toFixed(2)})</span></div>
     <div>
      <b class="green">${(mk.p*100).toFixed(1)}%</b>
-     <button class="btn win sm" style="margin-right:6px" onclick="savePickDirect(${idx},'${mk.code}','${safe(mk.name).replace(/'/g,"\\'")}',${mk.p},${fairOddsFromProb(mk.p)})">حفظ</button>
+     <button class="btn win sm" style="margin-right:6px" onclick="saveSingleAnalysisPick(${idx},'${mk.code}','${safe(mk.name).replace(/'/g,"\\'")}',${mk.p},${mk.odds})">إضافة لسجل الموقع</button>
     </div>
    </div>
   `).join("")}
  `;
 }
 
-function normalizeExternalOddsPayload(rawData, rootKey=""){
- let arr = rawData;
- if(rootKey && rawData && typeof rawData==="object" && Array.isArray(rawData[rootKey]))arr = rawData[rootKey];
- else if(!Array.isArray(rawData) && rawData && typeof rawData==="object"){
-  arr = rawData.data || rawData.matches || rawData.events || rawData.results || [];
- }
- if(!Array.isArray(arr))return [];
- const parsed = [];
- arr.forEach(item=>{
-  if(!item)return;
-  const home = item.home || item.home_team || item.homeTeam || "";
-  const away = item.away || item.away_team || item.awayTeam || "";
-  if(!home || !away)return;
-  const date = item.date || (item.commence_time ? String(item.commence_time).slice(0,10) : "");
-  const books = {};
-  if(item.books && typeof item.books==="object" && !Array.isArray(item.books)){
-   Object.entries(item.books).forEach(([bName, mMap])=>{
-    if(!mMap)return;
-    const hO = Number(mMap.HOME ?? mMap["1"] ?? mMap.home);
-    const dO = Number(mMap.DRAW ?? mMap["X"] ?? mMap.draw);
-    const aO = Number(mMap.AWAY ?? mMap["2"] ?? mMap.away);
-    if(hO>1 || dO>1 || aO>1)books[bName] = { HOME:hO||0, DRAW:dO||0, AWAY:aO||0 };
-   });
-  }
-  if(Array.isArray(item.bookmakers)){
-   item.bookmakers.forEach(bm=>{
-    const h2h = (bm.markets||[]).find(mk=>mk.key==="h2h");
-    if(!h2h || !Array.isArray(h2h.outcomes))return;
-    let hO=0, dO=0, aO=0;
-    h2h.outcomes.forEach(oc=>{
-     const p = Number(oc.price);
-     if(!(p>1))return;
-     const nm = String(oc.name||"").toLowerCase();
-     if(nm==="draw"||nm==="x")dO=p;
-     else if(teamSimilarityScore(home,oc.name)>=teamSimilarityScore(away,oc.name))hO=p;
-     else aO=p;
-    });
-    if(hO>1 || dO>1 || aO>1)books[bm.title||bm.key||"Bookmaker"] = { HOME:hO||0, DRAW:dO||0, AWAY:aO||0 };
-   });
-  }
-  if(Object.keys(books).length)parsed.push({ date, home, away, books });
- });
- return parsed;
-}
-
-async function fetchExternalOdds(silent=false){
- let url = document.getElementById("oddsUrlInput").value.trim();
- const apiKey = document.getElementById("oddsApiKeyInput").value.trim();
- const rootKey = document.getElementById("oddsRootKeyInput").value.trim();
- if(!url){ if(!silent)showToast("أدخل رابط JSON أو API"); return; }
- if(apiKey && !url.includes("apiKey="))url += (url.includes("?")?"&":"?") + "apiKey=" + encodeURIComponent(apiKey);
- try{
-  const headers = apiKey ? { "x-api-key": apiKey } : {};
-  const res = await fetch(url, { headers });
-  if(!res.ok)throw new Error("HTTP");
-  externalOddsList = normalizeExternalOddsPayload(await res.json(), rootKey);
-  document.getElementById("oddsSourceStatus").textContent = `تم جلب ${externalOddsList.length} مباراة أودز.`;
-  renderValueTab(); renderCoupons();
-  if(!silent)showToast(`تم جلب ${externalOddsList.length} مباراة`);
- }catch(_){ if(!silent)showToast("تعذر جلب المصدر الخارجي"); }
-}
-
-function applyPastedOdds(){
- const raw = document.getElementById("oddsJsonInput").value.trim();
- const rootKey = document.getElementById("oddsRootKeyInput").value.trim();
- if(!raw){ showToast("الصق JSON أولاً"); return; }
- try{
-  const parsed = normalizeExternalOddsPayload(JSON.parse(raw), rootKey);
-  if(!parsed.length){ showToast("لا توجد أودز صالحة"); return; }
-  externalOddsList = parsed;
-  document.getElementById("oddsSourceStatus").textContent = `تم تطبيق ${parsed.length} مباراة أودز.`;
-  renderValueTab(); renderCoupons();
-  showToast("تم التطبيق");
- }catch(_){ showToast("JSON غير صالح"); }
-}
-
-function clearExternalOdds(){
- externalOddsList = []; customOddsOverrides = {};
- document.getElementById("oddsSourceStatus").textContent = "تم مسح الأودز الخارجية.";
- renderValueTab(); renderCoupons();
-}
-
-function renderValueTab(){
- const idx = Number(document.getElementById("valueMatchSelect").value);
- const box = document.getElementById("valueContent");
- const item = feedAnalyzed[idx];
- if(!item || !item.analysis){ box.innerHTML='<p class="muted">اختر مباراة صالحة.</p>'; return; }
-
- const { books, source } = getBooksForMatch(item);
- const srcLabel = source==="LIVE_EXTERNAL" ? "أودز خارجية" : source==="MANUAL" ? "أودز يدوية" : "تقدير افتراضي";
-
- const cards = item.analysis.m1X2.map(mk=>{
-  const info = marketNoVigAnalysis(books, mk.code, mk.p);
-  if(!info)return "";
-  return `
-   <div class="box" style="background:#16253d">
-    <div class="row"><b>${safe(mk.name)} — احتمال النموذج ${(mk.p*100).toFixed(1)}%</b><span class="pill ${info.isValue?'ok':''}">${info.isValue?'VALUE':'NO VALUE'} (EV ${info.evPct.toFixed(1)}%)</span></div>
-    <p class="muted" style="margin:6px 0 0">احتمال عادل: <b>${(info.avgFairProb*100).toFixed(1)}%</b> | أفضل سعر: <b class="gold">${info.bestEntry.odds.toFixed(2)}</b> (${safe(info.bestEntry.book)}) | Edge: <b>${info.trueEdgePct>=0?'+':''}${info.trueEdgePct.toFixed(1)}%</b> | Kelly/4: <b>${info.kellyQuarterPct.toFixed(1)}%</b></p>
-    <table>
-     <thead><tr><th>الشركة</th><th>الأودز</th><th>خام</th><th>عادل</th><th>EV</th></tr></thead>
-     <tbody>
-      ${info.entries.map(e=>`<tr><td>${safe(e.book)}</td><td>${e.odds.toFixed(2)}</td><td>${(e.rawImplied*100).toFixed(1)}%</td><td>${(e.fairProb*100).toFixed(1)}%</td><td class="${e.ev>=0?'green':'red'}">${(e.ev*100).toFixed(1)}%</td></tr>`).join("")}
-     </tbody>
-    </table>
-    <button class="btn primary full" onclick="savePickDirect(${idx},'${mk.code}','${safe(mk.name).replace(/'/g,"\\'")}',${mk.p},${info.bestEntry.odds},${info.trueEdgePct},'${info.bestEntry.book}')">حفظ بأفضل أودز (${info.bestEntry.odds.toFixed(2)})</button>
-   </div>
-  `;
- }).join("");
-
- const bookNames = Array.from(new Set([...BOOKMAKERS, ...Object.keys(books)]));
- const editRows = bookNames.map(b=>{
-  const cur = books[b] || { HOME:2.0, DRAW:3.4, AWAY:3.6 };
-  return `<tr><td>${safe(b)}</td><td><input type="number" step="0.01" id="ed_${safe(b)}_HOME" value="${cur.HOME||2.0}" style="margin:0;padding:5px"></td><td><input type="number" step="0.01" id="ed_${safe(b)}_DRAW" value="${cur.DRAW||3.4}" style="margin:0;padding:5px"></td><td><input type="number" step="0.01" id="ed_${safe(b)}_AWAY" value="${cur.AWAY||3.6}" style="margin:0;padding:5px"></td></tr>`;
- }).join("");
-
- box.innerHTML = `
-  <div class="row" style="margin-bottom:8px"><b>${safe(item.home)} × ${safe(item.away)}</b><span class="pill">${srcLabel}</span></div>
-  ${cards}
-  <div class="box" style="background:#142238">
-   <h3>تعديل أودز الشركات (1X2)</h3>
-   <table><thead><tr><th>الشركة</th><th>1</th><th>X</th><th>2</th></tr></thead><tbody>${editRows}</tbody></table>
-   <button class="btn win full" onclick="saveManualBooks(${idx})">تحديث الأودز</button>
-  </div>
- `;
-}
-
-function saveManualBooks(idx){
+function saveSingleAnalysisPick(idx,code,marketName,prob,odds){
  const item = feedAnalyzed[idx];
  if(!item)return;
- const { books } = getBooksForMatch(item);
- const bookNames = Array.from(new Set([...BOOKMAKERS, ...Object.keys(books)]));
- const updated = {};
- bookNames.forEach(b=>{
-  updated[b] = {
-   HOME: Number(document.getElementById(`ed_${b}_HOME`).value)||2.0,
-   DRAW: Number(document.getElementById(`ed_${b}_DRAW`).value)||3.4,
-   AWAY: Number(document.getElementById(`ed_${b}_AWAY`).value)||3.6
-  };
- });
- customOddsOverrides[`${item.date}|${item.home}|${item.away}`] = updated;
- renderValueTab();
- showToast("تم التحديث");
-}
-
-function savePickDirect(idx,code,marketName,prob,odds,edgePct=null,bookmaker=null){
- const item = feedAnalyzed[idx];
- if(!item)return;
- const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
- const exists = saved.some(p=>p.date===item.date && teamSimilarityScore(p.home,item.home)>=0.75 && teamSimilarityScore(p.away,item.away)>=0.75 && p.code===code);
- if(exists){ showToast("محفوظ مسبقاً"); return; }
- saved.push({ date:item.date, league:item.leagueId, home:item.home, away:item.away, code, market:marketName, probability:Number(prob), estOdds:Number(odds), edgePct:typeof edgePct==="number"&&Number.isFinite(edgePct)?edgePct:null, bookmaker:bookmaker||null, status:"pending" });
- localStorage.setItem("matchai_picks",JSON.stringify(saved));
- renderHistory();
- showToast("تم الحفظ");
+ persistSiteCouponItems([{ date:item.date, leagueId:item.leagueId, home:item.home, away:item.away, code, market:marketName, p:prob, estOdds:odds }]);
 }
 
 function evalMarketCode(code,fh,fa){
@@ -1626,7 +1708,7 @@ function runBacktest(){
  if(chronological.length < 25){ box.innerHTML='<p class="red">بيانات غير كافية.</p>'; return; }
 
  const startIdx = Math.max(15, lastN>0 ? chronological.length-lastN : 15);
- let bets=0, wins=0, pushes=0, netUnits=0, brierSum=0, logLossSum=0, probCount=0;
+ let bets=0, wins=0, pushes=0, brierSum=0, logLossSum=0, probCount=0;
  const bins = [
   { label:"30-39%", min:0.30, max:0.40, n:0, sumP:0, hit:0 },
   { label:"40-49%", min:0.40, max:0.50, n:0, sumP:0, hit:0 },
@@ -1654,21 +1736,16 @@ function runBacktest(){
   }
   if(p>=minProb){
    bets++;
-   const estO = Math.max(1.05, Number(((1/p)*0.95).toFixed(2)));
-   if(outcome==="won"){ wins++; netUnits+=(estO-1); }
+   if(outcome==="won")wins++;
    else if(outcome==="push")pushes++;
-   else netUnits-=1;
   }
  }
 
  const winRate = bets>0 ? ((wins/Math.max(1,bets-pushes))*100).toFixed(1)+"%" : "0.0%";
- const roi = bets>0 ? ((netUnits/bets)*100).toFixed(1)+"%" : "0.0%";
-
  box.innerHTML = `
-  <div class="grid-4">
-   <div class="stat">رهانات<b>${bets}</b></div>
+  <div class="grid-3">
+   <div class="stat">اختبارات<b>${bets}</b></div>
    <div class="stat">نسبة النجاح<b>${winRate}</b></div>
-   <div class="stat">ROI<b>${Number(roi)>=0?'+':''}${roi}</b></div>
    <div class="stat">Brier<b>${probCount?(brierSum/probCount).toFixed(4):'-'}</b></div>
   </div>
   <p class="muted" style="margin-top:8px">Log Loss: <b>${probCount?(logLossSum/probCount).toFixed(4):'-'}</b></p>
@@ -1687,7 +1764,7 @@ function runBacktest(){
 
 function settleFromResults(silent=false){
  if(!allResults.length){ if(!silent)showToast("لا توجد نتائج"); return; }
- const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ const saved = JSON.parse(localStorage.getItem("matchai_site_picks")||"[]");
  let updated = 0;
  saved.forEach(p=>{
   if(p.status!=="pending")return;
@@ -1702,72 +1779,64 @@ function settleFromResults(silent=false){
    if(out){ p.status=out; updated++; }
   }
  });
- localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ localStorage.setItem("matchai_site_picks",JSON.stringify(saved));
  renderHistory();
- if(!silent)showToast(updated?`تمت تسوية ${updated}`:"لا توجد نتائج جديدة");
+ renderAccountUI();
+ if(!silent)showToast(updated?`تمت تسوية ${updated} مباراة`:"لا توجد نتائج جديدة");
 }
 
 function setManualStatus(i,s){
- const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ const saved = JSON.parse(localStorage.getItem("matchai_site_picks")||"[]");
  if(!saved[i])return;
  saved[i].status=s;
- localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ localStorage.setItem("matchai_site_picks",JSON.stringify(saved));
  renderHistory();
+ renderAccountUI();
 }
 
 function deletePick(i){
- const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ const saved = JSON.parse(localStorage.getItem("matchai_site_picks")||"[]");
  saved.splice(i,1);
- localStorage.setItem("matchai_picks",JSON.stringify(saved));
+ localStorage.setItem("matchai_site_picks",JSON.stringify(saved));
  renderHistory();
+ renderAccountUI();
 }
 
 function clearHistory(){
- if(!confirm("مسح السجل بالكامل؟"))return;
- localStorage.removeItem("matchai_picks");
+ if(!confirm("مسح سجل قسائم الموقع بالكامل؟"))return;
+ localStorage.removeItem("matchai_site_picks");
  renderHistory();
+ renderAccountUI();
 }
 
 function renderHistory(){
- const saved = JSON.parse(localStorage.getItem("matchai_picks")||"[]");
+ const saved = JSON.parse(localStorage.getItem("matchai_site_picks")||"[]");
  const settled = saved.filter(p=>p.status==="won"||p.status==="lost"||p.status==="push");
  const active = saved.filter(p=>p.status==="won"||p.status==="lost");
  const won = saved.filter(p=>p.status==="won").length;
- let netUnits = 0;
- settled.forEach(p=>{
-  const o = Number(p.estOdds)||fairOddsFromProb(p.probability||0.55);
-  if(p.status==="won")netUnits+=(o-1);
-  else if(p.status==="lost")netUnits-=1;
- });
- const roiPct = settled.length ? (netUnits/settled.length)*100 : 0;
+ const rate = active.length ? Math.round((won/active.length)*100) : 0;
 
  document.getElementById("totalPicks").textContent = saved.length;
  document.getElementById("settledPicks").textContent = settled.length;
  document.getElementById("wonPicks").textContent = won;
- document.getElementById("winRate").textContent = active.length ? Math.round(won/active.length*100)+"%" : "0%";
- const netEl = document.getElementById("netUnits");
- netEl.textContent = (netUnits>=0?"+":"")+netUnits.toFixed(2)+"u";
- netEl.className = netUnits<0?"red":"";
- const roiEl = document.getElementById("roiPct");
- roiEl.textContent = (roiPct>=0?"+":"")+roiPct.toFixed(1)+"%";
- roiEl.className = roiPct<0?"red":"";
+ document.getElementById("winRate").textContent = `${rate}%`;
 
  document.getElementById("historyList").innerHTML = saved.map((p,i)=>{
-  const o = Number(p.estOdds)||fairOddsFromProb(p.probability||0.55);
-  const stLabel = p.status==="won"?"رابح":p.status==="lost"?"خاسر":p.status==="push"?"Push":"بانتظار النتيجة";
+  const o = Number(p.estOdds)||1.35;
+  const stLabel = p.status==="won"?"توقع صحيح":p.status==="lost"?"توقع غير صحيح":p.status==="push"?"Push":"بانتظار النتيجة";
   return `
    <div class="box">
     <div class="row"><b>${safe(p.home)} × ${safe(p.away)}</b><span class="pill ${p.status==='won'?'ok':''}">${stLabel}</span></div>
     <p class="muted" style="margin:5px 0">${safe(p.market)} • ${safe(p.date)} • ${((p.probability||0)*100).toFixed(1)}% • أودز ${o.toFixed(2)}</p>
     <div class="row">
-     <button class="btn win sm" onclick="setManualStatus(${i},'won')">رابح</button>
-     <button class="btn loss sm" onclick="setManualStatus(${i},'lost')">خاسر</button>
+     <button class="btn win sm" onclick="setManualStatus(${i},'won')">صحيح</button>
+     <button class="btn loss sm" onclick="setManualStatus(${i},'lost')">غير صحيح</button>
      <button class="btn push sm" onclick="setManualStatus(${i},'push')">Push</button>
      <button class="btn sm" onclick="deletePick(${i})">حذف</button>
     </div>
    </div>
   `;
- }).join("") || '<div class="box">لا توجد توقعات محفوظة.</div>';
+ }).join("") || '<div class="box">لا توجد مباريات مسجلة من قسائم الموقع بعد.</div>';
 }
 
 renderHistory();
