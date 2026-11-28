@@ -208,7 +208,7 @@ function safe(s) {
 function normalizeTeam(name) {
   return String(name || "")
     .toLowerCase()
-    .replace(/\b(fc|cf|sc|afc|bfc|ac|as|us|ss|rc|cd|ud|fk|sk|sv|bv|vfb|fsv|ssc|inter|real)\b/g, " ")
+    .replace(/\b(fc|cf|sc|afc|bfc|ac|as|us|ss|rc|cd|ud|fk|sk|sv|bv|vfb|fsv|ssc|inter|real|vfb|1\.|vfl)\b/g, " ")
     .replace(/[^a-z0-9\u0600-\u06ff]+/g, " ")
     .trim();
 }
@@ -417,17 +417,13 @@ async function loadDailyData(manual = false) {
   $("statusPill").textContent = "جاري التحميل...";
 
   const combined = [];
-  const resultsByLeague = new Map();
 
-  // 1) جلب الدوريات الكبرى من CSV لحساب احتمالات النموذج حسب آخر مباريات كل فريق
   await mapLimit(MAJOR_LEAGUES, 3, async ml => {
     try {
       const [fx, rs] = await Promise.all([
         fetchCSV(`${BASE}/${ml.id}/fixtures_${SEASON}.csv`, manual),
         fetchCSV(`${BASE}/${ml.id}/results_${SEASON}.csv`, manual)
       ]);
-      resultsByLeague.set(ml.id, rs);
-
       fx.filter(m => m.home && m.away && m.date === today).forEach(m => {
         const model = analyseTeamForm(rs, m.home, m.away);
         combined.push({
@@ -445,7 +441,6 @@ async function loadDailyData(manual = false) {
     } catch (e) {}
   });
 
-  // 2) جلب مباريات اليوم من OddsPapi وإرفاق أودز السوق الحقيقية ومطابقتها مع المباريات
   try {
     const fxRes = await fetch(`${WORKER}/op/fixtures?sportId=10&date=${encodeURIComponent(today)}`, { cache: "no-store" });
     if (fxRes.ok) {
@@ -454,9 +449,9 @@ async function loadDailyData(manual = false) {
       const candidates = opList
         .filter(f => f && f.fixtureId && f.hasOdds !== false && f.statusId !== 2)
         .sort((a, b) => leaguePriorityScore(b.tournamentName || b.categoryName) - leaguePriorityScore(a.tournamentName || a.categoryName))
-        .slice(0, 60);
+        .slice(0, 100);
 
-      await mapLimit(candidates, 4, async f => {
+      await mapLimit(candidates, 5, async f => {
         const home = f.participant1Name || f.participant1ShortName || "المضيف";
         const away = f.participant2Name || f.participant2ShortName || "الضيف";
         const league = f.tournamentName || f.categoryName || "بطولة";
@@ -532,7 +527,6 @@ function buildTop25Candidates(min, max) {
 
     if (!inRange.length) continue;
     const chosen = inRange[0];
-    // الأولوية للدوريات الكبرى أولاً، ثم وضوح الاحتمال الضمني ضمن النطاق
     const score = m.priority + (chosen.impliedProb * 25);
     list.push({ match: m, pick: chosen, score });
   }
