@@ -503,13 +503,14 @@ async function syncMarketOdds(manual = false) {
 
   try {
     const today = dateInAlgiers();
+    const tomorrow = dateInAlgiers(1);
     const fxRes = await fetch(`${WORKER}/op/fixtures?sportId=10&date=${encodeURIComponent(today)}`, { cache: "no-store" });
     if (!fxRes.ok) throw new Error("HTTP " + fxRes.status);
     const fxData = await fxRes.json();
     const opFixtures = extractArray(fxData).filter(op => op.hasOdds !== false);
 
     let matchedCount = 0;
-    const targets = allMatches.filter(m => m.date === today).slice(0, 15);
+    const targets = allMatches.filter(m => m.date === today || m.date === tomorrow).slice(0, 40);
 
     for (const m of targets) {
       const nh = normalizeTeam(m.home);
