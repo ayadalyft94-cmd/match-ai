@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -6,112 +7,819 @@
 <meta name="theme-color" content="#070c16">
 <title>MATCH AI — تحليل وتوقعات المباريات</title>
 <style>
-:root{--bg:#070c16;--card:rgba(16,26,45,.92);--line:rgba(148,163,184,.17);--text:#f1f5f9;--muted:#94a3b8;--green:#34d399;--blue:#38bdf8;--gold:#fbbf24;--red:#fb7185}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#11233b 0%,#070c16 55%,#050811 100%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.55;min-height:100vh}
-header{background:rgba(10,18,32,.94);border-bottom:1px solid var(--line);padding:14px 16px}.head{max-width:1050px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.logo{font-size:23px;font-weight:900;background:linear-gradient(90deg,var(--green),var(--blue));-webkit-background-clip:text;color:transparent}.sub,.muted{font-size:12px;color:var(--muted)}
-nav{display:flex;gap:7px;padding:10px 12px;overflow:auto;background:#080e1a;border-bottom:1px solid var(--line)}button,select,input{font:inherit}button{cursor:pointer}nav button,.btn,.chip{border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:#17243d;color:#e2e8f0;font-size:13px;white-space:nowrap}nav button.active,.btn.primary,.chip.active{background:linear-gradient(135deg,#10b981,#059669);color:#041c14;border-color:var(--green);font-weight:800}.btn{display:inline-block}.btn.sm{padding:6px 10px;font-size:12px}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.blue{background:#12324a;color:#7dd3fc}.btn.gold{background:#382d12;color:#fde68a}
-main{max-width:1050px;margin:auto;padding:15px}section{display:none}section.active{display:block}h2{font-size:19px;margin:5px 0 12px}h3{font-size:15px;margin:0}.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 8px 22px #0003}.highlight{border-color:#34d39966}.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.grid2,.grid3,.grid4{display:grid;gap:9px;grid-template-columns:1fr}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}@media(min-width:700px){.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(4,1fr)}}
-.stat{background:#182642;border:1px solid var(--line);border-radius:11px;padding:10px;text-align:center;font-size:12px}.stat b{display:block;color:var(--green);font-size:19px;margin-top:3px}.pill{display:inline-block;border-radius:99px;padding:3px 9px;background:#12324a;color:#7dd3fc;font-size:11px;border:1px solid #38bdf844}.pill.ok{background:#12372d;color:#6ee7b7;border-color:#34d39955}.pill.gold{background:#382d12;color:#fde68a;border-color:#fbbf2455}.chips{display:flex;gap:7px;overflow:auto;padding:5px 0;margin:7px 0}.chip{border-radius:99px}.line{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 0;border-top:1px solid var(--line)}.match-title{text-align:center;font-size:17px;font-weight:850;margin:10px 0}.green{color:var(--green)}.goldtext{color:var(--gold)}.red{color:var(--red)}
-label{display:block}.field{width:100%;margin-top:4px;padding:9px 11px;border-radius:10px;background:#182642;color:white;border:1px solid #64748b55}.field:focus{outline:1px solid var(--green)}.full{width:100%;margin-top:8px}.toast{position:fixed;bottom:15px;left:15px;right:15px;max-width:430px;margin:auto;background:#0f293a;border:1px solid var(--green);padding:11px 14px;border-radius:10px;display:none;z-index:99}
-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}th,td{padding:8px;border:1px solid var(--line);text-align:center}th{background:#182642}.notice{border:1px solid #fbbf2455;background:#302710;color:#fde68a;padding:10px;border-radius:10px;font-size:12px;margin:9px 0}.empty{padding:16px;text-align:center;color:var(--muted)}.bar{height:7px;border-radius:8px;background:#24344d;overflow:hidden;margin-top:5px}.bar i{display:block;height:100%;background:var(--green)}footer{text-align:center;color:#64748b;padding:18px;font-size:11px}
+:root{
+--bg:#070c16;--card:rgba(16,26,45,.92);
+--line:rgba(148,163,184,.17);--text:#f1f5f9;
+--muted:#94a3b8;--green:#34d399;--blue:#38bdf8;
+--gold:#fbbf24;--red:#fb7185
+}
+*{box-sizing:border-box}
+body{
+margin:0;background:radial-gradient(circle at 15% 0%,#11233b 0%,#070c16 55%,#050811 100%);
+color:var(--text);font-family:system-ui,Arial,sans-serif;line-height:1.55;min-height:100vh
+}
+header{background:rgba(10,18,32,.94);border-bottom:1px solid var(--line);padding:14px 16px}
+.head{max-width:1050px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-size:23px;font-weight:900;background:linear-gradient(90deg,var(--green),var(--blue));-webkit-background-clip:text;color:transparent}
+.sub,.muted{font-size:12px;color:var(--muted)}
+nav{display:flex;gap:7px;padding:10px 12px;overflow:auto;background:#080e1a;border-bottom:1px solid var(--line)}
+button,select,input{font:inherit}
+button{cursor:pointer}
+nav button,.btn,.chip{
+border:1px solid var(--line);border-radius:10px;padding:8px 12px;
+background:#17243d;color:#e2e8f0;font-size:13px;white-space:nowrap
+}
+nav button.active,.btn.primary,.chip.active{
+background:linear-gradient(135deg,#10b981,#059669);color:#041c14;
+border-color:var(--green);font-weight:800
+}
+nav button.live-tab{border-color:#fb718566;color:#fda4af}
+.btn{display:inline-block}.btn.sm{padding:6px 10px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.blue{background:#12324a;color:#7dd3fc}
+.btn.gold{background:#382d12;color:#fde68a}
+main{max-width:1050px;margin:auto;padding:15px}
+section{display:none}section.active{display:block}
+h2{font-size:19px;margin:5px 0 12px}h3{font-size:15px;margin:0}
+.box{
+background:var(--card);border:1px solid var(--line);border-radius:14px;
+padding:14px;margin-bottom:12px;box-shadow:0 8px 22px #0003
+}
+.highlight{border-color:#34d39966}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.grid2,.grid3,.grid4{display:grid;gap:9px;grid-template-columns:1fr}
+.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:700px){
+.grid2{grid-template-columns:1fr 1fr}
+.grid3{grid-template-columns:repeat(3,1fr)}
+.grid4{grid-template-columns:repeat(4,1fr)}
+}
+.stat{background:#182642;border:1px solid var(--line);border-radius:11px;padding:10px;text-align:center;font-size:12px}
+.stat b{display:block;color:var(--green);font-size:19px;margin-top:3px}
+.pill{display:inline-block;border-radius:99px;padding:3px 9px;background:#12324a;color:#7dd3fc;font-size:11px;border:1px solid #38bdf844}
+.pill.ok{background:#12372d;color:#6ee7b7;border-color:#34d39955}
+.pill.gold{background:#382d12;color:#fde68a;border-color:#fbbf2455}
+.pill.live{background:#451a24;color:#fda4af;border-color:#fb718566}
+.chips{display:flex;gap:7px;overflow:auto;padding:5px 0;margin:7px 0}
+.chip{border-radius:99px}
+.line{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 0;border-top:1px solid var(--line)}
+.match-title{text-align:center;font-size:17px;font-weight:850;margin:10px 0}
+.green{color:var(--green)}.goldtext{color:var(--gold)}.red{color:var(--red)}
+label{display:block}
+.field{width:100%;margin-top:4px;padding:9px 11px;border-radius:10px;background:#182642;color:white;border:1px solid #64748b55}
+.field:focus{outline:1px solid var(--green)}
+.full{width:100%;margin-top:8px}
+.toast{position:fixed;bottom:15px;left:15px;right:15px;max-width:430px;margin:auto;background:#0f293a;border:1px solid var(--green);padding:11px 14px;border-radius:10px;display:none;z-index:99}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+th,td{padding:8px;border:1px solid var(--line);text-align:center}
+th{background:#182642}
+.notice{border:1px solid #fbbf2455;background:#302710;color:#fde68a;padding:10px;border-radius:10px;font-size:12px;margin:9px 0}
+.empty{padding:16px;text-align:center;color:var(--muted)}
+footer{text-align:center;color:#64748b;padding:18px;font-size:11px}
+.live-score{font-size:25px;font-weight:900;color:#fff;text-align:center}
+.live-minute{color:#fb7185;font-weight:800}
 </style>
 </head>
 <body>
-<header><div class="head"><div><div class="logo">MATCH AI</div><div class="sub">تحليل إحصائي للمباريات • احتمالات النموذج • قسائم بدون أودز وهمية</div></div><div id="sessionMini" class="muted">وضع تجريبي محلي</div></div></header>
+
+<header>
+<div class="head">
+<div>
+<div class="logo">MATCH AI</div>
+<div class="sub">تحليل إحصائي للمباريات • احتمالات النموذج • قسائم بدون أودز وهمية</div>
+</div>
+<div id="sessionMini" class="muted">وضع تجريبي محلي</div>
+</div>
+</header>
+
 <nav>
 <button class="active" onclick="openTab('matches',this)">المباريات</button>
+<button class="live-tab" onclick="openTab('live',this)">🔴 المباريات المباشرة</button>
 <button onclick="openTab('best',this)">أفضل التوقعات</button>
 <button onclick="openTab('analysis',this)">تحليل مباراة</button>
 <button onclick="openTab('coupons',this)">القسائم</button>
 <button onclick="openTab('performance',this)">الأداء</button>
 <button onclick="openTab('profile',this)">حسابي</button>
 </nav>
+
 <main>
+
 <section id="matches" class="active">
 <div class="box">
-<div class="row"><b>مباريات اليوم والمباريات القادمة</b><span id="loadStatus" class="pill">جاري التحميل...</span></div>
+<div class="row">
+<b>مباريات اليوم والمباريات القادمة</b>
+<span id="loadStatus" class="pill">جاري التحميل...</span>
+</div>
 <div class="chips" id="leagueChips"></div>
 <div class="grid3">
-<div><label class="muted">التاريخ</label><select id="dayFilter" class="field" onchange="renderMatches()"><option value="TODAY">اليوم</option><option value="TOMORROW">غداً</option><option value="UPCOMING">الأيام القادمة</option></select></div>
-<div><label class="muted">الترتيب</label><select id="sortFilter" class="field" onchange="renderMatches()"><option value="TIME">حسب الموعد</option><option value="PROB">أعلى احتمال</option></select></div>
-<div><label class="muted">البحث</label><input id="teamSearch" class="field" placeholder="اسم الفريق..." oninput="renderMatches()"></div>
+<div>
+<label class="muted">التاريخ</label>
+<select id="dayFilter" class="field" onchange="renderMatches()">
+<option value="TODAY">اليوم</option>
+<option value="TOMORROW">غداً</option>
+<option value="UPCOMING">الأيام القادمة</option>
+</select>
 </div>
-<div class="row" style="margin-top:10px"><span class="muted" id="matchCount">—</span><button class="btn primary sm" onclick="loadMatches(true)">تحديث المباريات</button></div>
-</div><div id="matchesList"></div>
+<div>
+<label class="muted">الترتيب</label>
+<select id="sortFilter" class="field" onchange="renderMatches()">
+<option value="TIME">حسب الموعد</option>
+<option value="PROB">أعلى احتمال</option>
+</select>
+</div>
+<div>
+<label class="muted">البحث</label>
+<input id="teamSearch" class="field" placeholder="اسم الفريق..." oninput="renderMatches()">
+</div>
+</div>
+<div class="row" style="margin-top:10px">
+<span class="muted" id="matchCount">—</span>
+<button class="btn primary sm" onclick="loadMatches(true)">تحديث المباريات</button>
+</div>
+</div>
+<div id="matchesList"></div>
 </section>
-<section id="best"><h2>أفضل توقعات اليوم</h2><div class="notice">الترتيب حسب احتمال النموذج الإحصائي، وليس حسب قيمة مراهنة. لا توجد أودز شركات مراهنات متصلة حالياً.</div><div id="bestList"></div></section>
-<section id="analysis"><h2>تحليل مباراة بالتفصيل</h2><div class="box"><label class="muted">اختر المباراة</label><select id="analysisSelect" class="field" onchange="renderAnalysis()"></select><div id="analysisBox" style="margin-top:12px"></div></div></section>
-<section id="coupons"><h2>القسائم اليومية</h2><div class="notice">لا يمكن حساب أودز إجمالية أو عائد مالي دون أسعار حقيقية من شركة مراهنات. القسائم هنا قوائم توقعات إحصائية فقط وليست قسائم مراهنة جاهزة.</div>
-<div class="grid2"><div class="box highlight"><h3>محافظة — أعلى احتمالات</h3><div id="safeCoupon"></div></div><div class="box highlight"><h3>متوسطة — مزيج احتمالات</h3><div id="mediumCoupon"></div></div></div>
-<div class="box"><div class="row"><h3>قسيمتي اليدوية</h3><button class="btn sm" onclick="clearPicks()">مسح الاختيارات</button></div><div id="manualCoupon"></div></div></section>
-<section id="performance"><h2>متابعة الأداء</h2><div class="notice">سيتم تسجيل التوقعات محلياً على هذا الجهاز. لا نحتسب الفوز أو الخسارة قبل توفر نتائج مؤكدة ومطابقة لكل اختيار.</div><div class="grid3" id="performanceStats"></div><div class="box"><h3>آخر التوقعات المسجلة</h3><div id="predictionHistory"></div></div></section>
-<section id="profile"><h2>الحساب الشخصي</h2><div class="notice">هذا تسجيل محلي تجريبي على جهازك فقط، وليس تسجيل دخول Gmail حقيقياً، ولا تتم مشاركة الحسابات بين المستخدمين.</div><div class="box"><div class="grid2"><div><label class="muted">الاسم</label><input id="profileName" class="field" placeholder="اسمك"></div><div><label class="muted">البريد (اختياري)</label><input id="profileEmail" class="field" type="email" placeholder="name@gmail.com"></div></div><button class="btn primary full" onclick="saveProfile()">حفظ الملف المحلي</button><div id="profileInfo" class="muted" style="margin-top:10px"></div></div></section>
-</main><div id="toast" class="toast"></div><footer>MATCH AI • نموذج إحصائي تجريبي • البيانات من Open Matchday مع الإسناد للمصدر</footer>
+
+<!-- المباريات المباشرة -->
+<section id="live">
+<div class="box">
+<div class="row">
+<div>
+<h2>🔴 المباريات المباشرة الآن</h2>
+<div class="muted">المباريات التي بدأت وتلعب حالياً</div>
+</div>
+<span class="pill live" id="liveCount">0 مباشرة</span>
+</div>
+<div class="row" style="margin-top:12px">
+<span class="muted" id="liveUpdated">لم يتم التحديث بعد</span>
+<button class="btn primary sm" onclick="loadLiveMatches(true)">تحديث الآن</button>
+</div>
+<div class="notice">
+النتائج والدقائق من API-Football. قد يتأخر التحديث قليلاً حسب مزود البيانات والتخزين المؤقت.
+</div>
+</div>
+<div id="liveList"></div>
+</section>
+
+<section id="best">
+<h2>أفضل توقعات اليوم</h2>
+<div class="notice">الترتيب حسب احتمال النموذج الإحصائي، وليس حسب قيمة مراهنة.</div>
+<div id="bestList"></div>
+</section>
+
+<section id="analysis">
+<h2>تحليل مباراة بالتفصيل</h2>
+<div class="box">
+<label class="muted">اختر المباراة</label>
+<select id="analysisSelect" class="field" onchange="renderAnalysis()"></select>
+<div id="analysisBox" style="margin-top:12px"></div>
+</div>
+</section>
+
+<section id="coupons">
+<h2>القسائم اليومية</h2>
+<div class="notice">
+لا نحسب أودز إجمالية أو عائداً مالياً دون أسعار حقيقية من شركة مراهنات.
+القسائم هنا توقعات إحصائية وليست قسائم مراهنة جاهزة.
+</div>
+<div class="grid2">
+<div class="box highlight">
+<h3>محافظة — أعلى احتمالات</h3>
+<div id="safeCoupon"></div>
+</div>
+<div class="box highlight">
+<h3>متوسطة — مزيج احتمالات</h3>
+<div id="mediumCoupon"></div>
+</div>
+</div>
+<div class="box">
+<div class="row">
+<h3>قسيمتي اليدوية</h3>
+<button class="btn sm" onclick="clearPicks()">مسح الاختيارات</button>
+</div>
+<div id="manualCoupon"></div>
+</div>
+</section>
+
+<section id="performance">
+<h2>متابعة الأداء</h2>
+<div class="notice">
+يتم تسجيل التوقعات محلياً على هذا الجهاز. لا نحتسب الفوز أو الخسارة قبل توفر نتائج مؤكدة.
+</div>
+<div class="grid3" id="performanceStats"></div>
+<div class="box">
+<h3>آخر التوقعات المسجلة</h3>
+<div id="predictionHistory"></div>
+</div>
+</section>
+
+<section id="profile">
+<h2>الحساب الشخصي</h2>
+<div class="notice">
+هذا تسجيل محلي تجريبي على جهازك فقط، وليس تسجيل دخول Gmail حقيقياً.
+</div>
+<div class="box">
+<div class="grid2">
+<div>
+<label class="muted">الاسم</label>
+<input id="profileName" class="field" placeholder="اسمك">
+</div>
+<div>
+<label class="muted">البريد (اختياري)</label>
+<input id="profileEmail" class="field" type="email" placeholder="name@gmail.com">
+</div>
+</div>
+<button class="btn primary full" onclick="saveProfile()">حفظ الملف المحلي</button>
+<div id="profileInfo" class="muted" style="margin-top:10px"></div>
+</div>
+</section>
+
+</main>
+
+<div id="toast" class="toast"></div>
+<footer>MATCH AI • التحليل الإحصائي • بيانات المباريات من مزودي البيانات</footer>
+
 <script>
 "use strict";
+
 const BASE="https://raw.githubusercontent.com/oladeeayo/open-matchday/master/data";
+const WORKER="https://billowing-meadow-a8c8.ayadalyft94.workers.dev";
 const SEASON="2627";
+
 const LEAGUES=[
-{id:"ENG_1_premier-league",name:"Premier League"},{id:"ESP_1_la-liga",name:"La Liga"},{id:"GER_1_bundesliga",name:"Bundesliga"},{id:"ITA_1_serie-a",name:"Serie A"},{id:"FRA_1_ligue-1",name:"Ligue 1"},{id:"EUR_CL_uefa-champions-league",name:"Champions League"},{id:"EUR_EL_uefa-europa-league",name:"Europa League"},{id:"POR_1_liga-portugal",name:"Liga Portugal"},{id:"NED_1_eredivisie",name:"Eredivisie"},{id:"TUR_1_super-lig",name:"Süper Lig"},{id:"SAU_1_saudi-pro-league",name:"Saudi Pro League"}
+{id:"ENG_1_premier-league",name:"Premier League"},
+{id:"ESP_1_la-liga",name:"La Liga"},
+{id:"GER_1_bundesliga",name:"Bundesliga"},
+{id:"ITA_1_serie-a",name:"Serie A"},
+{id:"FRA_1_ligue-1",name:"Ligue 1"},
+{id:"EUR_CL_uefa-champions-league",name:"Champions League"},
+{id:"EUR_EL_uefa-europa-league",name:"Europa League"},
+{id:"POR_1_liga-portugal",name:"Liga Portugal"},
+{id:"NED_1_eredivisie",name:"Eredivisie"},
+{id:"TUR_1_super-lig",name:"Süper Lig"},
+{id:"SAU_1_saudi-pro-league",name:"Saudi Pro League"}
 ];
-let allMatches=[],activeLeague="ALL",selected=new Set(),loadErrors=[];
+
+let allMatches=[];
+let activeLeague="ALL";
+let selected=new Set();
+let loadErrors=[];
+let liveMatches=[];
+let liveLoading=false;
+
 const $=id=>document.getElementById(id);
-function toast(s){const e=$("toast");e.textContent=s;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2600)}
-function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function dateInAlgiers(offset=0){const parts=new Intl.DateTimeFormat("en-CA",{timeZone:"Africa/Algiers",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());let y=+parts.find(p=>p.type==="year").value,m=+parts.find(p=>p.type==="month").value,d=+parts.find(p=>p.type==="day").value;const dt=new Date(Date.UTC(y,m-1,d+offset,12));return dt.toISOString().slice(0,10)}
-function openTab(id,btn){document.querySelectorAll("main section").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");if(id==="best")renderBest();if(id==="analysis")renderAnalysis();if(id==="coupons")renderCoupons();if(id==="performance")renderPerformance();if(id==="profile")renderProfile()}
-function parseCSV(text){const rows=[];let row=[],cell="",quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++}else quoted=!quoted}else if(c===","&&!quoted){row.push(cell);cell=""}else if((c==="\n"||c==="\r")&&!quoted){if(c==="\r"&&text[i+1]==="\n")i++;row.push(cell);if(row.some(x=>x.trim()))rows.push(row);row=[];cell=""}else cell+=c}if(cell.length||row.length){row.push(cell);rows.push(row)}if(!rows.length)return[];const headers=rows.shift().map((x,i)=>x.trim().replace(/^\uFEFF/,""));return rows.map(r=>{const o={};headers.forEach((h,i)=>o[h]=(r[i]??"").trim());return o})}
-async function fetchCSV(url){const cached=localStorage.getItem("ma_cache_"+url);if(cached){try{const c=JSON.parse(cached);if(Date.now()-c.t<6*60*60*1000)return c.rows}catch(e){}}const res=await fetch(url,{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const rows=parseCSV(await res.text());localStorage.setItem("ma_cache_"+url,JSON.stringify({t:Date.now(),rows}));return rows}
-function poisson(lambda,k){let p=Math.exp(-lambda);for(let i=1;i<=k;i++)p*=lambda/i;return p}
-function avg(a){return a.length?a.reduce((s,x)=>s+x,0)/a.length:null}
+
+function toast(s){
+const e=$("toast");
+e.textContent=s;
+e.style.display="block";
+clearTimeout(toast.t);
+toast.t=setTimeout(()=>e.style.display="none",2600);
+}
+
+function safe(s){
+return String(s??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+}
+
+function dateInAlgiers(offset=0){
+const parts=new Intl.DateTimeFormat("en-CA",{
+timeZone:"Africa/Algiers",year:"numeric",month:"2-digit",day:"2-digit"
+}).formatToParts(new Date());
+let y=+parts.find(p=>p.type==="year").value;
+let m=+parts.find(p=>p.type==="month").value;
+let d=+parts.find(p=>p.type==="day").value;
+const dt=new Date(Date.UTC(y,m-1,d+offset,12));
+return dt.toISOString().slice(0,10);
+}
+
+function openTab(id,btn){
+document.querySelectorAll("main section").forEach(s=>s.classList.remove("active"));
+$(id).classList.add("active");
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+if(btn)btn.classList.add("active");
+
+if(id==="live")loadLiveMatches(false);
+if(id==="best")renderBest();
+if(id==="analysis")renderAnalysis();
+if(id==="coupons")renderCoupons();
+if(id==="performance")renderPerformance();
+if(id==="profile")renderProfile();
+}
+
+function parseCSV(text){
+const rows=[];let row=[],cell="",quoted=false;
+for(let i=0;i<text.length;i++){
+const c=text[i];
+if(c==='"'){
+if(quoted&&text[i+1]==='"'){cell+='"';i++}
+else quoted=!quoted;
+}else if(c===","&&!quoted){row.push(cell);cell=""}
+else if((c==="\n"||c==="\r")&&!quoted){
+if(c==="\r"&&text[i+1]==="\n")i++;
+row.push(cell);
+if(row.some(x=>x.trim()))rows.push(row);
+row=[];cell="";
+}else cell+=c;
+}
+if(cell.length||row.length){row.push(cell);rows.push(row)}
+if(!rows.length)return[];
+const headers=rows.shift().map(x=>x.trim().replace(/^\uFEFF/,""));
+return rows.map(r=>{
+const o={};
+headers.forEach((h,i)=>o[h]=(r[i]??"").trim());
+return o;
+});
+}
+
+async function fetchCSV(url){
+const cached=localStorage.getItem("ma_cache_"+url);
+if(cached){
+try{
+const c=JSON.parse(cached);
+if(Date.now()-c.t<6*60*60*1000)return c.rows;
+}catch(e){}
+}
+const res=await fetch(url,{cache:"no-store"});
+if(!res.ok)throw new Error("HTTP "+res.status);
+const rows=parseCSV(await res.text());
+localStorage.setItem("ma_cache_"+url,JSON.stringify({t:Date.now(),rows}));
+return rows;
+}
+
+function poisson(lambda,k){
+let p=Math.exp(-lambda);
+for(let i=1;i<=k;i++)p*=lambda/i;
+return p;
+}
+
+function avg(a){
+return a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+}
+
 function analyse(results,home,away){
- const valid=results.filter(r=>r.home&&r.away&&r.ft_home!==""&&r.ft_away!==""&&Number.isFinite(+r.ft_home)&&Number.isFinite(+r.ft_away));
- const recent=valid.slice(-250);
- const homeGames=recent.filter(r=>r.home===home).slice(-12),awayGames=recent.filter(r=>r.away===away).slice(-12);
- const leagueHome=avg(recent.map(r=>+r.ft_home))??1.45,leagueAway=avg(recent.map(r=>+r.ft_away))??1.15;
- const hGF=avg(homeGames.map(r=>+r.ft_home)),hGA=avg(homeGames.map(r=>+r.ft_away));
- const aGF=avg(awayGames.map(r=>+r.ft_away)),aGA=avg(awayGames.map(r=>+r.ft_home));
- const hAttack=(hGF??leagueHome)/Math.max(.35,leagueHome),aDef=(aGA??leagueHome)/Math.max(.35,leagueHome);
- const aAttack=(aGF??leagueAway)/Math.max(.35,leagueAway),hDef=(hGA??leagueAway)/Math.max(.35,leagueAway);
- const lH=Math.min(3.8,Math.max(.2,leagueHome*hAttack*aDef));
- const lA=Math.min(3.5,Math.max(.2,leagueAway*aAttack*hDef));
- let pH=0,pD=0,pA=0,over15=0,over25=0,over35=0,btts=0;
- const max=10;
- for(let i=0;i<=max;i++)for(let j=0;j<=max;j++){const p=poisson(lH,i)*poisson(lA,j);if(i>j)pH+=p;else if(i===j)pD+=p;else pA+=p;if(i+j>=2)over15+=p;if(i+j>=3)over25+=p;if(i+j>=4)over35+=p;if(i>0&&j>0)btts+=p}
- const sum=pH+pD+pA;pH/=sum;pD/=sum;pA/=sum;
- const markets=[{name:"فوز المضيف (1)",p:pH},{name:"تعادل (X)",p:pD},{name:"فوز الضيف (2)",p:pA},{name:"فرصة مزدوجة 1X",p:pH+pD},{name:"فرصة مزدوجة X2",p:pD+pA},{name:"أكثر من 1.5 هدف",p:over15},{name:"أكثر من 2.5 هدف",p:over25},{name:"أكثر من 3.5 هدف",p:over35},{name:"الفريقان يسجلان",p:btts}].map(x=>({...x,p:Math.max(0,Math.min(1,x.p)),fair:x.p>0?1/x.p:null})).sort((a,b)=>b.p-a.p);
- return {lambdaHome:lH,lambdaAway:lA,pHome:pH,pDraw:pD,pAway:pA,markets,homeSamples:homeGames.length,awaySamples:awayGames.length,method:"Poisson",best:markets[0]};
+const valid=results.filter(r=>
+r.home&&r.away&&r.ft_home!==""&&r.ft_away!==""&&
+Number.isFinite(+r.ft_home)&&Number.isFinite(+r.ft_away)
+);
+const recent=valid.slice(-250);
+const homeGames=recent.filter(r=>r.home===home).slice(-12);
+const awayGames=recent.filter(r=>r.away===away).slice(-12);
+const leagueHome=avg(recent.map(r=>+r.ft_home))??1.45;
+const leagueAway=avg(recent.map(r=>+r.ft_away))??1.15;
+const hGF=avg(homeGames.map(r=>+r.ft_home));
+const hGA=avg(homeGames.map(r=>+r.ft_away));
+const aGF=avg(awayGames.map(r=>+r.ft_away));
+const aGA=avg(awayGames.map(r=>+r.ft_home));
+const hAttack=(hGF??leagueHome)/Math.max(.35,leagueHome);
+const aDef=(aGA??leagueHome)/Math.max(.35,leagueHome);
+const aAttack=(aGF??leagueAway)/Math.max(.35,leagueAway);
+const hDef=(hGA??leagueAway)/Math.max(.35,leagueAway);
+const lH=Math.min(3.8,Math.max(.2,leagueHome*hAttack*aDef));
+const lA=Math.min(3.5,Math.max(.2,leagueAway*aAttack*hDef));
+
+let pH=0,pD=0,pA=0,over15=0,over25=0,over35=0,btts=0;
+for(let i=0;i<=10;i++){
+for(let j=0;j<=10;j++){
+const p=poisson(lH,i)*poisson(lA,j);
+if(i>j)pH+=p;
+else if(i===j)pD+=p;
+else pA+=p;
+if(i+j>=2)over15+=p;
+if(i+j>=3)over25+=p;
+if(i+j>=4)over35+=p;
+if(i>0&&j>0)btts+=p;
 }
-async function mapLimit(items,limit,fn){let index=0;const workers=Array.from({length:Math.min(limit,items.length)},async()=>{while(index<items.length){const i=index++;await fn(items[i])}});await Promise.all(workers)}
+}
+const sum=pH+pD+pA;
+pH/=sum;pD/=sum;pA/=sum;
+
+const markets=[
+{name:"فوز المضيف (1)",p:pH},
+{name:"تعادل (X)",p:pD},
+{name:"فوز الضيف (2)",p:pA},
+{name:"فرصة مزدوجة 1X",p:pH+pD},
+{name:"فرصة مزدوجة X2",p:pD+pA},
+{name:"أكثر من 1.5 هدف",p:over15},
+{name:"أكثر من 2.5 هدف",p:over25},
+{name:"أكثر من 3.5 هدف",p:over35},
+{name:"الفريقان يسجلان",p:btts}
+].map(x=>({...x,p:Math.max(0,Math.min(1,x.p)),fair:x.p>0?1/x.p:null}))
+.sort((a,b)=>b.p-a.p);
+
+return{
+lambdaHome:lH,lambdaAway:lA,pHome:pH,pDraw:pD,pAway:pA,
+markets,homeSamples:homeGames.length,awaySamples:awayGames.length,
+method:"Poisson",best:markets[0]
+};
+}
+
+async function mapLimit(items,limit,fn){
+let index=0;
+const workers=Array.from({length:Math.min(limit,items.length)},async()=>{
+while(index<items.length){
+const i=index++;
+await fn(items[i]);
+}
+});
+await Promise.all(workers);
+}
+
 async function loadMatches(manual=false){
- $("loadStatus").textContent="جاري التحميل...";loadErrors=[];const found=[];const from=dateInAlgiers(-1),to=dateInAlgiers(7);
- await mapLimit(LEAGUES,3,async league=>{try{const [fx,rs]=await Promise.all([fetchCSV(`${BASE}/${league.id}/fixtures_${SEASON}.csv`),fetchCSV(`${BASE}/${league.id}/results_${SEASON}.csv`)]);fx.filter(m=>m.home&&m.away&&m.date&&m.date>=from&&m.date<=to).forEach(m=>{const a=analyse(rs,m.home,m.away);found.push({key:[m.date,m.home,m.away].join("|"),leagueId:league.id,league:league.name,date:m.date,time:m.time||"",home:m.home,away:m.away,analysis:a})})}catch(e){loadErrors.push(league.name+": "+e.message)}});
- allMatches=found.sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time));
- $("loadStatus").textContent=found.length?`${found.length} مباراة`:"لم يتم تحميل المباريات";
- $("matchCount").textContent=found.length?`${found.length} مباراة متاحة`:"لا توجد مباريات في الفترة القادمة";
- if(loadErrors.length) $("loadStatus").textContent+=(found.length?" • ":"")+(loadErrors.length+" دوريات تعذر تحميلها");
- renderLeagueChips();renderMatches();populateAnalysis();renderBest();renderCoupons();renderPerformance();
- if(!found.length)toast("لم تصل مباريات. تحقق من الاتصال أو من توفر ملفات الموسم 2627.");
- else if(manual)toast("تم تحديث المباريات بنجاح");
+$("loadStatus").textContent="جاري التحميل...";
+loadErrors=[];
+const found=[];
+const from=dateInAlgiers(-1);
+const to=dateInAlgiers(7);
+
+await mapLimit(LEAGUES,3,async league=>{
+try{
+const [fx,rs]=await Promise.all([
+fetchCSV(`${BASE}/${league.id}/fixtures_${SEASON}.csv`),
+fetchCSV(`${BASE}/${league.id}/results_${SEASON}.csv`)
+]);
+fx.filter(m=>m.home&&m.away&&m.date&&m.date>=from&&m.date<=to)
+.forEach(m=>{
+const a=analyse(rs,m.home,m.away);
+found.push({
+key:[m.date,m.home,m.away].join("|"),
+leagueId:league.id,league:league.name,
+date:m.date,time:m.time||"",
+home:m.home,away:m.away,analysis:a
+});
+});
+}catch(e){
+loadErrors.push(league.name+": "+e.message);
 }
-function renderLeagueChips(){$("leagueChips").innerHTML=`<button class="chip ${activeLeague==="ALL"?"active":""}" onclick="chooseLeague('ALL')">كل الدوريات</button>`+LEAGUES.map(l=>`<button class="chip ${activeLeague===l.id?"active":""}" onclick="chooseLeague('${l.id}')">${safe(l.name)}</button>`).join("")}
-function chooseLeague(id){activeLeague=id;renderLeagueChips();renderMatches()}
-function filteredMatches(){const mode=$("dayFilter").value,today=dateInAlgiers(),tomorrow=dateInAlgiers(1),q=$("teamSearch").value.trim().toLowerCase();return allMatches.filter(m=>(activeLeague==="ALL"||m.leagueId===activeLeague)&&(mode==="TODAY"?m.date===today:mode==="TOMORROW"?m.date===tomorrow:m.date>=today&&m.date<=dateInAlgiers(7))&&(!q||m.home.toLowerCase().includes(q)||m.away.toLowerCase().includes(q)||m.league.toLowerCase().includes(q)))}
-function renderMatches(){let items=filteredMatches();if($("sortFilter").value==="PROB")items.sort((a,b)=>b.analysis.best.p-a.analysis.best.p);$("matchCount").textContent=`${items.length} مباراة حسب الفلتر`;if(!items.length){$("matchesList").innerHTML=`<div class="box empty">ما لقيناش مباريات مطابقة لهذا التاريخ أو الفلتر.</div>`;return}$("matchesList").innerHTML=items.map(m=>{const a=m.analysis;const idx=allMatches.indexOf(m);return `<div class="box"><div class="row"><span class="pill">${safe(m.league)}</span><span class="muted">${safe(m.date)} ${safe(m.time)}</span></div><div class="match-title">${safe(m.home)} × ${safe(m.away)}</div><div class="grid3"><div class="stat">فوز المضيف<b>${(a.pHome*100).toFixed(1)}%</b></div><div class="stat">تعادل<b>${(a.pDraw*100).toFixed(1)}%</b></div><div class="stat">فوز الضيف<b>${(a.pAway*100).toFixed(1)}%</b></div></div><div class="line"><span class="green"><b>${safe(a.best.name)}</b> — ${(a.best.p*100).toFixed(1)}%</span><span class="muted">أودز عادلة: ${a.best.fair.toFixed(2)}</span></div><div class="row"><button class="btn blue sm" onclick="openAnalysis(${idx})">تحليل كامل</button><button class="btn sm" onclick="togglePick(${idx})">${selected.has(m.key)?"إزالة من القسيمة":"إضافة للقسيمة"}</button></div></div>`}).join("")}
-function populateAnalysis(){$("analysisSelect").innerHTML=allMatches.length?allMatches.map((m,i)=>`<option value="${i}">${safe(m.home)} × ${safe(m.away)} — ${safe(m.league)} (${safe(m.date)})</option>`).join(""):`<option value="">لا توجد مباريات</option>`;renderAnalysis()}
-function openAnalysis(i){$("analysisSelect").value=String(i);openTab("analysis",document.querySelectorAll("nav button")[2])}
-function renderAnalysis(){const m=allMatches[+$("analysisSelect").value];if(!m){$("analysisBox").innerHTML='<div class="empty">حمّل المباريات أولاً.</div>';return}const a=m.analysis;$("analysisBox").innerHTML=`<div class="row"><h3>${safe(m.home)} × ${safe(m.away)}</h3><span class="pill">${safe(m.league)}</span></div><div class="grid3" style="margin-top:10px"><div class="stat">الأهداف المتوقعة للمضيف<b>${a.lambdaHome.toFixed(2)}</b></div><div class="stat">الأهداف المتوقعة للضيف<b>${a.lambdaAway.toFixed(2)}</b></div><div class="stat">عينات الفريقين<b>${a.homeSamples} / ${a.awaySamples}</b></div></div><p class="muted">تقدير الأهداف مبني على متوسط التسجيل والاستقبال في آخر مباريات متاحة، ثم توزيع بواسون. ليس xG مزوداً من شركة بيانات.</p><table><thead><tr><th>السوق</th><th>احتمال النموذج</th><th>الأودز العادلة</th></tr></thead><tbody>${a.markets.map(x=>`<tr><td>${safe(x.name)}</td><td class="green">${(x.p*100).toFixed(1)}%</td><td>${x.fair.toFixed(2)}</td></tr>`).join("")}</tbody></table><div class="notice">أودز السوق: غير متوفرة. لا يمكن حساب Value Bet دون سعر حقيقي من شركة مراهنات.</div><button class="btn primary full" onclick="togglePick(${allMatches.indexOf(m)})">${selected.has(m.key)?"إزالة من القسيمة":"إضافة أفضل اختيار للقسيمة"}</button>`}
-function renderBest(){const items=allMatches.filter(m=>m.date===dateInAlgiers()).sort((a,b)=>b.analysis.best.p-a.analysis.best.p).slice(0,10);$("bestList").innerHTML=items.length?items.map((m,i)=>`<div class="box"><div class="row"><b>#${i+1} ${safe(m.home)} × ${safe(m.away)}</b><span class="pill">${safe(m.league)}</span></div><div class="line"><b class="green">${safe(m.analysis.best.name)}</b><b>${(m.analysis.best.p*100).toFixed(1)}%</b></div><div class="muted">الأودز العادلة للنموذج: ${m.analysis.best.fair.toFixed(2)} • ليست أودز سوق</div></div>`).join(""):'<div class="box empty">لا توجد مباريات اليوم حالياً.</div>'}
-function togglePick(i){const m=allMatches[i];if(!m)return;if(selected.has(m.key))selected.delete(m.key);else selected.add(m.key);renderMatches();renderCoupons();renderAnalysis()}
-function clearPicks(){selected.clear();renderMatches();renderCoupons()}
-function picksFor(pool){const used=new Set();return pool.filter(m=>{if(used.has(m.key))return false;used.add(m.key);return true})}
-function renderCouponItems(items){return items.length?items.map(m=>`<div class="line"><span><b>${safe(m.home)} × ${safe(m.away)}</b><br><span class="muted">${safe(m.analysis.best.name)}</span></span><span class="green">${(m.analysis.best.p*100).toFixed(1)}%</span></div>`).join(""):'<div class="empty">لا توجد اختيارات كافية حالياً.</div>'}
-function renderCoupons(){const today=allMatches.filter(m=>m.date===dateInAlgiers()).sort((a,b)=>b.analysis.best.p-a.analysis.best.p);$("safeCoupon").innerHTML=renderCouponItems(picksFor(today.filter(m=>m.analysis.best.p>=.60)).slice(0,4));$("mediumCoupon").innerHTML=renderCouponItems(picksFor(today.filter(m=>m.analysis.best.p>=.48)).slice(0,5));const manual=allMatches.filter(m=>selected.has(m.key));$("manualCoupon").innerHTML=manual.length?renderCouponItems(manual)+`<button class="btn primary full" onclick="savePredictionList()">حفظ التوقعات في سجل الأداء</button>`:'<div class="empty">أضف مباريات من قسم المباريات.</div>'}
-function savePredictionList(){const items=allMatches.filter(m=>selected.has(m.key)).map(m=>({date:m.date,home:m.home,away:m.away,league:m.league,pick:m.analysis.best.name,prob:m.analysis.best.p,savedAt:new Date().toISOString(),status:"pending"}));if(!items.length)return;let h=[];try{h=JSON.parse(localStorage.getItem("ma_history")||"[]")}catch(e){}h.unshift(...items);localStorage.setItem("ma_history",JSON.stringify(h.slice(0,100)));toast("تم حفظ التوقعات محلياً");renderPerformance()}
-function renderPerformance(){let h=[];try{h=JSON.parse(localStorage.getItem("ma_history")||"[]")}catch(e){}$("performanceStats").innerHTML=`<div class="stat">توقعات محفوظة<b>${h.length}</b></div><div class="stat">قيد المتابعة<b>${h.filter(x=>x.status==="pending").length}</b></div><div class="stat">نتائج موثقة<b>${h.filter(x=>x.status!=="pending").length}</b></div>`;$("predictionHistory").innerHTML=h.length?h.slice(0,20).map(x=>`<div class="line"><span><b>${safe(x.home)} × ${safe(x.away)}</b><br><span class="muted">${safe(x.date)} • ${safe(x.pick)}</span></span><span class="green">${(x.prob*100).toFixed(1)}%</span></div>`).join(""):'<div class="empty">لا توجد توقعات محفوظة.</div>'}
-function saveProfile(){const p={name:$("profileName").value.trim(),email:$("profileEmail").value.trim()};localStorage.setItem("ma_profile",JSON.stringify(p));renderProfile();toast("تم حفظ الملف على هذا الجهاز")}
-function renderProfile(){let p={};try{p=JSON.parse(localStorage.getItem("ma_profile")||"{}")}catch(e){}$("profileName").value=p.name||"";$("profileEmail").value=p.email||"";$("profileInfo").textContent=p.name?`مرحباً ${p.name} — ملف محلي على هذا الجهاز.`:"لم يتم حفظ ملف بعد.";$("sessionMini").textContent=p.name?`مرحباً ${p.name} • حساب محلي`:"وضع تجريبي محلي"}
-renderLeagueChips();renderProfile();loadMatches(false);
+});
+
+allMatches=found.sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time));
+$("loadStatus").textContent=found.length?`${found.length} مباراة`:"لم يتم تحميل المباريات";
+$("matchCount").textContent=found.length?`${found.length} مباراة متاحة`:"لا توجد مباريات في الفترة القادمة";
+if(loadErrors.length)$("loadStatus").textContent+=" • "+loadErrors.length+" دوريات تعذر تحميلها";
+
+renderLeagueChips();
+renderMatches();
+populateAnalysis();
+renderBest();
+renderCoupons();
+renderPerformance();
+
+if(!found.length)toast("لم تصل مباريات. تحقق من الاتصال أو ملفات الموسم.");
+else if(manual)toast("تم تحديث المباريات بنجاح");
+}
+
+function renderLeagueChips(){
+$("leagueChips").innerHTML=
+`<button class="chip ${activeLeague==="ALL"?"active":""}" onclick="chooseLeague('ALL')">كل الدوريات</button>`+
+LEAGUES.map(l=>`<button class="chip ${activeLeague===l.id?"active":""}" onclick="chooseLeague('${l.id}')">${safe(l.name)}</button>`).join("");
+}
+
+function chooseLeague(id){
+activeLeague=id;
+renderLeagueChips();
+renderMatches();
+}
+
+function filteredMatches(){
+const mode=$("dayFilter").value;
+const today=dateInAlgiers();
+const tomorrow=dateInAlgiers(1);
+const q=$("teamSearch").value.trim().toLowerCase();
+
+return allMatches.filter(m=>
+(activeLeague==="ALL"||m.leagueId===activeLeague)&&
+(mode==="TODAY"?m.date===today:
+mode==="TOMORROW"?m.date===tomorrow:
+m.date>=today&&m.date<=dateInAlgiers(7))&&
+(!q||m.home.toLowerCase().includes(q)||
+m.away.toLowerCase().includes(q)||m.league.toLowerCase().includes(q))
+);
+}
+
+function renderMatches(){
+let items=filteredMatches();
+if($("sortFilter").value==="PROB")
+items.sort((a,b)=>b.analysis.best.p-a.analysis.best.p);
+
+$("matchCount").textContent=`${items.length} مباراة حسب الفلتر`;
+
+if(!items.length){
+$("matchesList").innerHTML='<div class="box empty">ما لقيناش مباريات مطابقة لهذا التاريخ أو الفلتر.</div>';
+return;
+}
+
+$("matchesList").innerHTML=items.map(m=>{
+const a=m.analysis;
+const idx=allMatches.indexOf(m);
+return `
+<div class="box">
+<div class="row">
+<span class="pill">${safe(m.league)}</span>
+<span class="muted">${safe(m.date)} ${safe(m.time)}</span>
+</div>
+<div class="match-title">${safe(m.home)} × ${safe(m.away)}</div>
+<div class="grid3">
+<div class="stat">فوز المضيف<b>${(a.pHome*100).toFixed(1)}%</b></div>
+<div class="stat">تعادل<b>${(a.pDraw*100).toFixed(1)}%</b></div>
+<div class="stat">فوز الضيف<b>${(a.pAway*100).toFixed(1)}%</b></div>
+</div>
+<div class="line">
+<span class="green"><b>${safe(a.best.name)}</b> — ${(a.best.p*100).toFixed(1)}%</span>
+<span class="muted">أودز عادلة: ${a.best.fair.toFixed(2)}</span>
+</div>
+<div class="row">
+<button class="btn blue sm" onclick="openAnalysis(${idx})">تحليل كامل</button>
+<button class="btn sm" onclick="togglePick(${idx})">${selected.has(m.key)?"إزالة من القسيمة":"إضافة للقسيمة"}</button>
+</div>
+</div>`;
+}).join("");
+}
+
+/* جلب مباريات اليوم المباشرة من Worker */
+const LIVE_STATUSES=["1H","HT","2H","ET","BT","P","LIVE","SUSP","INT"];
+
+function getLiveArray(data){
+if(Array.isArray(data))return data;
+if(data&&Array.isArray(data.response))return data.response;
+if(data&&Array.isArray(data.data))return data.data;
+return [];
+}
+
+function formatLiveTime(dateValue){
+try{
+return new Intl.DateTimeFormat("ar-DZ",{
+hour:"2-digit",minute:"2-digit",timeZone:"Africa/Algiers"
+}).format(new Date(dateValue));
+}catch(e){return "";}
+}
+
+function liveStatusText(status){
+const s=status?.short||"";
+const elapsed=status?.elapsed;
+if(s==="HT")return "استراحة بين الشوطين";
+if(s==="FT"||s==="AET"||s==="PEN")return "انتهت المباراة";
+if(elapsed!==null&&elapsed!==undefined)return `${elapsed}'`;
+return status?.long||"مباشرة";
+}
+
+function renderLiveMatches(){
+$("liveCount").textContent=`${liveMatches.length} مباشرة`;
+
+if(!liveMatches.length){
+$("liveList").innerHTML=`
+<div class="box empty">
+لا توجد مباريات مباشرة الآن حسب البيانات المتاحة.
+<br><span class="muted">جرّب التحديث بعد قليل.</span>
+</div>`;
+return;
+}
+
+$("liveList").innerHTML=liveMatches.map(m=>{
+const f=m.fixture||{};
+const teams=m.teams||{};
+const goals=m.goals||{};
+const league=m.league||{};
+const status=f.status||{};
+const home=teams.home?.name||"الفريق الأول";
+const away=teams.away?.name||"الفريق الثاني";
+const gh=goals.home??0;
+const ga=goals.away??0;
+const minute=liveStatusText(status);
+
+return `
+<div class="box">
+<div class="row">
+<span class="pill">${safe(league.country||"مباراة مباشرة")}</span>
+<span class="pill live">🔴 ${safe(minute)}</span>
+</div>
+<div class="muted" style="text-align:center;margin-top:5px">${safe(league.name||"")}</div>
+<div class="grid3" style="align-items:center;margin-top:10px">
+<div style="text-align:center;font-weight:800">${safe(home)}</div>
+<div class="live-score">${safe(gh)} - ${safe(ga)}</div>
+<div style="text-align:center;font-weight:800">${safe(away)}</div>
+</div>
+<div class="line">
+<span class="muted">${safe(fixtureDateText(f.date))}</span>
+<span class="muted">${safe(status.long||"جارية")}</span>
+</div>
+</div>`;
+}).join("");
+}
+
+function fixtureDateText(value){
+return value?formatLiveTime(value):"";
+}
+
+async function loadLiveMatches(manual=false){
+if(liveLoading)return;
+liveLoading=true;
+$("liveUpdated").textContent="جاري جلب المباريات المباشرة...";
+try{
+const date=dateInAlgiers();
+const url=`${WORKER}/fixtures?date=${encodeURIComponent(date)}`;
+const response=await fetch(url,{cache:"no-store"});
+if(!response.ok)throw new Error("HTTP "+response.status);
+
+const data=await response.json();
+const all=getLiveArray(data);
+
+liveMatches=all.filter(m=>{
+const short=m.fixture?.status?.short||"";
+return LIVE_STATUSES.includes(short);
+}).sort((a,b)=>
+new Date(a.fixture?.date||0)-new Date(b.fixture?.date||0)
+);
+
+renderLiveMatches();
+$("liveUpdated").textContent="آخر تحديث: "+new Date().toLocaleTimeString("ar-DZ");
+
+if(manual)toast("تم تحديث المباريات المباشرة");
+}catch(error){
+$("liveList").innerHTML=`
+<div class="box empty">
+تعذر جلب المباريات المباشرة حالياً.
+<br><span class="muted">${safe(error.message)}</span>
+<br>تحقق من خدمة Worker وحاول مرة أخرى.
+</div>`;
+$("liveUpdated").textContent="فشل التحديث";
+}catch(e){}
+finally{liveLoading=false;}
+}
+
+function populateAnalysis(){
+$("analysisSelect").innerHTML=allMatches.length?
+allMatches.map((m,i)=>`<option value="${i}">${safe(m.home)} × ${safe(m.away)} — ${safe(m.league)} (${safe(m.date)})</option>`).join("")
+:'<option value="">لا توجد مباريات</option>';
+renderAnalysis();
+}
+
+function openAnalysis(i){
+$("analysisSelect").value=String(i);
+openTab("analysis",document.querySelectorAll("nav button")[3]);
+}
+
+function renderAnalysis(){
+const m=allMatches[+$("analysisSelect").value];
+if(!m){
+$("analysisBox").innerHTML='<div class="empty">حمّل المباريات أولاً.</div>';
+return;
+}
+const a=m.analysis;
+$("analysisBox").innerHTML=`
+<div class="row">
+<h3>${safe(m.home)} × ${safe(m.away)}</h3>
+<span class="pill">${safe(m.league)}</span>
+</div>
+<div class="grid3" style="margin-top:10px">
+<div class="stat">الأهداف المتوقعة للمضيف<b>${a.lambdaHome.toFixed(2)}</b></div>
+<div class="stat">الأهداف المتوقعة للضيف<b>${a.lambdaAway.toFixed(2)}</b></div>
+<div class="stat">عينات الفريقين<b>${a.homeSamples} / ${a.awaySamples}</b></div>
+</div>
+<p class="muted">تقدير الأهداف مبني على متوسط التسجيل والاستقبال في آخر مباريات متاحة، ثم توزيع بواسون. ليس xG مزوداً من شركة بيانات.</p>
+<table>
+<thead><tr><th>السوق</th><th>احتمال النموذج</th><th>الأودز العادلة</th></tr></thead>
+<tbody>${a.markets.map(x=>`
+<tr><td>${safe(x.name)}</td>
+<td class="green">${(x.p*100).toFixed(1)}%</td>
+<td>${x.fair.toFixed(2)}</td></tr>`).join("")}</tbody>
+</table>
+<div class="notice">أودز السوق غير متوفرة هنا. لا يمكن حساب Value Bet دون سعر حقيقي من شركة مراهنات.</div>
+<button class="btn primary full" onclick="togglePick(${allMatches.indexOf(m)})">
+${selected.has(m.key)?"إزالة من القسيمة":"إضافة أفضل اختيار للقسيمة"}
+</button>`;
+}
+
+function renderBest(){
+const items=allMatches.filter(m=>m.date===dateInAlgiers())
+.sort((a,b)=>b.analysis.best.p-a.analysis.best.p).slice(0,10);
+
+$("bestList").innerHTML=items.length?items.map((m,i)=>`
+<div class="box">
+<div class="row">
+<b>#${i+1} ${safe(m.home)} × ${safe(m.away)}</b>
+<span class="pill">${safe(m.league)}</span>
+</div>
+<div class="line">
+<b class="green">${safe(m.analysis.best.name)}</b>
+<b>${(m.analysis.best.p*100).toFixed(1)}%</b>
+</div>
+<div class="muted">الأودز العادلة للنموذج: ${m.analysis.best.fair.toFixed(2)} • ليست أودز سوق</div>
+</div>`).join("")
+:'<div class="box empty">لا توجد مباريات اليوم حالياً.</div>';
+}
+
+function togglePick(i){
+const m=allMatches[i];
+if(!m)return;
+if(selected.has(m.key))selected.delete(m.key);
+else selected.add(m.key);
+renderMatches();
+renderCoupons();
+renderAnalysis();
+}
+
+function clearPicks(){
+selected.clear();
+renderMatches();
+renderCoupons();
+}
+
+function renderCouponItems(items){
+return items.length?items.map(m=>`
+<div class="line">
+<span><b>${safe(m.home)} × ${safe(m.away)}</b><br>
+<span class="muted">${safe(m.analysis.best.name)}</span></span>
+<span class="green">${(m.analysis.best.p*100).toFixed(1)}%</span>
+</div>`).join("")
+:'<div class="empty">لا توجد اختيارات كافية حالياً.</div>';
+}
+
+function renderCoupons(){
+const today=allMatches.filter(m=>m.date===dateInAlgiers())
+.sort((a,b)=>b.analysis.best.p-a.analysis.best.p);
+
+$("safeCoupon").innerHTML=renderCouponItems(
+today.filter(m=>m.analysis.best.p>=.60).slice(0,4)
+);
+$("mediumCoupon").innerHTML=renderCouponItems(
+today.filter(m=>m.analysis.best.p>=.48).slice(0,5)
+);
+
+const manual=allMatches.filter(m=>selected.has(m.key));
+$("manualCoupon").innerHTML=manual.length?
+renderCouponItems(manual)+
+`<button class="btn primary full" onclick="savePredictionList()">حفظ التوقعات في سجل الأداء</button>`:
+'<div class="empty">أضف مباريات من قسم المباريات.</div>';
+}
+
+function savePredictionList(){
+const items=allMatches.filter(m=>selected.has(m.key)).map(m=>({
+date:m.date,home:m.home,away:m.away,league:m.league,
+pick:m.analysis.best.name,prob:m.analysis.best.p,
+savedAt:new Date().toISOString(),status:"pending"
+}));
+if(!items.length)return;
+let h=[];
+try{h=JSON.parse(localStorage.getItem("ma_history")||"[]")}catch(e){}
+h.unshift(...items);
+localStorage.setItem("ma_history",JSON.stringify(h.slice(0,100)));
+toast("تم حفظ التوقعات محلياً");
+renderPerformance();
+}
+
+function renderPerformance(){
+let h=[];
+try{h=JSON.parse(localStorage.getItem("ma_history")||"[]")}catch(e){}
+$("performanceStats").innerHTML=`
+<div class="stat">توقعات محفوظة<b>${h.length}</b></div>
+<div class="stat">قيد المتابعة<b>${h.filter(x=>x.status==="pending").length}</b></div>
+<div class="stat">نتائج موثقة<b>${h.filter(x=>x.status!=="pending").length}</b></div>`;
+
+$("predictionHistory").innerHTML=h.length?
+h.slice(0,20).map(x=>`
+<div class="line">
+<span><b>${safe(x.home)} × ${safe(x.away)}</b><br>
+<span class="muted">${safe(x.date)} • ${safe(x.pick)}</span></span>
+<span class="green">${(x.prob*100).toFixed(1)}%</span>
+</div>`).join("")
+:'<div class="empty">لا توجد توقعات محفوظة.</div>';
+}
+
+function saveProfile(){
+const p={
+name:$("profileName").value.trim(),
+email:$("profileEmail").value.trim()
+};
+localStorage.setItem("ma_profile",JSON.stringify(p));
+renderProfile();
+toast("تم حفظ الملف على هذا الجهاز");
+}
+
+function renderProfile(){
+let p={};
+try{p=JSON.parse(localStorage.getItem("ma_profile")||"{}")}catch(e){}
+$("profileName").value=p.name||"";
+$("profileEmail").value=p.email||"";
+$("profileInfo").textContent=p.name?
+`مرحباً ${p.name} — ملف محلي على هذا الجهاز.`:
+"لم يتم حفظ ملف بعد.";
+$("sessionMini").textContent=p.name?
+`مرحباً ${p.name} • حساب محلي`:"وضع تجريبي محلي";
+}
+
+renderLeagueChips();
+renderProfile();
+loadMatches(false);
+loadLiveMatches(false);
+
+/* تحديث المباريات المباشرة كل خمس دقائق */
+setInterval(()=>{
+if(document.visibilityState==="visible")loadLiveMatches(false);
+},5*60*1000);
+
 </script>
 </body>
 </html>
