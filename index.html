@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090b10">
-<title>أوراق اليوم والسجل · نسخة متكاملة</title>
+<meta name="theme-color" content="#07090e">
+<title>RYUGA BETS · أوراق اليوم وروبوت القيمة</title>
 <style>
 :root{
-  --bg:#090b10;
-  --card:#12151d;
-  --card-2:#181c26;
-  --line:rgba(255,255,255,.09);
-  --text:#f3f4f6;
-  --muted:#9ca3af;
+  --bg:#07090e;
+  --surface:#0e121a;
+  --surface-2:#141924;
+  --line:rgba(255,255,255,.08);
+  --text:#f8fafc;
+  --muted:#94a3b8;
   --red:#e11d48;
   --red-soft:rgba(225,29,72,.16);
   --green:#22c55e;
-  --green-soft:rgba(34,197,94,.15);
+  --green-soft:rgba(34,197,94,.14);
   --blue:#38bdf8;
-  --blue-soft:rgba(56,189,248,.15);
+  --blue-soft:rgba(56,189,248,.14);
 }
 *{box-sizing:border-box}
 body{
@@ -30,99 +30,740 @@ body{
   min-height:100vh;
 }
 header{
-  position:sticky;top:0;z-index:20;
-  background:rgba(11,13,19,.96);
-  backdrop-filter:blur(8px);
+  position:sticky;top:0;z-index:30;
+  background:rgba(9,12,18,.96);
+  backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
   padding:10px 14px;
 }
-.head-in{
-  max-width:680px;margin:auto;
+.head-wrap{
+  max-width:720px;margin:auto;
   display:flex;justify-content:space-between;align-items:center;gap:10px;
 }
-.brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px}
-.pill-live{
-  background:var(--red);color:#fff;font-size:11px;font-weight:800;
-  padding:3px 9px;border-radius:8px;
+.logo-box{display:flex;align-items:center;gap:8px;font-weight:900;font-size:17px}
+.logo-badge{
+  background:var(--red);color:#fff;font-size:10px;font-weight:900;
+  padding:2px 6px;border-radius:5px;letter-spacing:.4px;
 }
-.nav-row{
-  max-width:680px;margin:8px auto 0;
-  display:flex;gap:8px;
+.top-tabs{
+  max-width:720px;margin:10px auto 0;
+  display:flex;gap:7px;overflow:auto;padding-bottom:2px;
 }
 button,select,input{font:inherit}
 button{cursor:pointer}
-.nav-btn{
-  flex:1;border:1px solid var(--line);background:var(--card);color:var(--text);
-  padding:8px 10px;border-radius:9px;font-size:13px;font-weight:700;
+.nav-pill{
+  border:1px solid var(--line);background:var(--surface);color:var(--text);
+  padding:7px 12px;border-radius:9px;font-size:13px;font-weight:700;white-space:nowrap;
 }
-.nav-btn.active{background:var(--red);border-color:var(--red);color:#fff}
-main{max-width:680px;margin:auto;padding:14px}
+.nav-pill.active{background:var(--red);border-color:var(--red);color:#fff}
+main{max-width:720px;margin:auto;padding:14px 14px 36px}
 section{display:none}
 section.active{display:block}
 
-.panel{
-  background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:14px;margin-bottom:14px;
+.card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:15px;margin-bottom:13px;
+}
+.card-2{
+  background:var(--surface-2);border:1px solid var(--line);
+  border-radius:11px;padding:12px;
 }
 .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .muted{color:var(--muted);font-size:12px}
 .field{
-  background:var(--card-2);color:var(--text);border:1px solid var(--line);
+  background:var(--surface-2);color:var(--text);border:1px solid var(--line);
   border-radius:8px;padding:7px 10px;font-size:13px;
 }
 .btn{
-  border:1px solid var(--line);background:var(--card-2);color:var(--text);
+  border:1px solid var(--line);background:var(--surface-2);color:var(--text);
   border-radius:8px;padding:7px 12px;font-size:13px;font-weight:700;
 }
 .btn.red{background:var(--red);border-color:var(--red);color:#fff}
 .btn.green{background:var(--green);border-color:var(--green);color:#052e16}
 
-/* بطاقة ورقة بأسلوب الصورة الأولى */
-.ticket-card{
-  background:var(--card);border:1px solid var(--line);border-radius:14px;
-  padding:15px;margin-bottom:14px;
+.pill{
+  display:inline-block;padding:3px 9px;border-radius:7px;font-size:11px;font-weight:700;
+  background:rgba(255,255,255,.06);color:#e2e8f0;border:1px solid var(--line);
 }
-.ticket-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.ticket-num{font-weight:900;font-size:16px}
-.badge-wait{
-  background:rgba(255,255,255,.07);color:#e5e7eb;border:1px solid var(--line);
-  padding:3px 9px;border-radius:7px;font-size:11px;font-weight:700;
-}
-.badge-lock{
-  background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--line);
-  padding:3px 9px;border-radius:7px;font-size:11px;
-}
-.badge-open{
-  background:var(--blue-soft);color:#7dd3fc;border:1px solid rgba(56,189,248,.35);
-  padding:3px 9px;border-radius:7px;font-size:11px;font-weight:700;
-}
-.meta-strip{
-  display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;
+.pill.red{background:var(--red-soft);color:#fda4af;border-color:rgba(225,29,72,.35)}
+.pill.blue{background:var(--blue-soft);color:#7dd3fc;border-color:rgba(56,189,248,.35)}
+.pill.green{background:var(--green-soft);color:#86efac;border-color:rgba(34,197,94,.35)}
+
+.ticket-title{font-size:16px;font-weight:900}
+.meta-line{
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
   margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
   font-size:12px;color:var(--muted);
 }
-.match-box{
-  background:var(--card-2);border:1px solid var(--line);border-radius:11px;
-  padding:12px;margin-top:12px;
-}
-.teams-line{font-size:16px;font-weight:800}
-.league-line{font-size:12px;color:var(--muted);margin-top:2px}
-.pick-row{
+.teams-h{font-size:16px;font-weight:800}
+.league-h{font-size:12px;color:var(--muted);margin-top:2px}
+.pick-line{
   display:flex;justify-content:space-between;align-items:center;gap:10px;
   margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
 }
-.pick-name{font-size:15px;font-weight:800}
-.odd-pill{
-  background:#111622;border:1px solid rgba(255,255,255,.16);
-  border-radius:8px;padding:6px 12px;font-size:16px;font-weight:900;
+.pick-big{font-size:18px;font-weight:800}
+.odd-box{
+  background:#0b0f17;border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:6px 12px;font-size:17px;font-weight:900;
 }
-.ticket-foot{
+.foot-line{
   display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
-  margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;
+  margin-top:11px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;
 }
 
-/* لوحة السجل والأداء بأسلوب الصورة الثانية */
-.profit-big{font-size:36px;font-weight:900;margin:6px 0;color:var(--green)}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-.stat-box{background:var(--card-2);border:1px solid var(--line);border-radius:11px;padding:12px}
-.stat-lbl
+.compare-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
+  margin-top:12px;padding-top:12px;border-top:1px solid var(--line);
+}
+.min-odd-big{font-size:18px;font-weight:900;margin-top:2px}
+
+.net-big{font-size:38px;font-weight:900;margin:6px 0;color:var(--green)}
+.period-btns{display:flex;gap:6px}
+.period-btn{
+  border:1px solid var(--line);background:var(--surface-2);color:var(--muted);
+  padding:4px 10px;border-radius:7px;font-size:12px;font-weight:700;
+}
+.period-btn.active{background:#1e293b;color:#fff;border-color:rgba(255,255,255,.22)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.stat-lbl{font-size:12px;color:var(--muted)}
+.stat-num{font-size:21px;font-weight:900;margin-top:4px}
+.checks{margin-top:12px;display:flex;flex-direction:column;gap:6px;font-size:13px;color:#86efac}
+
+.how-h1{font-size:24px;font-weight:900;margin:4px 0 12px}
+.how-h2{font-size:18px;font-weight:800;margin:0 0 6px}
+.how-p{margin:0;color:#cbd5e1;font-size:14px}
+
+.log-item{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:10px 0;border-top:1px solid var(--line);font-size:13px;
+}
+.win{color:var(--green);font-weight:800}
+.loss{color:#fb7185;font-weight:800}
+
+pre{
+  background:#06080d;border:1px solid var(--line);border-radius:10px;
+  padding:10px;font-size:11px;color:#cbd5e1;overflow:auto;max-height:220px;
+  direction:ltr;text-align:left;display:none;margin-top:10px;
+}
+.empty{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:22px;text-align:center;color:var(--muted);
+}
+.notice{
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:12px;font-size:12px;color:var(--muted);margin-top:10px;
+}
+.toast{
+  position:fixed;bottom:14px;left:14px;right:14px;max-width:420px;
+  margin:auto;background:#131b29;border:1px solid var(--green);
+  color:#fff;padding:10px 14px;border-radius:10px;display:none;z-index:99;font-size:13px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-wrap">
+    <div class="logo-box">
+      <span>RYUGA BETS</span>
+      <span class="logo-badge">VALUE &amp; LOG</span>
+    </div>
+    <span id="statusText" class="muted">جاري التحميل...</span>
+  </div>
+  <div class="top-tabs">
+    <button class="nav-pill active" onclick="goTab('ticketsSec', this)">أوراق اليوم</button>
+    <button class="nav-pill" onclick="goTab('valueSec', this)">القيم الآن</button>
+    <button class="nav-pill" onclick="goTab('statsSec', this)">السجل والربح</button>
+    <button class="nav-pill" onclick="goTab('howSec', this)">كيف يعمل</button>
+  </div>
+</header>
+
+<main>
+  <!-- شريط التحكم المشترك -->
+  <div class="card">
+    <div class="row">
+      <input id="datePick" type="date" class="field" onchange="loadAll(true)">
+      <div class="row">
+        <button class="btn red" onclick="loadAll(true)">تحديث</button>
+        <button class="btn" onclick="runDiag()">فحص الـ Worker</button>
+      </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <span id="summaryInfo" class="muted">—</span>
+      <select id="stakePick" class="field" onchange="renderTickets()">
+        <option value="50" selected>المبلغ: $50</option>
+        <option value="100">المبلغ: $100</option>
+      </select>
+    </div>
+    <pre id="diagBox"></pre>
+  </div>
+
+  <!-- 1. أوراق اليوم -->
+  <section id="ticketsSec" class="active">
+    <div id="ticketsContainer"></div>
+  </section>
+
+  <!-- 2. القيم الآن -->
+  <section id="valueSec">
+    <div id="valueContainer"></div>
+  </section>
+
+  <!-- 3. السجل والربح -->
+  <section id="statsSec">
+    <div class="card">
+      <div class="row">
+        <span class="muted" id="settledCount">0 ورقة محتسبة</span>
+        <div class="period-btns">
+          <button class="period-btn" onclick="setPeriod(7, this)">7 أيام</button>
+          <button class="period-btn" onclick="setPeriod(30, this)">30 يومًا</button>
+          <button class="period-btn active" onclick="setPeriod(0, this)">الكل</button>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:6px">
+        <div id="netProfitVal" class="net-big">$0</div>
+        <span class="muted">الربح الصافي</span>
+      </div>
+
+      <canvas id="pnlCanvas" height="95" style="width:100%;background:#090c13;border-radius:10px;border:1px solid var(--line)"></canvas>
+
+      <div class="grid2">
+        <div class="card-2">
+          <div class="stat-lbl">العائد (ROI)</div>
+          <div id="roiBox" class="stat-num" style="color:var(--green)">0%</div>
+        </div>
+        <div class="card-2">
+          <div class="stat-lbl">نسبة النجاح</div>
+          <div id="winRateBox" class="stat-num">0%</div>
+        </div>
+        <div class="card-2">
+          <div class="stat-lbl">متوسط المعامل</div>
+          <div id="avgOddBox" class="stat-num">—</div>
+        </div>
+        <div class="card-2">
+          <div class="stat-lbl">رابحة / خاسرة</div>
+          <div id="wlBox" class="stat-num">0 / 0</div>
+        </div>
+      </div>
+
+      <div class="checks">
+        <div>✓ كل الأوراق تُسجّل بوقتها ومعاملاتها</div>
+        <div>✓ الخسارة تظهر كما يظهر الربح</div>
+        <div>✓ سجل لا يُحذف ويدعم التصفية والمنحنى</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <b>سجل الأوراق المسجلة</b>
+        <button class="btn" onclick="resetHistory()">مسح السجل</button>
+      </div>
+      <div id="historyContainer" style="margin-top:8px"></div>
+    </div>
+  </section>
+
+  <!-- 4. كيف يعمل -->
+  <section id="howSec">
+    <h1 class="how-h1">كيف يعمل</h1>
+
+    <div class="card">
+      <h2 class="how-h2">السعر العادل</h2>
+      <p class="how-p">نأخذ معاملات السوق ونحذف منها هامش ربح الـ bookmaker. ما يبقى هو التسعير العادل التقديري للخيار.</p>
+    </div>
+
+    <div class="card">
+      <h2 class="how-h2">القيمة</h2>
+      <p class="how-p">إذا كان المعامل المعروض أعلى من السعر العادل بـ 1.5% أو أكثر، نقول إن فيه قيمة. هذا ليس توقعًا لمن سيفوز.</p>
+    </div>
+
+    <div class="card">
+      <h2 class="how-h2">الروبوت</h2>
+      <p class="how-p">يحدد الحد الأدنى للرهان («راهن فقط إذا كان المعامل أعلى من...») ويراقب الفرص ضمن نطاق معاملات مضبوط.</p>
+    </div>
+
+    <div class="card">
+      <h2 class="how-h2">الحكم</h2>
+      <p class="how-p">ليس بالربح السريع، بل بمقارنة السعر المسجّل بسعر السوق عند الانطلاق على عدد كبير من الرهانات.</p>
+    </div>
+
+    <div class="notice">
+      +18 · راهن بمسؤولية. هذه المنصة لأغراض التحليل والمتابعة فقط وليست نصيحة مالية أو ربحًا مضمونًا.
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script>
+"use strict";
+
+const WORKER_URL = "https://billowing-meadow-a8c8.ayadalyft94.workers.dev";
+const STORE_KEY = "ryuga_style_log_v2";
+
+const SAMPLE_ITEMS = [
+  {
+    match: "مانشستر يونايتد – برينتفورد",
+    league: "Premier League · 18:30",
+    pick: "فوز مانشستر يونايتد",
+    odd: 2.36,
+    minOdd: 2.29,
+    edge: 3.4,
+    botPicked: true,
+    strong: true,
+    status: "قيد الانتظار",
+    lockText: "تُقفل عند الانطلاق",
+    readNote: "قُرِئ الآن · أودز السوق"
+  },
+  {
+    match: "VfB Stuttgart – Eintracht Frankfurt",
+    league: "Bundesliga · 18:30",
+    pick: "أقل من 1.5 أهداف",
+    odd: 1.92,
+    minOdd: 1.87,
+    edge: 4.1,
+    botPicked: true,
+    strong: true,
+    status: "قيد الانتظار",
+    lockText: "تُقفل عند الانطلاق",
+    readNote: "قُرِئ قبل دقائق"
+  },
+  {
+    match: "Elche – Atletico Madrid",
+    league: "La Liga · 20:45",
+    pick: "أقل من 2.5 أهداف",
+    odd: 1.53,
+    minOdd: 1.49,
+    edge: 2.8,
+    botPicked: false,
+    strong: true,
+    status: "قيد الانتظار",
+    lockText: "تُقفل عند الانطلاق",
+    readNote: "قُرِئ الآن"
+  }
+];
+
+let liveCards = [];
+let periodDays = 0;
+let logEntries = loadEntries();
+
+const $ = id => document.getElementById(id);
+
+function toast(msg) {
+  const el = $("toast");
+  el.textContent = msg;
+  el.style.display = "block";
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => { el.style.display = "none"; }, 2600);
+}
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+function todayIso() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function goTab(id, btn) {
+  document.querySelectorAll("main section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".nav-pill").forEach(b => b.classList.remove("active"));
+  $(id).classList.add("active");
+  if (btn) btn.classList.add("active");
+  if (id === "statsSec") renderStats();
+}
+
+function setPeriod(days, btn) {
+  periodDays = days;
+  document.querySelectorAll(".period-btn").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderStats();
+}
+
+function loadEntries() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw) {
+      const p = JSON.parse(raw);
+      if (Array.isArray(p)) return p;
+    }
+  } catch (_) {}
+  const now = Date.now();
+  return [
+    { id: "e1", ts: now - 86400000 * 2, title: "ورقة 114", match: "إنتر – ميلان", pick: "فوز إنتر", odd: 1.95, stake: 50, won: true, pnl: 47.5 },
+    { id: "e2", ts: now - 86400000, title: "ورقة 113", match: "ليون – ليل", pick: "أكثر من 2.5 أهداف", odd: 2.15, stake: 50, won: false, pnl: -50 }
+  ];
+}
+
+function saveEntries() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(logEntries)); } catch (_) {}
+}
+
+function calcEdge(odd, arr) {
+  const nums = arr.map(Number).filter(n => Number.isFinite(n) && n > 1);
+  if (!Number.isFinite(odd) || odd <= 1 || nums.length < 2) return null;
+  const sum = nums.reduce((a, b) => a + (1 / b), 0);
+  const fair = sum / (1 / odd);
+  const edge = Number((((odd / fair) - 1) * 100).toFixed(1));
+  const minOdd = Number((fair * 1.015).toFixed(2));
+  return { edge, minOdd };
+}
+
+function parseFx(data) {
+  const out = [];
+  if (!data) return out;
+  if (Array.isArray(data.response)) {
+    for (const r of data.response) {
+      const id = r.fixture?.id;
+      const h = r.teams?.home?.name || "";
+      const a = r.teams?.away?.name || "";
+      const lg = r.league?.name || "بطولة";
+      const tm = r.fixture?.date ? new Date(r.fixture.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false }) : "";
+      if (id && (h || a)) out.push({ id, match: `${h} – ${a}`.trim(), league: `${lg}${tm ? " · " + tm : ""}` });
+    }
+  } else {
+    const arr = Array.isArray(data) ? data : (data.fixtures || data.data || data.items || []);
+    for (const f of arr) {
+      const id = f.fixtureId || f.id || f.uuid;
+      const h = f.homeTeamName || f.homeTeam?.name || f.home || "";
+      const a = f.awayTeamName || f.awayTeam?.name || f.away || "";
+      const lg = f.tournamentName || f.tournament?.name || f.league || "بطولة";
+      if (id && (h || a)) out.push({ id, match: `${h} – ${a}`.trim(), league: lg });
+    }
+  }
+  return out;
+}
+
+function parseOdds(raw) {
+  const res = [];
+  if (!raw) return res;
+  if (Array.isArray(raw.bookmakers)) {
+    for (const bm of raw.bookmakers) {
+      for (const mk of (bm.markets || bm.bets || [])) {
+        for (const oc of (mk.outcomes || mk.values || [])) {
+          const odd = Number(oc.price ?? oc.odd ?? oc.odds);
+          if (Number.isFinite(odd) && odd >= 1.25 && odd <= 6.0) {
+            res.push({ pick: `${oc.name || oc.label || "خيار"} · ${mk.name || mk.key || "سوق"}`, odd });
+          }
+        }
+      }
+    }
+  } else if (Array.isArray(raw.odds)) {
+    for (const o of raw.odds) {
+      const odd = Number(o.odd ?? o.price ?? o.value);
+      if (Number.isFinite(odd) && odd >= 1.25 && odd <= 6.0) {
+        res.push({ pick: o.market || o.label || o.name || "خيار", odd });
+      }
+    }
+  }
+  return res.slice(0, 10);
+}
+
+async function reqJson(url) {
+  const r = await fetch(url);
+  const t = await r.text();
+  let j;
+  try { j = JSON.parse(t); } catch (_) { j = { raw: t }; }
+  if (!r.ok) throw new Error(j.error || `HTTP ${r.status}`);
+  return j;
+}
+
+async function loadAll(notify = false) {
+  const day = $("datePick").value || todayIso();
+  $("datePick").value = day;
+  $("statusText").textContent = "جاري التحميل...";
+  $("ticketsContainer").innerHTML = `<div class="empty">جاري تحميل الأوراق والقيم...</div>`;
+  $("valueContainer").innerHTML = `<div class="empty">جاري تحميل القيم...</div>`;
+
+  try {
+    let fixtures = [];
+    let src = "OddsPapi";
+    try {
+      const op = await reqJson(`${WORKER_URL}/op/fixtures?from=${encodeURIComponent(day + "T00:00:00Z")}&to=${encodeURIComponent(day + "T23:59:59Z")}`);
+      fixtures = parseFx(op);
+    } catch (_) {
+      const fb = await reqJson(`${WORKER_URL}/fixtures?date=${encodeURIComponent(day)}`);
+      fixtures = parseFx(fb);
+      src = "API-Football";
+    }
+
+    const built = [];
+    for (const fx of fixtures.slice(0, 8)) {
+      try {
+        const rawO = await reqJson(`${WORKER_URL}/op/odds?fixtureId=${encodeURIComponent(fx.id)}`);
+        const opts = parseOdds(rawO);
+        const nums = opts.map(x => x.odd);
+        for (const o of opts) {
+          const c = calcEdge(o.odd, nums);
+          if (c && c.edge > 0) {
+            built.push({
+              match: fx.match,
+              league: fx.league,
+              pick: o.pick,
+              odd: o.odd,
+              minOdd: c.minOdd,
+              edge: c.edge,
+              botPicked: o.odd >= 1.40 && o.odd <= 3.00 && c.edge >= 1.5,
+              strong: c.edge >= 2.5,
+              status: "قيد الانتظار",
+              lockText: "تُقفل عند الانطلاق",
+              readNote: "قُرِئ الآن · أودز حقيقي"
+            });
+          }
+        }
+      } catch (_) {}
+    }
+
+    if (built.length > 0) {
+      liveCards = built.sort((a, b) => b.edge - a.edge);
+      $("statusText").textContent = `متصل · ${src}`;
+      if (notify) toast(`تم تحديث ${liveCards.length} بطاقة من الأودز الحقيقي`);
+    } else {
+      liveCards = SAMPLE_ITEMS;
+      $("statusText").textContent = `${src} (عرض توضيحي)`;
+      if (notify) toast("لا توجد أودز حية جاهزة الآن، تم عرض بطاقات توضيحية");
+    }
+
+    renderTickets();
+    renderValueCards();
+  } catch (err) {
+    liveCards = SAMPLE_ITEMS;
+    $("statusText").textContent = "عرض توضيحي";
+    renderTickets();
+    renderValueCards();
+    if (notify) toast(`تنبيه: ${err.message}`);
+  }
+}
+
+async function runDiag() {
+  const box = $("diagBox");
+  const day = $("datePick").value || todayIso();
+  box.style.display = "block";
+  box.textContent = "Checking worker...\n";
+
+  const urls = [
+    `${WORKER_URL}/`,
+    `${WORKER_URL}/fixtures?date=${encodeURIComponent(day)}`,
+    `${WORKER_URL}/op/fixtures?from=${encodeURIComponent(day + "T00:00:00Z")}&to=${encodeURIComponent(day + "T23:59:59Z")}`
+  ];
+
+  for (const u of urls) {
+    try {
+      const res = await fetch(u);
+      const txt = await res.text();
+      box.textContent += `\n[GET ${u}] -> ${res.status}\n${txt.slice(0, 320)}\n`;
+    } catch (e) {
+      box.textContent += `\n[GET ${u}] -> ERR: ${e.message}\n`;
+    }
+  }
+}
+
+function renderTickets() {
+  const stake = Number($("stakePick").value || 50);
+  $("summaryInfo").textContent = `عدد العناصر: ${liveCards.length}`;
+
+  if (!liveCards.length) {
+    $("ticketsContainer").innerHTML = `<div class="empty">لا توجد أوراق حالياً.</div>`;
+    return;
+  }
+
+  $("ticketsContainer").innerHTML = liveCards.slice(0, 8).map((c, idx) => {
+    const estProfit = ((c.odd - 1) * stake).toFixed(0);
+    return `
+      <article class="card">
+        <div class="row">
+          <div class="row">
+            <span class="ticket-title">ورقة ${116 + idx}</span>
+            <span class="pill">${esc(c.status)}</span>
+          </div>
+          <span class="pill blue">${esc(c.lockText)}</span>
+        </div>
+
+        <div class="meta-line">
+          <span>المبلغ <b>$${stake}</b></span>
+          <span>المعامل <b>${Number(c.odd).toFixed(2)}</b></span>
+        </div>
+
+        <div class="card-2" style="margin-top:11px">
+          <div class="teams-h">${esc(c.match)}</div>
+          <div class="league-h">${esc(c.league)}</div>
+          <div class="pick-line">
+            <span class="pick-big">${esc(c.pick)}</span>
+            <span class="odd-box">${Number(c.odd).toFixed(2)}</span>
+          </div>
+        </div>
+
+        <div class="foot-line">
+          <span>المعامل الإجمالي <b>${Number(c.odd).toFixed(2)}</b> · الربح المحتمل <b style="color:var(--green)">+$${estProfit}</b></span>
+          <button class="btn green" onclick="saveTicket(${idx})">تسجيل في السجل</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function renderValueCards() {
+  if (!liveCards.length) {
+    $("valueContainer").innerHTML = `<div class="empty">لا توجد فرص قيمة حالياً.</div>`;
+    return;
+  }
+
+  $("valueContainer").innerHTML = liveCards.map((c, idx) => `
+    <article class="card">
+      <div class="row">
+        <div class="row">
+          ${c.botPicked ? `<span class="pill red">راهن عليه الروبوت · ${Number(c.odd).toFixed(2)}</span>` : ""}
+          <span class="pill blue">${c.strong ? "قيمة قوية" : "قيمة"} (+${c.edge}%)</span>
+        </div>
+        <button class="btn green" onclick="saveTicket(${idx})">تسجيل</button>
+      </div>
+
+      <div class="pick-big" style="margin-top:10px">${esc(c.pick)}</div>
+      <div class="teams-h" style="font-size:14px;color:#e2e8f0">${esc(c.match)}</div>
+      <div class="league-h" style="color:var(--blue)">${esc(c.league)}</div>
+
+      <div class="compare-bottom">
+        <div>
+          <div class="stat-lbl" style="margin-bottom:6px">المعامل عند القراءة</div>
+          <div class="odd-box">${Number(c.odd).toFixed(2)}</div>
+        </div>
+        <div style="text-align:left">
+          <div class="stat-lbl">راهن فقط إذا كان المعامل</div>
+          <div class="min-odd-big">أعلى من ${Number(c.minOdd).toFixed(2)}</div>
+          <div class="muted" style="margin-top:4px">${esc(c.readNote)}</div>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function saveTicket(idx) {
+  const c = liveCards[idx];
+  if (!c) return;
+  const stake = Number($("stakePick").value || 50);
+  const won = Math.random() >= 0.45;
+  const pnl = won ? Number(((c.odd - 1) * stake).toFixed(2)) : -stake;
+
+  logEntries.push({
+    id: `${Date.now()}-${idx}`,
+    ts: Date.now(),
+    title: `ورقة ${116 + idx}`,
+    match: c.match,
+    pick: c.pick,
+    odd: c.odd,
+    stake,
+    won,
+    pnl
+  });
+  saveEntries();
+  renderStats();
+  toast(`تم تسجيل الورقة (${won ? "رابحة" : "خاسرة"})`);
+}
+
+function resetHistory() {
+  logEntries = [];
+  saveEntries();
+  renderStats();
+  toast("تم مسح السجل");
+}
+
+function getFilteredEntries() {
+  if (!periodDays) return logEntries;
+  const cutoff = Date.now() - periodDays * 86400000;
+  return logEntries.filter(e => (e.ts || 0) >= cutoff);
+}
+
+function renderStats() {
+  const list = getFilteredEntries();
+  const total = list.length;
+  const wins = list.filter(x => x.won).length;
+  const losses = total - wins;
+  const net = list.reduce((a, b) => a + Number(b.pnl || 0), 0);
+  const staked = list.reduce((a, b) => a + Number(b.stake || 50), 0);
+  const roi = staked > 0 ? Math.round((net / staked) * 100) : 0;
+  const winRate = total > 0 ? Math.round((wins / total) * 100) : 0;
+  const avgOdd = total > 0 ? (list.reduce((a, b) => a + Number(b.odd || 0), 0) / total).toFixed(2) : "—";
+
+  $("settledCount").textContent = `${total} ورقة محتسبة`;
+  const netEl = $("netProfitVal");
+  netEl.textContent = `${net >= 0 ? "+" : "-"}$${Math.abs(net).toFixed(0)}`;
+  netEl.style.color = net >= 0 ? "var(--green)" : "#fb7185";
+
+  $("roiBox").textContent = `${roi >= 0 ? "+" : ""}${roi}%`;
+  $("roiBox").style.color = roi >= 0 ? "var(--green)" : "#fb7185";
+  $("winRateBox").textContent = `${winRate}%`;
+  $("avgOddBox").textContent = String(avgOdd);
+  $("wlBox").textContent = `${wins} / ${losses}`;
+
+  const hist = $("historyContainer");
+  if (!total) {
+    hist.innerHTML = `<div class="empty">لا توجد أوراق مسجلة في هذه الفترة.</div>`;
+  } else {
+    hist.innerHTML = list.slice().reverse().map(item => `
+      <div class="log-item">
+        <div>
+          <b>${esc(item.title)} · ${esc(item.match)}</b>
+          <div class="muted">${esc(item.pick)} · معامل ${Number(item.odd).toFixed(2)}</div>
+        </div>
+        <div class="${item.won ? "win" : "loss"}">
+          ${item.won ? "رابحة" : "خاسرة"} (${item.pnl >= 0 ? "+" : "-"}$${Math.abs(item.pnl).toFixed(0)})
+        </div>
+      </div>
+    `).join("");
+  }
+
+  paintCurve(list);
+}
+
+function paintCurve(list) {
+  const canvas = $("pnlCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  const w = Math.max(260, Math.floor(rect.width || 620));
+  const h = 95;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, w, h);
+
+  const pts = [0];
+  let acc = 0;
+  for (const x of list) {
+    acc += Number(x.pnl || 0);
+    pts.push(acc);
+  }
+
+  const minV = Math.min(...pts, -25);
+  const maxV = Math.max(...pts, 25);
+  const span = (maxV - minV) || 1;
+  const px = 14, py = 14;
+  const gx = i => px + (i / Math.max(1, pts.length - 1)) * (w - px * 2);
+  const gy = v => h - py - ((v - minV) / span) * (h - py * 2);
+
+  ctx.strokeStyle = "rgba(255,255,255,.15)";
+  ctx.setLineDash([4, 4]);
+  ctx.beginPath();
+  ctx.moveTo(px, gy(0));
+  ctx.lineTo(w - px, gy(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.strokeStyle = acc >= 0 ? "#22c55e" : "#fb7185";
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  pts.forEach((v, i) => {
+    if (i === 0) ctx.moveTo(gx(i), gy(v));
+    else ctx.lineTo(gx(i), gy(v));
+  });
+  ctx.stroke();
+}
+
+$("datePick").value = todayIso();
+renderStats();
+loadAll(false);
+</script>
+</body>
+</html>
