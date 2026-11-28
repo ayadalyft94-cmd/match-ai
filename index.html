@@ -503,26 +503,26 @@ async function syncMarketOdds(manual = false) {
 
   try {
     const today = dateInAlgiers();
-    const fxRes = await fetch(`${WORKER}/op/fixtures?date=${encodeURIComponent(today)}`, { cache: "no-store" });
+    const fxRes = await fetch(`${WORKER}/op/fixtures?sportId=10&date=${encodeURIComponent(today)}`, { cache: "no-store" });
     if (!fxRes.ok) throw new Error("HTTP " + fxRes.status);
     const fxData = await fxRes.json();
-    const opFixtures = extractArray(fxData);
+    const opFixtures = extractArray(fxData).filter(op => op.hasOdds !== false);
 
     let matchedCount = 0;
-    const targets = allMatches.filter(m => m.date === today).slice(0, 12);
+    const targets = allMatches.filter(m => m.date === today).slice(0, 15);
 
     for (const m of targets) {
       const nh = normalizeTeam(m.home);
       const na = normalizeTeam(m.away);
       const foundOp = opFixtures.find(op => {
-        const oh = normalizeTeam(op.homeTeam || op.home?.name || op.home || "");
-        const oa = normalizeTeam(op.awayTeam || op.away?.name || op.away || "");
+        const oh = normalizeTeam(op.participant1Name || op.participant1ShortName || op.homeTeam || op.home?.name || op.home || "");
+        const oa = normalizeTeam(op.participant2Name || op.participant2ShortName || op.awayTeam || op.away?.name || op.away || "");
         return (oh && oa) && (
           (oh.includes(nh) || nh.includes(oh)) && (oa.includes(na) || na.includes(oa))
         );
       });
 
-      const fixtureId = foundOp?.id || foundOp?.fixtureId;
+      const fixtureId = foundOp?.fixtureId || foundOp?.id;
       if (!fixtureId) continue;
 
       try {
