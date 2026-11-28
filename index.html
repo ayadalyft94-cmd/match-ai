@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090c10">
-<title>روبوت القيمة · القيم الآن وكيف يعمل</title>
+<meta name="theme-color" content="#090b10">
+<title>أوراق اليوم والسجل · نسخة متكاملة</title>
 <style>
 :root{
-  --bg:#090c10;
-  --panel:#12161c;
-  --panel-2:#171c24;
+  --bg:#090b10;
+  --card:#12151d;
+  --card-2:#181c26;
   --line:rgba(255,255,255,.09);
   --text:#f3f4f6;
   --muted:#9ca3af;
+  --red:#e11d48;
+  --red-soft:rgba(225,29,72,.16);
   --green:#22c55e;
-  --green-soft:rgba(34,197,94,.14);
-  --red:#ef4444;
-  --red-soft:rgba(239,68,68,.18);
+  --green-soft:rgba(34,197,94,.15);
   --blue:#38bdf8;
-  --blue-soft:rgba(56,189,248,.14);
+  --blue-soft:rgba(56,189,248,.15);
 }
 *{box-sizing:border-box}
 body{
@@ -31,421 +31,98 @@ body{
 }
 header{
   position:sticky;top:0;z-index:20;
-  background:rgba(12,15,20,.95);
+  background:rgba(11,13,19,.96);
   backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
   padding:10px 14px;
 }
-.top-bar{
+.head-in{
   max-width:680px;margin:auto;
   display:flex;justify-content:space-between;align-items:center;gap:10px;
 }
-.brand-box{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.5px}
-.brand-mark{
-  background:#dc2626;color:#fff;font-size:10px;
-  padding:2px 6px;border-radius:4px;font-weight:800;
+.brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px}
+.pill-live{
+  background:var(--red);color:#fff;font-size:11px;font-weight:800;
+  padding:3px 9px;border-radius:8px;
 }
-.nav-pills{
+.nav-row{
   max-width:680px;margin:8px auto 0;
-  display:flex;gap:8px;overflow:auto;
+  display:flex;gap:8px;
 }
 button,select,input{font:inherit}
 button{cursor:pointer}
-.tab-btn{
-  border:1px solid var(--line);background:var(--panel);color:var(--text);
-  padding:7px 12px;border-radius:8px;font-size:13px;white-space:nowrap;
+.nav-btn{
+  flex:1;border:1px solid var(--line);background:var(--card);color:var(--text);
+  padding:8px 10px;border-radius:9px;font-size:13px;font-weight:700;
 }
-.tab-btn.active{background:#1f2937;border-color:rgba(255,255,255,.22);font-weight:700}
+.nav-btn.active{background:var(--red);border-color:var(--red);color:#fff}
 main{max-width:680px;margin:auto;padding:14px}
 section{display:none}
 section.active{display:block}
 
-.toolbar{
-  background:var(--panel);border:1px solid var(--line);border-radius:12px;
-  padding:12px;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;
+.panel{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:14px;margin-bottom:14px;
 }
 .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .muted{color:var(--muted);font-size:12px}
 .field{
-  background:var(--panel-2);color:var(--text);border:1px solid var(--line);
+  background:var(--card-2);color:var(--text);border:1px solid var(--line);
   border-radius:8px;padding:7px 10px;font-size:13px;
 }
 .btn{
-  border:1px solid var(--line);background:var(--panel-2);color:var(--text);
+  border:1px solid var(--line);background:var(--card-2);color:var(--text);
   border-radius:8px;padding:7px 12px;font-size:13px;font-weight:700;
 }
-.btn.green{background:var(--green);color:#052e16;border-color:var(--green)}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}
+.btn.green{background:var(--green);border-color:var(--green);color:#052e16}
 
-/* بطاقة القيمة بأسلوب الصورة الثانية */
-.opp-card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:16px;
-  margin-bottom:14px;
+/* بطاقة ورقة بأسلوب الصورة الأولى */
+.ticket-card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:15px;margin-bottom:14px;
 }
-.badges-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.badge-bot{
-  background:var(--red-soft);color:#fca5a5;
-  border:1px solid rgba(239,68,68,.35);
-  padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;
+.ticket-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.ticket-num{font-weight:900;font-size:16px}
+.badge-wait{
+  background:rgba(255,255,255,.07);color:#e5e7eb;border:1px solid var(--line);
+  padding:3px 9px;border-radius:7px;font-size:11px;font-weight:700;
 }
-.badge-strong{
-  background:var(--blue-soft);color:#7dd3fc;
-  border:1px solid rgba(56,189,248,.35);
-  padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;
+.badge-lock{
+  background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--line);
+  padding:3px 9px;border-radius:7px;font-size:11px;
 }
-.pick-title{font-size:20px;font-weight:800;margin:4px 0 6px}
-.match-sub{font-size:14px;color:#d1d5db}
-.league-sub{font-size:12px;color:var(--blue);margin-top:2px}
-
-.divider{height:1px;background:var(--line);margin:14px 0}
-
-.bottom-compare{
-  display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
+.badge-open{
+  background:var(--blue-soft);color:#7dd3fc;border:1px solid rgba(56,189,248,.35);
+  padding:3px 9px;border-radius:7px;font-size:11px;font-weight:700;
 }
-.odd-box-lbl{font-size:12px;color:var(--muted);margin-bottom:6px}
-.odd-box-val{
-  background:var(--panel-2);border:1px solid var(--line);
-  border-radius:8px;padding:8px 14px;font-size:19px;font-weight:800;
-  display:inline-block;
+.meta-strip{
+  display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;
+  margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--muted);
 }
-.min-bet-box{text-align:left}
-.min-bet-title{font-size:13px;color:var(--muted)}
-.min-bet-val{font-size:18px;font-weight:800;color:#fff;margin-top:2px}
-.read-time{font-size:12px;color:var(--muted);margin-top:6px}
-
-/* بطاقات كيف يعمل بأسلوب الصورة الأولى */
-.how-heading{font-size:24px;font-weight:900;margin:6px 0 14px}
-.how-card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:18px 16px;
-  margin-bottom:14px;
+.match-box{
+  background:var(--card-2);border:1px solid var(--line);border-radius:11px;
+  padding:12px;margin-top:12px;
 }
-.how-title{font-size:18px;font-weight:800;margin:0 0 8px}
-.how-desc{margin:0;color:#d1d5db;font-size:14px}
-
-.notice{
-  background:var(--panel);border:1px solid var(--line);border-radius:12px;
-  padding:12px;font-size:12px;color:var(--muted);margin-top:12px;
+.teams-line{font-size:16px;font-weight:800}
+.league-line{font-size:12px;color:var(--muted);margin-top:2px}
+.pick-row{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  margin-top:10px;padding-top:10px;border-top:1px solid var(--line);
 }
-.empty{
-  background:var(--panel);border:1px solid var(--line);border-radius:14px;
-  padding:24px;text-align:center;color:var(--muted);
+.pick-name{font-size:15px;font-weight:800}
+.odd-pill{
+  background:#111622;border:1px solid rgba(255,255,255,.16);
+  border-radius:8px;padding:6px 12px;font-size:16px;font-weight:900;
 }
-.toast{
-  position:fixed;bottom:14px;left:14px;right:14px;max-width:420px;
-  margin:auto;background:#18202c;border:1px solid var(--green);
-  color:#fff;padding:10px 14px;border-radius:10px;display:none;z-index:99;font-size:13px;
-}
-</style>
-</head>
-<body>
-
-<header>
-  <div class="top-bar">
-    <div class="brand-box">
-      <span>روبوت القيمة</span>
-      <span class="brand-mark">LIVE ODDS</span>
-    </div>
-    <span id="connStatus" class="muted">جاري الفحص...</span>
-  </div>
-  <div class="nav-pills">
-    <button class="tab-btn active" onclick="openSec('nowSec', this)">القيم الآن</button>
-    <button class="tab-btn" onclick="openSec('howSec', this)">كيف يعمل</button>
-  </div>
-</header>
-
-<main>
-  <section id="nowSec" class="active">
-    <div class="toolbar">
-      <div class="row">
-        <input id="dateInput" type="date" class="field" onchange="fetchLiveOpportunities(true)">
-        <button class="btn green" onclick="fetchLiveOpportunities(true)">تحديث الأودز</button>
-      </div>
-      <div class="row">
-        <span id="summaryText" class="muted">—</span>
-        <select id="minEdgeSel" class="field" onchange="renderOpportunities()">
-          <option value="1.5" selected>قيمة +1.5% فأعلى</option>
-          <option value="3.0">قيمة قوية +3.0% فأعلى</option>
-          <option value="0">كل الأسواق المحسوبة</option>
-        </select>
-      </div>
-    </div>
-
-    <div id="cardsContainer">
-      <div class="empty">جاري جلب المباريات والأودز الحقيقي...</div>
-    </div>
-  </section>
-
-  <section id="howSec">
-    <h1 class="how-heading">كيف يعمل</h1>
-
-    <div class="how-card">
-      <h2 class="how-title">السعر العادل</h2>
-      <p class="how-desc">نأخذ معاملات السوق للمباراة ونحذف منها هامش ربح الـ bookmaker. ما يبقى هو التسعير العادل التقديري للخيار.</p>
-    </div>
-
-    <div class="how-card">
-      <h2 class="how-title">القيمة</h2>
-      <p class="how-desc">إذا كان المعامل المعروض أعلى من السعر العادل بـ 1.5% أو أكثر، نقول إن فيه قيمة. هذا ليس توقعًا لمن سيفوز.</p>
-    </div>
-
-    <div class="how-card">
-      <h2 class="how-title">الروبوت</h2>
-      <p class="how-desc">يراقب المعاملات الحقيقية ويحدّد الحد الأدنى المقبول للرهان («راهن فقط إذا كان المعامل أعلى من...») ضمن نطاق معاملات مضبوط.</p>
-    </div>
-
-    <div class="how-card">
-      <h2 class="how-title">الحكم</h2>
-      <p class="how-desc">ليس بالربح السريع، بل بمقارنة السعر المسجّل بسعر السوق عند الانطلاق على عدد كبير من الرهانات.</p>
-    </div>
-
-    <div class="notice">
-      +18 · هذه المنصة لأغراض تحليل الأودز والمعلومات فقط، وليست نصيحة مالية أو ربحًا مضمونًا.
-    </div>
-  </section>
-</main>
-
-<div id="toast" class="toast"></div>
-
-<script>
-"use strict";
-
-// تأكد من وضع رابط Cloudflare Worker الصحيح هنا
-const WORKER_URL = "https://billowing-meadow-a8c8.ayadalyft94.workers.dev";
-let opportunities = [];
-
-const $ = id => document.getElementById(id);
-
-function toast(msg) {
-  const el = $("toast");
-  el.textContent = msg;
-  el.style.display = "block";
-  clearTimeout(toast.t);
-  toast.t = setTimeout(() => { el.style.display = "none"; }, 2800);
+.ticket-foot{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+  margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;
 }
 
-function esc(s) {
-  return String(s ?? "").replace(/[&<>"']/g, c => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-  }[c]));
-}
-
-function todayStr() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function openSec(id, btn) {
-  document.querySelectorAll("main section").forEach(s => s.classList.remove("active"));
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  $(id).classList.add("active");
-  if (btn) btn.classList.add("active");
-}
-
-function computeFairAndMinOdd(odd, allMarketOdds) {
-  const nums = allMarketOdds.map(Number).filter(n => Number.isFinite(n) && n > 1);
-  if (!Number.isFinite(odd) || odd <= 1 || nums.length < 2) return null;
-  const sumImplied = nums.reduce((a, b) => a + (1 / b), 0);
-  const fairOdd = sumImplied / (1 / odd);
-  const edgePct = ((odd / fairOdd) - 1) * 100;
-  // حد أدنى مقترح للرهان يحفظ هامش قيمة ~1.5% فوق السعر العادل
-  const minBetOdd = fairOdd * 1.015;
-  return {
-    fairOdd: Number(fairOdd.toFixed(2)),
-    minBetOdd: Number(minBetOdd.toFixed(2)),
-    edgePct: Number(edgePct.toFixed(1))
-  };
-}
-
-function parseFixtures(raw, kind) {
-  const out = [];
-  if (!raw) return out;
-  if (kind === "op") {
-    const arr = Array.isArray(raw) ? raw : (raw.fixtures || raw.data || raw.items || []);
-    for (const f of arr) {
-      const id = f.fixtureId || f.id || f.uuid || "";
-      const home = f.homeTeamName || f.homeTeam?.name || f.home || "";
-      const away = f.awayTeamName || f.awayTeam?.name || f.away || "";
-      const league = f.tournamentName || f.tournament?.name || f.league || "بطولة";
-      const dt = f.startTime || f.commenceTime || f.date || "";
-      if (id && (home || away)) {
-        out.push({ id, match: `${home || "فريق 1"} – ${away || "فريق 2"}`, league, dt });
-      }
-    }
-  } else {
-    const arr = Array.isArray(raw.response) ? raw.response : [];
-    for (const item of arr) {
-      const id = item.fixture?.id || "";
-      const home = item.teams?.home?.name || "";
-      const away = item.teams?.away?.name || "";
-      const league = item.league?.name || "بطولة";
-      const dt = item.fixture?.date || "";
-      if (id && (home || away)) {
-        out.push({ id, match: `${home} – ${away}`, league, dt });
-      }
-    }
-  }
-  return out;
-}
-
-function parseOddsList(raw) {
-  const list = [];
-  if (!raw) return list;
-  if (Array.isArray(raw.bookmakers)) {
-    for (const bm of raw.bookmakers) {
-      for (const mk of (bm.markets || bm.bets || [])) {
-        for (const oc of (mk.outcomes || mk.values || [])) {
-          const odd = Number(oc.price ?? oc.odd ?? oc.odds);
-          if (Number.isFinite(odd) && odd > 1) {
-            list.push({
-              pickName: `${oc.name || oc.label || "خيار"} (${mk.name || mk.key || "سوق"})`,
-              odd
-            });
-          }
-        }
-      }
-    }
-  } else if (Array.isArray(raw.odds)) {
-    for (const item of raw.odds) {
-      const odd = Number(item.odd ?? item.price ?? item.value);
-      if (Number.isFinite(odd) && odd > 1) {
-        list.push({
-          pickName: item.market || item.label || item.name || "خيار السوق",
-          odd
-        });
-      }
-    }
-  }
-  return list.slice(0, 12);
-}
-
-function formatClock(dtStr) {
-  if (!dtStr) return "";
-  const d = new Date(dtStr);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
-}
-
-async function getJson(url) {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  return await r.json();
-}
-
-async function fetchLiveOpportunities(notify = false) {
-  const day = $("dateInput").value || todayStr();
-  $("dateInput").value = day;
-  $("connStatus").textContent = "جاري التحميل...";
-  $("cardsContainer").innerHTML = `<div class="empty">جاري جلب المباريات والأودز الحقيقي...</div>`;
-
-  try {
-    let fixtures = [];
-    let srcLabel = "OddsPapi";
-    try {
-      const op = await getJson(`${WORKER_URL}/op/fixtures?from=${encodeURIComponent(day + "T00:00:00Z")}&to=${encodeURIComponent(day + "T23:59:59Z")}`);
-      fixtures = parseFixtures(op, "op");
-    } catch (_) {
-      const fb = await getJson(`${WORKER_URL}/fixtures?date=${encodeURIComponent(day)}`);
-      fixtures = parseFixtures(fb, "fb");
-      srcLabel = "API-Football";
-    }
-
-    if (!fixtures.length) {
-      $("connStatus").textContent = `${srcLabel} · لا توجد مباريات`;
-      opportunities = [];
-      renderOpportunities();
-      if (notify) toast("لا توجد مباريات متاحة لهذا التاريخ");
-      return;
-    }
-
-    const batch = fixtures.slice(0, 10);
-    const found = [];
-
-    for (const fx of batch) {
-      try {
-        const rawOdds = await getJson(`${WORKER_URL}/op/odds?fixtureId=${encodeURIComponent(fx.id)}`);
-        const items = parseOddsList(rawOdds);
-        const allNums = items.map(x => x.odd);
-
-        for (const it of items) {
-          const calc = computeFairAndMinOdd(it.odd, allNums);
-          if (calc) {
-            found.push({
-              pickName: it.pickName,
-              match: fx.match,
-              league: fx.league,
-              clock: formatClock(fx.dt),
-              odd: it.odd,
-              fairOdd: calc.fairOdd,
-              minBetOdd: calc.minBetOdd,
-              edgePct: calc.edgePct,
-              isStrong: calc.edgePct >= 3.0,
-              botPicked: calc.edgePct >= 1.5 && it.odd >= 1.40 && it.odd <= 3.00
-            });
-          }
-        }
-      } catch (_) {}
-    }
-
-    found.sort((a, b) => b.edgePct - a.edgePct);
-    opportunities = found;
-    $("connStatus").textContent = `متصل · ${srcLabel}`;
-    renderOpportunities();
-    if (notify) toast(`تم تحديث ${found.length} فرصة من الأودز الحقيقي`);
-  } catch (err) {
-    $("connStatus").textContent = "خطأ في الاتصال بالـ Worker";
-    $("cardsContainer").innerHTML = `
-      <div class="empty">
-        تعذّر الوصول إلى الـ Worker (${esc(err.message)}). تأكد من رابط <b>WORKER_URL</b> ومن مفاتيح الـ API داخل Cloudflare Worker.
-      </div>
-    `;
-    if (notify) toast("تعذّر الاتصال بالـ Worker");
-  }
-}
-
-function renderOpportunities() {
-  const minEdge = Number($("minEdgeSel").value || 0);
-  const list = opportunities.filter(x => x.edgePct >= minEdge);
-  $("summaryText").textContent = `عدد الفرص المطابقة: ${list.length}`;
-
-  if (!list.length) {
-    $("cardsContainer").innerHTML = `<div class="empty">لا توجد فرص مطابقة للفلتر الحالي في الأودز المتاح الآن.</div>`;
-    return;
-  }
-
-  $("cardsContainer").innerHTML = list.map(item => `
-    <article class="opp-card">
-      <div class="badges-row">
-        ${item.botPicked ? `<span class="badge-bot">راهن عليه الروبوت · ${item.odd.toFixed(2)}</span>` : ""}
-        ${item.isStrong ? `<span class="badge-strong">قيمة قوية (+${item.edgePct}%)</span>` : `<span class="badge-strong">قيمة ${item.edgePct >= 0 ? "+" : ""}${item.edgePct}%</span>`}
-      </div>
-
-      <div class="pick-title">${esc(item.pickName)}</div>
-      <div class="match-sub">${esc(item.match)}</div>
-      <div class="league-sub">${esc(item.league)}${item.clock ? " · " + esc(item.clock) : ""}</div>
-
-      <div class="divider"></div>
-
-      <div class="bottom-compare">
-        <div>
-          <div class="odd-box-lbl">المعامل عند القراءة</div>
-          <div class="odd-box-val">${item.odd.toFixed(2)}</div>
-        </div>
-        <div class="min-bet-box">
-          <div class="min-bet-title">راهن فقط إذا كان المعامل</div>
-          <div class="min-bet-val">أعلى من ${item.minBetOdd.toFixed(2)}</div>
-          <div class="read-time">قُرِئ الآن · أودز حقيقي</div>
-        </div>
-      </div>
-    </article>
-  `).join("");
-}
-
-$("dateInput").value = todayStr();
-fetchLiveOpportunities(false);
-</script>
-</body>
-</html>
+/* لوحة السجل والأداء بأسلوب الصورة الثانية */
+.profit-big{font-size:36px;font-weight:900;margin:6px 0;color:var(--green)}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.stat-box{background:var(--card-2);border:1px solid var(--line);border-radius:11px;padding:12px}
+.stat-lbl
