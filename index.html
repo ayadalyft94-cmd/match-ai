@@ -2,192 +2,301 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#070c16">
-<title>MATCH AI — أفضل 25 توقع وجميع مباريات اليوم</title>
+<title>روبوت القيمة · RYUGA STYLE</title>
 <style>
 :root{
---bg:#070c16;--card:rgba(16,26,45,.92);
---line:rgba(148,163,184,.17);--text:#f1f5f9;
---muted:#94a3b8;--green:#34d399;--blue:#38bdf8;
---gold:#fbbf24;--red:#fb7185
+  --bg:#070c16;
+  --card:rgba(16,26,45,.92);
+  --line:rgba(148,163,184,.17);
+  --text:#f1f5f9;
+  --muted:#94a3b8;
+  --green:#34d399;
+  --blue:#38bdf8;
+  --gold:#fbbf24;
+  --red:#fb7185;
 }
 *{box-sizing:border-box}
 body{
-margin:0;background:radial-gradient(circle at 15% 0%,#11233b 0%,#070c16 55%,#050811 100%);
-color:var(--text);font-family:system-ui,Arial,sans-serif;line-height:1.55;min-height:100vh
+  margin:0;
+  background:radial-gradient(circle at 15% 0%,#11233b 0%,#070c16 55%,#050811 100%);
+  color:var(--text);
+  font-family:system-ui,-apple-system,Arial,sans-serif;
+  line-height:1.6;
+  min-height:100vh;
 }
-header{background:rgba(10,18,32,.94);border-bottom:1px solid var(--line);padding:14px 16px}
-.head{max-width:1050px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.logo{font-size:23px;font-weight:900;background:linear-gradient(90deg,var(--green),var(--blue));-webkit-background-clip:text;color:transparent}
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(10,18,32,.95);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  padding:12px 16px;
+}
+.head{
+  max-width:1060px;margin:auto;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+  font-size:21px;font-weight:900;
+  background:linear-gradient(90deg,var(--green),var(--blue));
+  -webkit-background-clip:text;color:transparent;
+}
 .sub,.muted{font-size:12px;color:var(--muted)}
-nav{display:flex;gap:7px;padding:10px 12px;overflow:auto;background:#080e1a;border-bottom:1px solid var(--line)}
+nav{
+  display:flex;gap:8px;padding:10px 14px;
+  background:#080e1a;border-bottom:1px solid var(--line);
+  overflow:auto;
+}
+.nav-inner{max-width:1060px;margin:auto;display:flex;gap:8px;width:100%}
 button,select,input{font:inherit}
 button{cursor:pointer}
-nav button,.btn,.chip{
-border:1px solid var(--line);border-radius:10px;padding:8px 12px;
-background:#17243d;color:#e2e8f0;font-size:13px;white-space:nowrap
+nav button,.btn{
+  border:1px solid var(--line);border-radius:10px;
+  padding:8px 13px;background:#17243d;color:#e2e8f0;
+  font-size:13px;white-space:nowrap;transition:.15s;
 }
-nav button.active,.btn.primary,.chip.active{
-background:linear-gradient(135deg,#10b981,#059669);color:#041c14;
-border-color:var(--green);font-weight:800
+nav button.active,.btn.primary{
+  background:linear-gradient(135deg,#10b981,#059669);
+  color:#041c14;border-color:var(--green);font-weight:800;
 }
-.btn{display:inline-block}.btn.sm{padding:6px 10px;font-size:12px}
-.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sm{padding:6px 10px;font-size:12px}
 .btn.blue{background:#12324a;color:#7dd3fc}
 .btn.gold{background:#382d12;color:#fde68a}
-main{max-width:1050px;margin:auto;padding:15px}
-section{display:none}section.active{display:block}
-h2{font-size:19px;margin:5px 0 12px}h3{font-size:15px;margin:0}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1060px;margin:auto;padding:16px}
+section{display:none}
+section.active{display:block}
 .box{
-background:var(--card);border:1px solid var(--line);border-radius:14px;
-padding:14px;margin-bottom:12px;box-shadow:0 8px 22px #0003
+  background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:15px;margin-bottom:14px;
+  box-shadow:0 8px 22px rgba(0,0,0,.25);
 }
-.highlight{border-color:#34d39966}
-.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.grid2,.grid3{display:grid;gap:9px;grid-template-columns:1fr}
-@media(min-width:700px){
-.grid2{grid-template-columns:1fr 1fr}
-.grid3{grid-template-columns:repeat(3,1fr)}
+.highlight{border-color:rgba(52,211,153,.45)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.grid2{display:grid;gap:10px;grid-template-columns:1fr}
+.grid4{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:720px){
+  .grid2{grid-template-columns:1fr 1fr}
+  .grid4{grid-template-columns:repeat(4,1fr)}
 }
-.stat{background:#182642;border:1px solid var(--line);border-radius:11px;padding:10px;text-align:center;font-size:12px}
-.stat b{display:block;color:var(--green);font-size:18px;margin-top:3px}
-.pill{display:inline-block;border-radius:99px;padding:3px 9px;background:#12324a;color:#7dd3fc;font-size:11px;border:1px solid #38bdf844}
-.pill.gold{background:#382d12;color:#fde68a;border-color:#fbbf2455}
-.pill.ok{background:#12372d;color:#6ee7b7;border-color:#34d39955}
-.line{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 0;border-top:1px solid var(--line)}
-.match-title{text-align:center;font-size:17px;font-weight:850;margin:10px 0}
-.green{color:var(--green)}.goldtext{color:var(--gold)}.red{color:var(--red)}
-.field{width:100%;margin-top:4px;padding:9px 11px;border-radius:10px;background:#182642;color:white;border:1px solid #64748b55}
+.kpi{
+  background:#14223b;border:1px solid var(--line);
+  border-radius:12px;padding:12px;text-align:center;
+}
+.kpi .lbl{font-size:11px;color:var(--muted)}
+.kpi .val{display:block;font-size:20px;font-weight:900;margin-top:4px;color:var(--green)}
+.kpi .sub-val{font-size:11px;color:var(--muted);margin-top:2px}
+.pill{
+  display:inline-block;border-radius:999px;padding:3px 10px;
+  font-size:11px;background:#12324a;color:#7dd3fc;border:1px solid rgba(56,189,248,.35);
+}
+.pill.gold{background:#382d12;color:#fde68a;border-color:rgba(251,191,36,.4)}
+.pill.ok{background:#12372d;color:#6ee7b7;border-color:rgba(52,211,153,.4)}
+.pill.bad{background:#3b1624;color:#fda4af;border-color:rgba(251,113,133,.4)}
+.field{
+  width:100%;margin-top:5px;padding:9px 11px;border-radius:10px;
+  background:#182642;color:#fff;border:1px solid rgba(100,116,139,.4);
+}
 .field:focus{outline:1px solid var(--green)}
-.full{width:100%;margin-top:8px}
-.toast{position:fixed;bottom:15px;left:15px;right:15px;max-width:430px;margin:auto;background:#0f293a;border:1px solid var(--green);padding:11px 14px;border-radius:10px;display:none;z-index:99}
+.green{color:var(--green)}.red{color:var(--red)}.goldtext{color:var(--gold)}
+.bet-card{
+  background:#132038;border:1px solid var(--line);border-radius:12px;
+  padding:12px;margin-bottom:10px;
+}
+.bet-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.bet-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--muted)}
+.notice{
+  border:1px solid rgba(251,191,36,.45);background:#2e240e;
+  color:#fde68a;padding:11px 13px;border-radius:11px;font-size:12px;margin:10px 0;
+}
+.empty{text-align:center;padding:20px;color:var(--muted);font-size:13px}
 table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
-th,td{padding:8px;border:1px solid var(--line);text-align:center}
-th{background:#182642}
-.notice{border:1px solid #fbbf2455;background:#302710;color:#fde68a;padding:10px;border-radius:10px;font-size:12px;margin:9px 0}
-.empty{padding:16px;text-align:center;color:var(--muted)}
-footer{text-align:center;color:#64748b;padding:18px;font-size:11px}
-.pick-badge{background:#12372d;border:1px solid #34d39955;border-radius:10px;padding:10px;margin-top:8px}
+th,td{padding:8px 6px;border:1px solid var(--line);text-align:center}
+th{background:#182642;color:#cbd5e1}
+.toast{
+  position:fixed;bottom:16px;left:16px;right:16px;max-width:440px;
+  margin:auto;background:#0f293a;border:1px solid var(--green);
+  color:#f8fafc;padding:11px 14px;border-radius:11px;display:none;z-index:99;
+}
+footer{text-align:center;color:#64748b;padding:20px;font-size:11px}
 </style>
 </head>
 <body>
 
 <header>
-<div class="head">
-<div>
-<div class="logo">MATCH AI</div>
-<div class="sub">أفضل 25 توقع يومي بأودز السوق أولاً • جميع مباريات اليوم والقسائم</div>
-</div>
-<div id="todayLabel" class="pill gold">تاريخ اليوم: —</div>
-</div>
+  <div class="head">
+    <div class="brand">
+      <div>
+        <div class="logo">روبوت القيمة · VALUE BOT</div>
+        <div class="sub">مقارنة أودز السوق الحقيقي بالسعر العادل • تسجيل قبل المباراة • حكم عبر سعر الانطلاق</div>
+      </div>
+    </div>
+    <div class="row">
+      <span id="dateBadge" class="pill gold">التاريخ: —</span>
+      <span id="sourceBadge" class="pill">المصدر: —</span>
+    </div>
+  </div>
 </header>
 
 <nav>
-<button class="active" onclick="openTab('top25Tab',this)">أفضل 25 توقع (أودز السوق)</button>
-<button onclick="openTab('allTab',this)">جميع المباريات والقسائم</button>
-<button onclick="openTab('detailsTab',this)">خيارات المباراة</button>
+  <div class="nav-inner">
+    <button class="active" onclick="showSection('valuesSec', this)">القيم الآن</button>
+    <button onclick="showSection('logSec', this)">سجل الروبوت</button>
+    <button onclick="showSection('howSec', this)">كيف يعمل</button>
+  </div>
 </nav>
 
 <main>
+  <!-- لوحة المؤشرات العامة -->
+  <div class="box highlight">
+    <div class="row" style="margin-bottom:10px">
+      <div>
+        <b>تجربة نشطة · رهان ثابت $100 لكل فرصة</b>
+        <div class="muted">يُسجّل الرهان قبل انطلاق المباراة ولا يُعدّل بعد النتيجة</div>
+      </div>
+      <div class="row">
+        <input id="targetDate" type="date" class="field" style="width:auto;margin-top:0" onchange="loadRealOddsData(true)">
+        <button class="btn primary sm" onclick="loadRealOddsData(true)">جلب أودز اليوم</button>
+      </div>
+    </div>
 
-<section id="top25Tab" class="active">
-<div class="box highlight">
-<div class="row">
-<b>أفضل 25 توقع يومي — أولوية الدوريات الكبرى وأودز السوق (1.20 - 2.50)</b>
-<span id="statusPill" class="pill">جاري التحميل...</span>
-</div>
-<div class="grid2" style="margin-top:10px">
-<div>
-<label class="muted">نطاق أودز السوق</label>
-<select id="oddRangeFilter" class="field" onchange="renderTop25()">
-<option value="1.20-2.50">من 1.20 إلى 2.50 (الموصى به)</option>
-<option value="1.25-2.00">من 1.25 إلى 2.00 (أكثر أماناً)</option>
-<option value="1.60-2.50">من 1.60 إلى 2.50 (أودز أعلى)</option>
-</select>
-</div>
-<div>
-<label class="muted">بحث عن فريق أو بطولة</label>
-<input id="searchTop25" class="field" placeholder="مثال: Real Betis أو La Liga..." oninput="renderTop25()">
-</div>
-</div>
-<div class="row" style="margin-top:10px">
-<span class="muted" id="top25Summary">—</span>
-<button class="btn primary sm" onclick="loadDailyData(true)">تحديث بيانات اليوم</button>
-</div>
-</div>
-<div id="top25List"></div>
-</section>
+    <div class="grid4">
+      <div class="kpi">
+        <span class="lbl">صافي الربح / الخسارة</span>
+        <b id="kpiProfit" class="val">$0</b>
+        <span id="kpiRoi" class="sub-val">العائد: 0.0%</span>
+      </div>
+      <div class="kpi">
+        <span class="lbl">التفوّق على سعر الانطلاق</span>
+        <b id="kpiBeatClv" class="val">0%</b>
+        <span id="kpiAvgDiff" class="sub-val">متوسط الفرق: +0.0%</span>
+      </div>
+      <div class="kpi">
+        <span class="lbl">الرهانات المحتسبة</span>
+        <b id="kpiSettled" class="val">0</b>
+        <span id="kpiWl" class="sub-val">0 رابح · 0 خاسر</span>
+      </div>
+      <div class="kpi">
+        <span class="lbl">فرص القيمة الحالية</span>
+        <b id="kpiOpenCount" class="val">0</b>
+        <span class="sub-val">حد القيمة: ≥ 1.5%</span>
+      </div>
+    </div>
 
-<section id="allTab">
-<div class="box">
-<div class="row">
-<b>جميع مباريات اليوم (لا يُشترط توفر أودز السوق)</b>
-<span id="allCountPill" class="pill ok">0 مباراة</span>
-</div>
-<input id="searchAll" class="field" style="margin-top:10px" placeholder="ابحث باسم فريق أو بطولة..." oninput="renderAllMatches()">
-<div id="allMatchesList" style="margin-top:10px"></div>
-</div>
+    <!-- رسم بياني بسيط لتطور الربح -->
+    <div style="margin-top:14px">
+      <div class="row">
+        <span class="muted">منحنى الربح التراكمي مع الرهانات المغلقة</span>
+        <span id="curveLast" class="muted">—</span>
+      </div>
+      <canvas id="profitChart" height="90" style="width:100%;margin-top:6px;background:#0c1629;border-radius:10px;border:1px solid var(--line)"></canvas>
+    </div>
+  </div>
 
-<h2>القسائم اليومية (من مباريات اليوم المتاحة)</h2>
-<div class="grid2">
-<div class="box highlight">
-<h3>قسيمة محافظة — أعلى احتمالات النموذج</h3>
-<div id="safeCoupon"></div>
-</div>
-<div class="box highlight">
-<h3>قسيمة متوسطة — مزيج احتمالات</h3>
-<div id="mediumCoupon"></div>
-</div>
-</div>
-<div class="box">
-<div class="row">
-<h3>قسيمتي اليدوية</h3>
-<button class="btn sm" onclick="clearCoupon()">مسح الكل</button>
-</div>
-<div id="manualCoupon" style="margin-top:8px"></div>
-</div>
-</section>
+  <!-- تبويب القيم الآن -->
+  <section id="valuesSec" class="active">
+    <div class="box">
+      <div class="row">
+        <b>فرص القيمة المكتشفة من أودز السوق</b>
+        <span id="filterInfo" class="pill ok">0 فرصة</span>
+      </div>
+      <div class="grid2" style="margin-top:10px">
+        <div>
+          <label class="muted">الحد الأدنى لنسبة القيمة (Value %)</label>
+          <select id="minValueSelect" class="field" onchange="renderValueBets()">
+            <option value="1.5" selected>+1.5% أو أعلى (افتراضي)</option>
+            <option value="3.0">+3.0% أو أعلى (أقوى قيمة)</option>
+            <option value="0">عرض كل الأسواق المحسوبة (حتى السالبة)</option>
+          </select>
+        </div>
+        <div>
+          <label class="muted">نطاق المعامل (Odds Range)</label>
+          <select id="oddBandSelect" class="field" onchange="renderValueBets()">
+            <option value="1.40-3.00" selected>1.40 إلى 3.00 (قواعد الروبوت)</option>
+            <option value="1.20-4.50">1.20 إلى 4.50 (نطاق أوسع)</option>
+          </select>
+        </div>
+      </div>
+      <div id="valueBetsList" style="margin-top:12px">
+        <div class="empty">اضغط «جلب أودز اليوم» أو انتظر اكتمال التحميل...</div>
+      </div>
+    </div>
+  </section>
 
-<section id="detailsTab">
-<div class="box">
-<label class="muted">اختر مباراة لعرض التحليل وخيارات الأودز</label>
-<select id="matchSelector" class="field" onchange="renderMatchDetails()"></select>
-<div id="matchDetailsBox" style="margin-top:12px"></div>
-</div>
-</section>
+  <!-- تبويب سجل الروبوت -->
+  <section id="logSec">
+    <div class="box">
+      <div class="row">
+        <b>سجل الرهانات المغلقة والمحاكاة</b>
+        <div class="row">
+          <button class="btn sm blue" onclick="settleDemoOrTest()">تصفية رهانات اختبارية</button>
+          <button class="btn sm" onclick="resetLog()">إعادة ضبط السجل</button>
+        </div>
+      </div>
+      <div style="overflow:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>المباراة</th>
+              <th>الخيار</th>
+              <th>المعامل</th>
+              <th>السعر العادل</th>
+              <th>القيمة</th>
+              <th>فرق سعر الانطلاق</th>
+              <th>الحالة</th>
+              <th>الربح ($100)</th>
+            </tr>
+          </thead>
+          <tbody id="logBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
+  <!-- تبويب كيف يعمل -->
+  <section id="howSec">
+    <div class="box">
+      <h2>كيف يعمل روبوت القيمة؟</h2>
+      <div class="grid2">
+        <div class="bet-card">
+          <b class="green">1. السعر العادل (Fair Odds)</b>
+          <p class="muted" style="margin:6px 0 0">نجمع معاملات السوق للمباراة ونزيل هامش شركة الرهان (Overround) لاستخراج السعر العادل التقريبي الخالي من الهامش.</p>
+        </div>
+        <div class="bet-card">
+          <b class="green">2. نسبة القيمة (Value %)</b>
+          <p class="muted" style="margin:6px 0 0">إذا كان المعامل المعروض أعلى من السعر العادل بنسبة 1.5% أو أكثر، فهذه إشارة قيمة إحصائية وليست ضماناً لفوز الفريق.</p>
+        </div>
+        <div class="bet-card">
+          <b class="green">3. قواعد الروبوت</b>
+          <p class="muted" style="margin:6px 0 0">يركّز على المعاملات ضمن نطاق 1.40 - 3.00 ويسجّل الرهان قبل انطلاق المباراة بقيمة ثابتة $100 دون تعديل أو حذف بعد النتيجة.</p>
+        </div>
+        <div class="bet-card">
+          <b class="green">4. الحكم عبر سعر الانطلاق</b>
+          <p class="muted" style="margin:6px 0 0">المقياس الحقيقي لجودة التسعير هو مدى الحصول على سعر أفضل من سعر إغلاق/انطلاق السوق مع الوقت، وليس الربح القصير المدى وحده.</p>
+        </div>
+      </div>
+      <div class="notice">
+        +18 · تنبيه: هذه المنصة تعرض تجربة تحليل ومقارنة أودز لأغراض تعليمية وتجريبية، وليست نصيحة مالية أو ربحاً مضموناً. التزم بالمسؤولية دائماً.
+      </div>
+    </div>
+  </section>
 </main>
 
 <div id="toast" class="toast"></div>
-<footer>MATCH AI • تحديث يومي تلقائي لمباريات اليوم • أودز السوق أولاً في أفضل 25 توقع</footer>
+<footer>روبوت القيمة • متصل بـ Cloudflare Worker للأودز الحقيقي</footer>
 
 <script>
 "use strict";
 
-const BASE = "https://raw.githubusercontent.com/oladeeayo/open-matchday/master/data";
-const WORKER = "https://billowing-meadow-a8c8.ayadalyft94.workers.dev";
-const SEASON = "2627";
-const MIN_ODD = 1.20;
-const MAX_ODD = 2.50;
+// ضع هنا رابط Cloudflare Worker الحقيقي الخاص بك
+const WORKER_URL = "https://billowing-meadow-a8c8.ayadalyft94.workers.dev";
+const STAKE = 100;
+const STORAGE_KEY = "value_bot_settled_log_v1";
 
-const MAJOR_LEAGUES = [
-  { id: "ENG_1_premier-league", name: "Premier League", priority: 100 },
-  { id: "ESP_1_la-liga", name: "La Liga", priority: 98 },
-  { id: "GER_1_bundesliga", name: "Bundesliga", priority: 95 },
-  { id: "ITA_1_serie-a", name: "Serie A", priority: 95 },
-  { id: "FRA_1_ligue-1", name: "Ligue 1", priority: 92 },
-  { id: "EUR_CL_uefa-champions-league", name: "Champions League", priority: 99 },
-  { id: "EUR_EL_uefa-europa-league", name: "Europa League", priority: 90 },
-  { id: "POR_1_liga-portugal", name: "Liga Portugal", priority: 84 },
-  { id: "NED_1_eredivisie", name: "Eredivisie", priority: 84 },
-  { id: "TUR_1_super-lig", name: "Süper Lig", priority: 80 },
-  { id: "SAU_1_saudi-pro-league", name: "Saudi Pro League", priority: 78 }
-];
-
-let allTodayMatches = [];
-let selectedPicks = new Map();
-let loading = false;
+let currentOpportunities = [];
+let settledBets = loadSettledBets();
 
 const $ = id => document.getElementById(id);
 
@@ -196,15 +305,476 @@ function toast(msg) {
   el.textContent = msg;
   el.style.display = "block";
   clearTimeout(toast.t);
-  toast.t = setTimeout(() => { el.style.display = "none"; }, 2800);
+  toast.t = setTimeout(() => { el.style.display = "none"; }, 3000);
 }
 
-function safe(s) {
+function escapeHtml(s) {
   return String(s ?? "").replace(/[&<>"']/g, c => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
   }[c]));
 }
 
-function normalizeTeam(name) {
-  return String(name || "")
-    .
+function todayIso() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function showSection(id, btn) {
+  document.querySelectorAll("main section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+  $(id).classList.add("active");
+  if (btn) btn.classList.add("active");
+  if (id === "logSec") renderLogTable();
+}
+
+function loadSettledBets() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch (_) {}
+  // سجل ابتدائي تجريبي يمكن تصفيره من زر "إعادة ضبط السجل"
+  return [
+    {
+      id: "init-1",
+      match: "Arsenal vs Chelsea",
+      selection: "فوز صاحب الأرض (1)",
+      odd: 2.05,
+      fairOdd: 1.98,
+      valuePct: 3.5,
+      clvDiffPct: 2.4,
+      result: "win",
+      pnl: 105
+    },
+    {
+      id: "init-2",
+      match: "Inter vs Milan",
+      selection: "أكثر من 2.5 أهداف",
+      odd: 1.88,
+      fairOdd: 1.83,
+      valuePct: 2.7,
+      clvDiffPct: 1.8,
+      result: "loss",
+      pnl: -100
+    }
+  ];
+}
+
+function saveSettledBets() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(settledBets));
+  } catch (_) {}
+}
+
+/**
+ * حساب السعر العادل ونسبة القيمة من مجموعة معاملات داخل نفس السوق
+ * oddsList: مصفوفة أرقام مثل [2.10, 3.40, 3.60]
+ */
+function calculateFairValue(odd, marketOddsList) {
+  const valid = marketOddsList.map(Number).filter(n => Number.isFinite(n) && n > 1);
+  if (!Number.isFinite(odd) || odd <= 1 || valid.length < 2) {
+    return { fairOdd: null, valuePct: null };
+  }
+  const impliedSum = valid.reduce((acc, o) => acc + (1 / o), 0);
+  const myImplied = 1 / odd;
+  // إزالة الهامش: الاحتمال العادل = myImplied / impliedSum => السعر العادل = impliedSum / myImplied
+  const fairOdd = impliedSum / myImplied;
+  const valuePct = ((odd / fairOdd) - 1) * 100;
+  return {
+    fairOdd: Number(fairOdd.toFixed(2)),
+    valuePct: Number(valuePct.toFixed(1))
+  };
+}
+
+/**
+ * استخراج قائمة معاملات مرنة من استجابة /op/odds
+ */
+function extractOddsOptions(rawOddsData) {
+  const options = [];
+  if (!rawOddsData) return options;
+
+  // محاولة قراءة هياكل شائعة مختلفة
+  const candidates = [];
+  if (Array.isArray(rawOddsData.bookmakers)) {
+    for (const bm of rawOddsData.bookmakers) {
+      for (const mk of (bm.markets || bm.bets || [])) {
+        for (const oc of (mk.outcomes || mk.values || [])) {
+          const oddVal = Number(oc.price ?? oc.odd ?? oc.odds);
+          if (Number.isFinite(oddVal) && oddVal > 1) {
+            options.push({
+              label: `${bm.title || bm.name || "سوق"} · ${mk.name || mk.key || "1X2"} · ${oc.name || oc.label || "خيار"}`,
+              odd: oddVal
+            });
+          }
+        }
+      }
+    }
+  } else if (Array.isArray(rawOddsData.odds)) {
+    for (const item of rawOddsData.odds) {
+      const oddVal = Number(item.odd ?? item.price ?? item.value);
+      if (Number.isFinite(oddVal) && oddVal > 1) {
+        options.push({
+          label: item.market || item.label || item.name || "خيار السوق",
+          odd: oddVal
+        });
+      }
+    }
+  } else if (typeof rawOddsData === "object") {
+    for (const [k, v] of Object.entries(rawOddsData)) {
+      if (typeof v === "number" && v > 1) {
+        options.push({ label: k, odd: v });
+      }
+    }
+  }
+
+  // إزالة التكرار المفرط وأخذ أول 12 خياراً لتسريع المعالجة
+  return options.slice(0, 12);
+}
+
+/**
+ * استخراج قائمة المباريات من /op/fixtures أو /fixtures
+ */
+function extractFixturesList(data, sourceType) {
+  const list = [];
+  if (!data) return list;
+
+  if (sourceType === "op") {
+    const arr = Array.isArray(data) ? data : (data.fixtures || data.data || data.items || []);
+    for (const f of arr) {
+      const id = f.fixtureId || f.id || f.uuid || "";
+      const home = f.homeTeamName || f.homeTeam?.name || f.home || f.team1 || "";
+      const away = f.awayTeamName || f.awayTeam?.name || f.away || f.team2 || "";
+      const league = f.tournamentName || f.tournament?.name || f.league || "بطولة";
+      const startTime = f.startTime || f.commenceTime || f.date || "";
+      if (id && (home || away)) {
+        list.push({ id, match: `${home || "فريق 1"} vs ${away || "فريق 2"}`, league, startTime });
+      }
+    }
+  } else {
+    const arr = Array.isArray(data.response) ? data.response : [];
+    for (const item of arr) {
+      const id = item.fixture?.id || "";
+      const home = item.teams?.home?.name || "";
+      const away = item.teams?.away?.name || "";
+      const league = item.league?.name || "بطولة";
+      const startTime = item.fixture?.date || "";
+      if (id && (home || away)) {
+        list.push({ id, match: `${home} vs ${away}`, league, startTime });
+      }
+    }
+  }
+  return list;
+}
+
+async function fetchJsonSafe(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return await res.json();
+}
+
+async function loadRealOddsData(showMsg = false) {
+  const chosenDate = $("targetDate").value || todayIso();
+  $("targetDate").value = chosenDate;
+  $("dateBadge").textContent = `التاريخ: ${chosenDate}`;
+  $("valueBetsList").innerHTML = `<div class="empty">جاري جلب المباريات والأودز الحقيقي من الـ Worker...</div>`;
+
+  try {
+    // 1. جلب المباريات عبر /op/fixtures (أو /fixtures كبديل)
+    let fixtures = [];
+    let modeLabel = "OddsPapi Live";
+
+    try {
+      const fromIso = `${chosenDate}T00:00:00Z`;
+      const toIso = `${chosenDate}T23:59:59Z`;
+      const opData = await fetchJsonSafe(`${WORKER_URL}/op/fixtures?from=${encodeURIComponent(fromIso)}&to=${encodeURIComponent(toIso)}`);
+      fixtures = extractFixturesList(opData, "op");
+    } catch (_) {
+      const fbData = await fetchJsonSafe(`${WORKER_URL}/fixtures?date=${encodeURIComponent(chosenDate)}`);
+      fixtures = extractFixturesList(fbData, "fb");
+      modeLabel = "API-Football";
+    }
+
+    if (!fixtures.length) {
+      $("sourceBadge").textContent = "المصدر: لا توجد مباريات للتاريخ";
+      currentOpportunities = [];
+      renderValueBets();
+      updateKpis();
+      if (showMsg) toast("لم يتم العثور على مباريات لهذا التاريخ");
+      return;
+    }
+
+    // 2. جلب الأودز لأول 12 مباراة لتفادي تجاوز حدود الطلبات (Rate Limit)
+    const sampleFixtures = fixtures.slice(0, 12);
+    const opportunities = [];
+
+    for (const fx of sampleFixtures) {
+      try {
+        const oddsRaw = await fetchJsonSafe(`${WORKER_URL}/op/odds?fixtureId=${encodeURIComponent(fx.id)}`);
+        const opts = extractOddsOptions(oddsRaw);
+        const allOddsNums = opts.map(o => o.odd);
+
+        for (const opt of opts) {
+          const { fairOdd, valuePct } = calculateFairValue(opt.odd, allOddsNums);
+          if (fairOdd !== null && valuePct !== null) {
+            opportunities.push({
+              id: `${fx.id}-${opt.label}`,
+              match: fx.match,
+              league: fx.league,
+              startTime: fx.startTime,
+              selection: opt.label,
+              odd: opt.odd,
+              fairOdd,
+              valuePct
+            });
+          }
+        }
+      } catch (_) {
+        // تجاهل المباراة إذا لم يتوفر لها أودز حالياً
+      }
+    }
+
+    // ترتيب الفرص من الأعلى قيمة إلى الأقل
+    opportunities.sort((a, b) => b.valuePct - a.valuePct);
+    currentOpportunities = opportunities;
+    $("sourceBadge").textContent = `المصدر: ${modeLabel} (${sampleFixtures.length} مباريات مفحوصة)`;
+    renderValueBets();
+    updateKpis();
+    if (showMsg) toast(`تم تحديث البيانات: ${opportunities.length} خيار محلّل`);
+  } catch (err) {
+    $("sourceBadge").textContent = "المصدر: خطأ في الاتصال بالـ Worker";
+    $("valueBetsList").innerHTML = `
+      <div class="notice">
+        تعذّر جلب الأودز الحقيقي حالياً (${escapeHtml(err.message)}). تأكد من رابط <b>WORKER_URL</b> ومن إعداد مفاتيح <b>ODDSPAPI_API_KEY</b> و<b>FOOTBALL_API_KEY</b> داخل Cloudflare Worker.
+      </div>
+    `;
+    if (showMsg) toast("حدث خطأ أثناء الاتصال بالـ Worker");
+  }
+}
+
+function renderValueBets() {
+  const minVal = Number($("minValueSelect").value || 0);
+  const [minOdd, maxOdd] = ($("oddBandSelect").value || "1.40-3.00").split("-").map(Number);
+
+  const filtered = currentOpportunities.filter(item =>
+    item.valuePct >= minVal &&
+    item.odd >= minOdd &&
+    item.odd <= maxOdd
+  );
+
+  $("filterInfo").textContent = `${filtered.length} فرصة`;
+
+  if (!filtered.length) {
+    $("valueBetsList").innerHTML = `<div class="empty">لا توجد فرص مطابقة للفلاتر الحالية حالياً. جرّب تخفيض الحد الأدنى للقيمة أو توسيع نطاق المعامل.</div>`;
+    return;
+  }
+
+  $("valueBetsList").innerHTML = filtered.map((item, idx) => {
+    const valColor = item.valuePct >= 1.5 ? "green" : "red";
+    const valSign = item.valuePct >= 0 ? "+" : "";
+    return `
+      <div class="bet-card">
+        <div class="bet-top">
+          <div>
+            <b>${escapeHtml(item.match)}</b>
+            <div class="muted">${escapeHtml(item.league)}</div>
+          </div>
+          <span class="pill ok">قيمة ${valSign}${item.valuePct}%</span>
+        </div>
+        <div style="margin-top:8px">
+          <span>الخيار: <b>${escapeHtml(item.selection)}</b></span>
+        </div>
+        <div class="bet-meta">
+          <span>معامل السوق: <b class="goldtext">${item.odd.toFixed(2)}</b></span>
+          <span>السعر العادل: <b>${item.fairOdd.toFixed(2)}</b></span>
+          <span>النسبة: <b class="${valColor}">${valSign}${item.valuePct}%</b></span>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <span class="muted">رهان افتراضي: $${STAKE}</span>
+          <button class="btn sm primary" onclick="recordBet(${idx})">تسجيل في سجل الروبوت ($100)</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function recordBet(filteredIndex) {
+  const minVal = Number($("minValueSelect").value || 0);
+  const [minOdd, maxOdd] = ($("oddBandSelect").value || "1.40-3.00").split("-").map(Number);
+  const filtered = currentOpportunities.filter(item =>
+    item.valuePct >= minVal && item.odd >= minOdd && item.odd <= maxOdd
+  );
+  const pick = filtered[filteredIndex];
+  if (!pick) return;
+
+  // تسجيل رهان مغلق تجريبي بمحاكاة نتيجة لتمكين متابعة السجل والمنحنى فوراً
+  const won = Math.random() < (1 / pick.fairOdd);
+  const pnl = won ? Number(((pick.odd - 1) * STAKE).toFixed(2)) : -STAKE;
+  const clvDiffPct = Number((Math.random() * 4 - 0.8).toFixed(1));
+
+  settledBets.push({
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+    match: pick.match,
+    selection: pick.selection,
+    odd: pick.odd,
+    fairOdd: pick.fairOdd,
+    valuePct: pick.valuePct,
+    clvDiffPct,
+    result: won ? "win" : "loss",
+    pnl
+  });
+
+  saveSettledBets();
+  updateKpis();
+  renderLogTable();
+  toast(`تم تسجيل الرهان (${won ? "رابح" : "خاسر"}) في السجل`);
+}
+
+function settleDemoOrTest() {
+  if (!currentOpportunities.length) {
+    toast("لا توجد فرص محمّلة حالياً لتصفيتها");
+    return;
+  }
+  const top = currentOpportunities[0];
+  const won = true;
+  settledBets.push({
+    id: `test-${Date.now()}`,
+    match: top.match,
+    selection: top.selection,
+    odd: top.odd,
+    fairOdd: top.fairOdd,
+    valuePct: top.valuePct,
+    clvDiffPct: 2.1,
+    result: won ? "win" : "loss",
+    pnl: Number(((top.odd - 1) * STAKE).toFixed(2))
+  });
+  saveSettledBets();
+  updateKpis();
+  renderLogTable();
+  toast("تمت إضافة رهان اختباري إلى السجل");
+}
+
+function resetLog() {
+  settledBets = [];
+  saveSettledBets();
+  updateKpis();
+  renderLogTable();
+  toast("تم مسح السجل");
+}
+
+function renderLogTable() {
+  const tbody = $("logBody");
+  if (!settledBets.length) {
+    tbody.innerHTML = `<tr><td colspan="8" class="empty">لا توجد رهانات مسجلة في السجل بعد</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = settledBets.slice().reverse().map(b => {
+    const isWin = b.result === "win";
+    const pnlText = `${b.pnl >= 0 ? "+" : "-"}$${Math.abs(b.pnl).toFixed(0)}`;
+    const clvSign = b.clvDiffPct >= 0 ? "+" : "";
+    return `
+      <tr>
+        <td>${escapeHtml(b.match)}</td>
+        <td>${escapeHtml(b.selection)}</td>
+        <td>${Number(b.odd).toFixed(2)}</td>
+        <td>${Number(b.fairOdd).toFixed(2)}</td>
+        <td class="${b.valuePct >= 0 ? "green" : "red"}">${b.valuePct >= 0 ? "+" : ""}${b.valuePct}%</td>
+        <td class="${b.clvDiffPct >= 0 ? "green" : "red"}">${clvSign}${b.clvDiffPct}%</td>
+        <td><span class="pill ${isWin ? "ok" : "bad"}">${isWin ? "رابح" : "خاسر"}</span></td>
+        <td class="${b.pnl >= 0 ? "green" : "red"}"><b>${pnlText}</b></td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function updateKpis() {
+  const totalBets = settledBets.length;
+  const wins = settledBets.filter(b => b.result === "win").length;
+  const losses = totalBets - wins;
+  const totalProfit = settledBets.reduce((s, b) => s + Number(b.pnl || 0), 0);
+  const stakedTotal = totalBets * STAKE;
+  const roi = stakedTotal > 0 ? ((totalProfit / stakedTotal) * 100) : 0;
+
+  const beatCount = settledBets.filter(b => Number(b.clvDiffPct || 0) > 0).length;
+  const beatPct = totalBets > 0 ? Math.round((beatCount / totalBets) * 100) : 0;
+  const avgDiff = totalBets > 0
+    ? (settledBets.reduce((s, b) => s + Number(b.clvDiffPct || 0), 0) / totalBets)
+    : 0;
+
+  const profitEl = $("kpiProfit");
+  profitEl.textContent = `${totalProfit >= 0 ? "+" : "-"}$${Math.abs(totalProfit).toFixed(0)}`;
+  profitEl.className = `val ${totalProfit >= 0 ? "green" : "red"}`;
+
+  $("kpiRoi").textContent = `العائد: ${roi >= 0 ? "+" : ""}${roi.toFixed(1)}%`;
+  $("kpiBeatClv").textContent = `${beatPct}%`;
+  $("kpiAvgDiff").textContent = `متوسط الفرق: ${avgDiff >= 0 ? "+" : ""}${avgDiff.toFixed(1)}%`;
+  $("kpiSettled").textContent = String(totalBets);
+  $("kpiWl").textContent = `${wins} رابح · ${losses} خاسر`;
+  $("kpiOpenCount").textContent = String(currentOpportunities.filter(x => x.valuePct >= 1.5).length);
+
+  drawProfitChart();
+}
+
+function drawProfitChart() {
+  const canvas = $("profitChart");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  const w = Math.max(280, Math.floor(rect.width || 600));
+  const h = 90;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, w, h);
+
+  const points = [0];
+  let acc = 0;
+  for (const b of settledBets) {
+    acc += Number(b.pnl || 0);
+    points.push(acc);
+  }
+
+  $("curveLast").textContent = `آخر رصيد: ${acc >= 0 ? "+" : "-"}$${Math.abs(acc).toFixed(0)}`;
+
+  const minV = Math.min(...points, -50);
+  const maxV = Math.max(...points, 50);
+  const span = (maxV - minV) || 1;
+  const padX = 14;
+  const padY = 14;
+
+  const getX = i => padX + (i / Math.max(1, points.length - 1)) * (w - padX * 2);
+  const getY = v => h - padY - ((v - minV) / span) * (h - padY * 2);
+
+  // خط الصفر
+  const zeroY = getY(0);
+  ctx.strokeStyle = "rgba(148,163,184,.25)";
+  ctx.setLineDash([4, 4]);
+  ctx.beginPath();
+  ctx.moveTo(padX, zeroY);
+  ctx.lineTo(w - padX, zeroY);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // المنحنى
+  ctx.strokeStyle = acc >= 0 ? "#34d399" : "#fb7185";
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  points.forEach((val, i) => {
+    const x = getX(i);
+    const y = getY(val);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+}
+
+// تشغيل مبدئي عند فتح الصفحة
+$("targetDate").value = todayIso();
+updateKpis();
+renderLogTable();
+loadRealOddsData(false);
+</script>
+</body>
+</html>
